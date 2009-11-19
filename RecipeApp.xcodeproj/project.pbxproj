@@ -1,0 +1,442 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		C85F4E2C10B5203200F90C8A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */; };
+		C85F4E2D10B5203200F90C8A /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */; };
+		C85F4E3810B5204500F90C8A /* RecipeAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */; };
+		C85F4E4710B520AF00F90C8A /* RecipeApp.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E3F10B520AF00F90C8A /* RecipeApp.xcdatamodel */; };
+		C85F4E4810B520AF00F90C8A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E4210B520AF00F90C8A /* MainWindow.xib */; };
+		C85F4E6610B526B900F90C8A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E6410B526B900F90C8A /* icon.png */; };
+		C85F4E6710B526B900F90C8A /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E6510B526B900F90C8A /* iTunesArtwork */; };
+		C85F4E8D10B52B9400F90C8A /* RecipesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E8C10B52B9400F90C8A /* RecipesView.xib */; };
+		C85F4E8F10B52B9B00F90C8A /* HelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E8E10B52B9B00F90C8A /* HelpView.xib */; };
+		C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E9010B52BA100F90C8A /* SettingsView.xib */; };
+		C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */; };
+		C85F4E9810B52BDD00F90C8A /* RecipesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */; };
+		C85F4E9B10B52BE900F90C8A /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E9A10B52BE900F90C8A /* HelpViewController.m */; };
+		C85F4E9E10B52BF400F90C8A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E9D10B52BF400F90C8A /* SettingsViewController.m */; };
+		C85F4EA110B52BFD00F90C8A /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* RecipeApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeApp_Prefix.pch; sourceTree = "<group>"; };
+		C85F4E2610B5203200F90C8A /* NSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDebug.h; sourceTree = "<group>"; };
+		C85F4E2710B5203200F90C8A /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		C85F4E2810B5203200F90C8A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
+		C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
+		C85F4E2A10B5203200F90C8A /* GTMStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStackTrace.h; sourceTree = "<group>"; };
+		C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStackTrace.m; sourceTree = "<group>"; };
+		C85F4E3210B5204500F90C8A /* RecipeAppAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeAppAppDelegate.h; sourceTree = "<group>"; };
+		C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeAppAppDelegate.m; sourceTree = "<group>"; };
+		C85F4E3F10B520AF00F90C8A /* RecipeApp.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = RecipeApp.xcdatamodel; sourceTree = "<group>"; };
+		C85F4E4210B520AF00F90C8A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		C85F4E4610B520AF00F90C8A /* RecipeApp-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RecipeApp-Info.plist"; sourceTree = "<group>"; };
+		C85F4E6410B526B900F90C8A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		C85F4E6510B526B900F90C8A /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		C85F4E6B10B526E300F90C8A /* applepie.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = applepie.jpg; sourceTree = "<group>"; };
+		C85F4E6C10B526E300F90C8A /* icon.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = icon.psd; sourceTree = "<group>"; };
+		C85F4E8C10B52B9400F90C8A /* RecipesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipesView.xib; sourceTree = "<group>"; };
+		C85F4E8E10B52B9B00F90C8A /* HelpView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HelpView.xib; sourceTree = "<group>"; };
+		C85F4E9010B52BA100F90C8A /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListView.xib; sourceTree = "<group>"; };
+		C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipesViewController.h; sourceTree = "<group>"; };
+		C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipesViewController.m; sourceTree = "<group>"; };
+		C85F4E9910B52BE900F90C8A /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		C85F4E9A10B52BE900F90C8A /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		C85F4E9C10B52BF400F90C8A /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		C85F4E9D10B52BF400F90C8A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		C85F4E9F10B52BFD00F90C8A /* ShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListViewController.h; sourceTree = "<group>"; };
+		C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
+				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E2F10B5204500F90C8A /* Controller */,
+				C85F4E2510B5203200F90C8A /* GTM */,
+				C85F4E3610B5204500F90C8A /* Model */,
+				C85F4E3710B5204500F90C8A /* View */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* RecipeApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* OtherSources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* OtherSources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* RecipeApp_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			path = OtherSources;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E3C10B520AF00F90C8A /* Images */,
+				C85F4E3E10B520AF00F90C8A /* Models */,
+				C85F4E4010B520AF00F90C8A /* NIBs */,
+				C85F4E6410B526B900F90C8A /* icon.png */,
+				C85F4E6510B526B900F90C8A /* iTunesArtwork */,
+				C85F4E4610B520AF00F90C8A /* RecipeApp-Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
+				28D801B30F44B63D00FB423F /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C85F4E2510B5203200F90C8A /* GTM */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E2610B5203200F90C8A /* NSDebug.h */,
+				C85F4E2710B5203200F90C8A /* GTMDefines.h */,
+				C85F4E2810B5203200F90C8A /* GTMObjC2Runtime.h */,
+				C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */,
+				C85F4E2A10B5203200F90C8A /* GTMStackTrace.h */,
+				C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */,
+			);
+			path = GTM;
+			sourceTree = "<group>";
+		};
+		C85F4E2F10B5204500F90C8A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E3010B5204500F90C8A /* Help */,
+				C85F4E3110B5204500F90C8A /* Recipes */,
+				C85F4E3410B5204500F90C8A /* Settings */,
+				C85F4E3510B5204500F90C8A /* ShoppingList */,
+				C85F4E3210B5204500F90C8A /* RecipeAppAppDelegate.h */,
+				C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C85F4E3010B5204500F90C8A /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9910B52BE900F90C8A /* HelpViewController.h */,
+				C85F4E9A10B52BE900F90C8A /* HelpViewController.m */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		C85F4E3110B5204500F90C8A /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */,
+				C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */,
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
+		C85F4E3410B5204500F90C8A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9C10B52BF400F90C8A /* SettingsViewController.h */,
+				C85F4E9D10B52BF400F90C8A /* SettingsViewController.m */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C85F4E3510B5204500F90C8A /* ShoppingList */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9F10B52BFD00F90C8A /* ShoppingListViewController.h */,
+				C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */,
+			);
+			path = ShoppingList;
+			sourceTree = "<group>";
+		};
+		C85F4E3610B5204500F90C8A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C85F4E3710B5204500F90C8A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C85F4E3C10B520AF00F90C8A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E3D10B520AF00F90C8A /* Source */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		C85F4E3D10B520AF00F90C8A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E6B10B526E300F90C8A /* applepie.jpg */,
+				C85F4E6C10B526E300F90C8A /* icon.psd */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		C85F4E3E10B520AF00F90C8A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E3F10B520AF00F90C8A /* RecipeApp.xcdatamodel */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C85F4E4010B520AF00F90C8A /* NIBs */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E4110B520AF00F90C8A /* Help */,
+				C85F4E4310B520AF00F90C8A /* Recipe */,
+				C85F4E4410B520AF00F90C8A /* Settings */,
+				C85F4E4510B520AF00F90C8A /* ShoppingList */,
+				C85F4E4210B520AF00F90C8A /* MainWindow.xib */,
+			);
+			path = NIBs;
+			sourceTree = "<group>";
+		};
+		C85F4E4110B520AF00F90C8A /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E8E10B52B9B00F90C8A /* HelpView.xib */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
+		C85F4E4310B520AF00F90C8A /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		C85F4E4410B520AF00F90C8A /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9010B52BA100F90C8A /* SettingsView.xib */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		C85F4E4510B520AF00F90C8A /* ShoppingList */ = {
+			isa = PBXGroup;
+			children = (
+				C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */,
+			);
+			path = ShoppingList;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* RecipeApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RecipeApp" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RecipeApp;
+			productName = RecipeApp;
+			productReference = 1D6058910D05DD3D006BFB54 /* RecipeApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RecipeApp" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* RecipeApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C85F4E4810B520AF00F90C8A /* MainWindow.xib in Resources */,
+				C85F4E6610B526B900F90C8A /* icon.png in Resources */,
+				C85F4E6710B526B900F90C8A /* iTunesArtwork in Resources */,
+				C85F4E8D10B52B9400F90C8A /* RecipesView.xib in Resources */,
+				C85F4E8F10B52B9B00F90C8A /* HelpView.xib in Resources */,
+				C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */,
+				C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				C85F4E2C10B5203200F90C8A /* GTMObjC2Runtime.m in Sources */,
+				C85F4E2D10B5203200F90C8A /* GTMStackTrace.m in Sources */,
+				C85F4E3810B5204500F90C8A /* RecipeAppAppDelegate.m in Sources */,
+				C85F4E4710B520AF00F90C8A /* RecipeApp.xcdatamodel in Sources */,
+				C85F4E9810B52BDD00F90C8A /* RecipesViewController.m in Sources */,
+				C85F4E9B10B52BE900F90C8A /* HelpViewController.m in Sources */,
+				C85F4E9E10B52BF400F90C8A /* SettingsViewController.m in Sources */,
+				C85F4EA110B52BFD00F90C8A /* ShoppingListViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OtherSources/RecipeApp_Prefix.pch;
+				INFOPLIST_FILE = "Resources/RecipeApp-Info.plist";
+				PRODUCT_NAME = RecipeApp;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OtherSources/RecipeApp_Prefix.pch;
+				INFOPLIST_FILE = "Resources/RecipeApp-Info.plist";
+				PRODUCT_NAME = RecipeApp;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphonesimulator3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphonesimulator3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "RecipeApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "RecipeApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
