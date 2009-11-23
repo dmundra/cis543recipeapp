@@ -88,7 +88,7 @@
 
 - (NSPersistentStoreCoordinator*)persistentStoreCoordinator {
     if(persistentStoreCoordinator == nil) {
-		NSURL* storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"TimeSheet.sqlite"]];
+		NSURL* storeUrl = [NSURL fileURLWithPath:[[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"RecipeApp.sqlite"]];
 		
 		NSError* error;
 		persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
