@@ -10,6 +10,7 @@
 typedef enum {
 	UnitIgnored,
 	UnitOunce,
+	UnitPound,
 	UnitCup,
 	UnitTablespoon,
 	UnitTeaspoon,

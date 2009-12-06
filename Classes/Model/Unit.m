@@ -15,16 +15,19 @@ NSString* NSStringFromUnit(NSNumber* unit) {
 	NSString* result = nil;
 	
 	switch(value) {
-		case Ounce:
+		case UnitOunce:
 			result = @"ounce";
 			break;
-		case Pound:
+		case UnitPound:
 			result = @"pound";
 			break;
-		case Tablespoon:
+		case UnitCup:
+			result = @"cup";
+			break;
+		case UnitTablespoon:
 			result = @"tablespoon";
 			break;
-		case Teaspoon:
+		case UnitTeaspoon:
 			result = @"teaspoon";
 			break;
 		case UnitIgnored:
