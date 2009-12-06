@@ -21,6 +21,8 @@
 @property(nonatomic, retain) NSString* source;
 @property(nonatomic, retain) NSSet* recipeItems;
 @property(nonatomic, retain) NSSet* shoppingListItems;
+
+@property(nonatomic, retain) NSArray* sortedRecipeItems;
 @end
 
 

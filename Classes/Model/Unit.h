@@ -15,3 +15,7 @@ typedef enum {
 	UnitTeaspoon,
 	UnitCount
 } Unit;
+
+
+// Returns a string representation of the unit value
+extern NSString* NSStringFromUnit(NSNumber* unit);

@@ -23,4 +23,15 @@
 @dynamic source;
 @dynamic recipeItems;
 @dynamic shoppingListItems;
+
+
+#pragma mark Properties (Derived)
+- (NSArray*)sortedRecipeItems {
+	// Sort the recipe items by order index
+	NSArray* result = nil;
+	NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderIndex" ascending:NO];
+	result = [[self.recipeItems allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	
+	return result;
+}
 @end
