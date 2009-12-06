@@ -35,6 +35,7 @@
 		C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36A10CBB2D5008D835B /* Recipe.m */; };
 		C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */; };
 		C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */; };
+		C8C1C41C10CC604D008D835B /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C41B10CC604D008D835B /* Unit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +89,7 @@
 		C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeDetailViewController.h; sourceTree = "<group>"; };
 		C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
 		C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailView.xib; sourceTree = "<group>"; };
+		C8C1C41B10CC604D008D835B /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +251,7 @@
 				C8C1C36310CBB2D5008D835B /* ShoppingListItem.h */,
 				C8C1C36410CBB2D5008D835B /* ShoppingListItem.m */,
 				C8C1C3B610CC3531008D835B /* Unit.h */,
+				C8C1C41B10CC604D008D835B /* Unit.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				C8C1C36F10CBB2D5008D835B /* PreparationMethod.m in Sources */,
 				C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */,
 				C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */,
+				C8C1C41C10CC604D008D835B /* Unit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
