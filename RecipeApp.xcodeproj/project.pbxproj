@@ -33,6 +33,8 @@
 		C8C1C36E10CBB2D5008D835B /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36610CBB2D5008D835B /* Ingredient.m */; };
 		C8C1C36F10CBB2D5008D835B /* PreparationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36810CBB2D5008D835B /* PreparationMethod.m */; };
 		C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36A10CBB2D5008D835B /* Recipe.m */; };
+		C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */; };
+		C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,9 @@
 		C8C1C36910CBB2D5008D835B /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
 		C8C1C36A10CBB2D5008D835B /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
 		C8C1C3B610CC3531008D835B /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
+		C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeDetailViewController.h; sourceTree = "<group>"; };
+		C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
+		C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +209,8 @@
 			children = (
 				C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */,
 				C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */,
+				C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */,
+				C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -302,6 +309,7 @@
 			isa = PBXGroup;
 			children = (
 				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
+				C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -371,6 +379,7 @@
 				C85F4E8F10B52B9B00F90C8A /* HelpView.xib in Resources */,
 				C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */,
 				C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */,
+				C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +405,7 @@
 				C8C1C36E10CBB2D5008D835B /* Ingredient.m in Sources */,
 				C8C1C36F10CBB2D5008D835B /* PreparationMethod.m in Sources */,
 				C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */,
+				C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

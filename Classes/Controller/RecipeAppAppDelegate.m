@@ -24,8 +24,8 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 @interface RecipeAppAppDelegate (/*Private*/)
 - (void)_addHungarianMushroomSoupRecipe;
 
-@property(nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@property(nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property(nonatomic, retain, readonly) NSPersistentStoreCoordinator* persistentStoreCoordinator;
+@property(nonatomic, retain, readonly) NSManagedObjectModel* managedObjectModel;
 @property(nonatomic, retain, readonly) NSString* applicationDocumentsDirectory;
 @end
 

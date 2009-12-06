@@ -20,9 +20,9 @@
 	IBOutlet RecipesViewController* recipesViewController;
 	IBOutlet ShoppingListViewController* shoppingListViewController;
 
-    NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    NSManagedObjectModel* managedObjectModel;
+    NSManagedObjectContext* managedObjectContext;	    
+    NSPersistentStoreCoordinator* persistentStoreCoordinator;
 }
 @property(nonatomic, retain) UIWindow *window;
 @property(nonatomic, retain) UITabBarController* tabBarController;

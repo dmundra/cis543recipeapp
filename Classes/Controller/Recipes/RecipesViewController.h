@@ -7,12 +7,19 @@
 //
 
 
+@class RecipeDetailViewController;
+
+
 @interface RecipesViewController : UIViewController {
 	IBOutlet UITableView* recipesTable;
+	
+	IBOutlet RecipeDetailViewController* recipeDetailViewController;
 	
 	NSManagedObjectContext* managedObjectContext;
 }
 @property(nonatomic, retain) UITableView* recipesTable;
+
+@property(nonatomic, retain) RecipeDetailViewController* recipeDetailViewController;
 
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end
