@@ -103,46 +103,15 @@
 	[self presentModalViewController:newRecipeNavController animated:YES];
 }
 
-/*
-
-#pragma mark UITableViewDataSource
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UITableViewCell* result = nil;
-	
-	// Dequeue a cell to reuse
-	result = [tableView dequeueReusableCellWithIdentifier:@"RecipeCell"];
-	
-	// If no cell is available, create a new one
-	if(result == nil) {
-		result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RecipeCell"] autorelease];
-		result.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	}
-	
-	// Set cell text
-	result.textLabel.text = @"Some recipe";
-	
-	return result;
-}
-*/
-/*
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSInteger result = 0;
-	
-	// Set the result to the number of recipes in the section
-	result = 1;
-	
-	return result;
-}
- */
-
 
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	Recipe *recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	// Deselect the selected cell
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// Set the selected recipe on the detail view
-	
+	recipeDetailViewController.recipe = recipe;
 	// Show the detail view
 	[((UINavigationController*)self.parentViewController) pushViewController:recipeDetailViewController animated:YES];
 }
