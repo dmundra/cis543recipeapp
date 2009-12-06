@@ -12,6 +12,9 @@
 #import "PreppedIngredient.h"
 
 
+double const kQuantityToTaste = -1;
+
+
 @implementation RecipeItem 
 #pragma mark Properties (CoreData)
 @dynamic orderIndex;

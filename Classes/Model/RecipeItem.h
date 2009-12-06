@@ -7,7 +7,10 @@
 //
 
 
-@class PreppedIngredient, Recipe;
+@class Ingredient, PreppedIngredient, Recipe;
+
+
+extern double const kQuantityToTaste;
 
 
 @interface RecipeItem : NSManagedObject {

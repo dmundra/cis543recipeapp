@@ -8,6 +8,7 @@
 
 
 typedef enum {
+	UnitIgnored,
 	UnitOunce,
 	UnitCup,
 	UnitTablespoon,
