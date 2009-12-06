@@ -12,17 +12,29 @@
 
 
 @implementation RecipesViewController
+#pragma mark Initialization
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if(self = [super initWithCoder:aDecoder]) {
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewRecipe:)];
+	}
+	
+	return self;
+}
+
+
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
 	self.recipeDetailViewController.managedObjectContext = managedObjectContext;
+	self.newRecipeDetailViewController.managedObjectContext = managedObjectContext;
 }
 
 
 - (void)viewDidUnload {
 	self.recipesTable = nil;
 	
-	self.recipeDetailViewController.managedObjectContext = nil;
 	self.recipeDetailViewController = nil;
+	self.newRecipeNavController = nil;
+	self.newRecipeDetailViewController = nil;
 }
 
 
@@ -31,10 +43,18 @@
 	[recipesTable release];
 
 	[recipeDetailViewController release];
+	[newRecipeNavController release];
+	[newRecipeDetailViewController release];
 	
 	[managedObjectContext release];
 	
     [super dealloc];
+}
+
+
+#pragma mark IBAction
+- (IBAction)addNewRecipe:(id)sender {
+	[self presentModalViewController:newRecipeNavController animated:YES];
 }
 
 
@@ -84,6 +104,8 @@
 @synthesize recipesTable;
 
 @synthesize recipeDetailViewController;
+@synthesize newRecipeNavController;
+@synthesize newRecipeDetailViewController;
 
 @synthesize managedObjectContext;
 @end

@@ -14,12 +14,18 @@
 	IBOutlet UITableView* recipesTable;
 	
 	IBOutlet RecipeDetailViewController* recipeDetailViewController;
+	IBOutlet UINavigationController* newRecipeNavController;
+	IBOutlet RecipeDetailViewController* newRecipeDetailViewController;
 	
 	NSManagedObjectContext* managedObjectContext;
 }
+- (IBAction)addNewRecipe:(id)sender;
+
 @property(nonatomic, retain) UITableView* recipesTable;
 
 @property(nonatomic, retain) RecipeDetailViewController* recipeDetailViewController;
+@property(nonatomic, retain) UINavigationController* newRecipeNavController;
+@property(nonatomic, retain) RecipeDetailViewController* newRecipeDetailViewController;
 
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end

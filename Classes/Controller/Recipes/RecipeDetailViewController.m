@@ -25,5 +25,7 @@
 
 
 #pragma mark Properties
+@synthesize recipe;
+
 @synthesize managedObjectContext;
 @end
