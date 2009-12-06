@@ -82,6 +82,7 @@
 		C8C1C36810CBB2D5008D835B /* PreparationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreparationMethod.m; sourceTree = "<group>"; };
 		C8C1C36910CBB2D5008D835B /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
 		C8C1C36A10CBB2D5008D835B /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
+		C8C1C3B610CC3531008D835B /* Unit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Unit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +241,7 @@
 				C8C1C36010CBB2D5008D835B /* RecipeItem.m */,
 				C8C1C36310CBB2D5008D835B /* ShoppingListItem.h */,
 				C8C1C36410CBB2D5008D835B /* ShoppingListItem.m */,
+				C8C1C3B610CC3531008D835B /* Unit.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";

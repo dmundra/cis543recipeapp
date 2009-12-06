@@ -14,8 +14,10 @@
 
 @implementation RecipeItem 
 #pragma mark Properties (CoreData)
+@dynamic orderIndex;
 @dynamic quantity;
 @dynamic unit;
+@dynamic ingredient;
+@dynamic preppedIngredient;
 @dynamic recipe;
-@dynamic preppedIngredients;
 @end

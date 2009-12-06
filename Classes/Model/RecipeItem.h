@@ -12,10 +12,12 @@
 
 @interface RecipeItem : NSManagedObject {
 }
+@property(nonatomic, retain) NSNumber* orderIndex;
 @property(nonatomic, retain) NSNumber* quantity;
 @property(nonatomic, retain) NSNumber* unit;
+@property(nonatomic, retain) Ingredient* ingredient;
+@property(nonatomic, retain) PreppedIngredient* preppedIngredient;
 @property(nonatomic, retain) Recipe* recipe;
-@property(nonatomic, retain) PreppedIngredient* preppedIngredients;
 @end
 
 

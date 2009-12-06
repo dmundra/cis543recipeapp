@@ -13,10 +13,12 @@
 @interface Recipe : NSManagedObject {
 }
 @property(nonatomic, retain) NSNumber* category;
-@property(nonatomic, retain) NSString* source;
-@property(nonatomic, retain) NSString* instructions;
 @property(nonatomic, retain) NSString* description;
+@property(nonatomic, retain) NSString* instructions;
 @property(nonatomic, retain) NSString* name;
+@property(nonatomic, retain) NSNumber* preparationTime;
+@property(nonatomic, retain) NSNumber* servingSize;
+@property(nonatomic, retain) NSString* source;
 @property(nonatomic, retain) NSSet* recipeItems;
 @property(nonatomic, retain) NSSet* shoppingListItems;
 @end

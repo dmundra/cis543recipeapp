@@ -15,6 +15,7 @@
 @implementation Ingredient 
 #pragma mark Properties (CoreData)
 @dynamic name;
+@dynamic ingredients;
 @dynamic preppedIngredients;
 @dynamic shoppingListItems;
 @end

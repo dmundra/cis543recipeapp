@@ -15,10 +15,12 @@
 @implementation Recipe 
 #pragma mark Properties (CoreData)
 @dynamic category;
-@dynamic source;
-@dynamic instructions;
 @dynamic description;
+@dynamic instructions;
 @dynamic name;
+@dynamic preparationTime;
+@dynamic servingSize;
+@dynamic source;
 @dynamic recipeItems;
 @dynamic shoppingListItems;
 @end
