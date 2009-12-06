@@ -27,6 +27,12 @@
 		C85F4E9B10B52BE900F90C8A /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E9A10B52BE900F90C8A /* HelpViewController.m */; };
 		C85F4E9E10B52BF400F90C8A /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E9D10B52BF400F90C8A /* SettingsViewController.m */; };
 		C85F4EA110B52BFD00F90C8A /* ShoppingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */; };
+		C8C1C36B10CBB2D5008D835B /* RecipeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36010CBB2D5008D835B /* RecipeItem.m */; };
+		C8C1C36C10CBB2D5008D835B /* PreppedIngredient.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36210CBB2D5008D835B /* PreppedIngredient.m */; };
+		C8C1C36D10CBB2D5008D835B /* ShoppingListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36410CBB2D5008D835B /* ShoppingListItem.m */; };
+		C8C1C36E10CBB2D5008D835B /* Ingredient.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36610CBB2D5008D835B /* Ingredient.m */; };
+		C8C1C36F10CBB2D5008D835B /* PreparationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36810CBB2D5008D835B /* PreparationMethod.m */; };
+		C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C36A10CBB2D5008D835B /* Recipe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +70,18 @@
 		C85F4E9D10B52BF400F90C8A /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C85F4E9F10B52BFD00F90C8A /* ShoppingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListViewController.h; sourceTree = "<group>"; };
 		C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListViewController.m; sourceTree = "<group>"; };
+		C8C1C35F10CBB2D5008D835B /* RecipeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeItem.h; sourceTree = "<group>"; };
+		C8C1C36010CBB2D5008D835B /* RecipeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeItem.m; sourceTree = "<group>"; };
+		C8C1C36110CBB2D5008D835B /* PreppedIngredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreppedIngredient.h; sourceTree = "<group>"; };
+		C8C1C36210CBB2D5008D835B /* PreppedIngredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreppedIngredient.m; sourceTree = "<group>"; };
+		C8C1C36310CBB2D5008D835B /* ShoppingListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListItem.h; sourceTree = "<group>"; };
+		C8C1C36410CBB2D5008D835B /* ShoppingListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListItem.m; sourceTree = "<group>"; };
+		C8C1C36510CBB2D5008D835B /* Ingredient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ingredient.h; sourceTree = "<group>"; };
+		C8C1C36610CBB2D5008D835B /* Ingredient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ingredient.m; sourceTree = "<group>"; };
+		C8C1C36710CBB2D5008D835B /* PreparationMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreparationMethod.h; sourceTree = "<group>"; };
+		C8C1C36810CBB2D5008D835B /* PreparationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreparationMethod.m; sourceTree = "<group>"; };
+		C8C1C36910CBB2D5008D835B /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
+		C8C1C36A10CBB2D5008D835B /* Recipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recipe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +228,18 @@
 		C85F4E3610B5204500F90C8A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1C36510CBB2D5008D835B /* Ingredient.h */,
+				C8C1C36610CBB2D5008D835B /* Ingredient.m */,
+				C8C1C36710CBB2D5008D835B /* PreparationMethod.h */,
+				C8C1C36810CBB2D5008D835B /* PreparationMethod.m */,
+				C8C1C36110CBB2D5008D835B /* PreppedIngredient.h */,
+				C8C1C36210CBB2D5008D835B /* PreppedIngredient.m */,
+				C8C1C36910CBB2D5008D835B /* Recipe.h */,
+				C8C1C36A10CBB2D5008D835B /* Recipe.m */,
+				C8C1C35F10CBB2D5008D835B /* RecipeItem.h */,
+				C8C1C36010CBB2D5008D835B /* RecipeItem.m */,
+				C8C1C36310CBB2D5008D835B /* ShoppingListItem.h */,
+				C8C1C36410CBB2D5008D835B /* ShoppingListItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,6 +388,12 @@
 				C85F4E9B10B52BE900F90C8A /* HelpViewController.m in Sources */,
 				C85F4E9E10B52BF400F90C8A /* SettingsViewController.m in Sources */,
 				C85F4EA110B52BFD00F90C8A /* ShoppingListViewController.m in Sources */,
+				C8C1C36B10CBB2D5008D835B /* RecipeItem.m in Sources */,
+				C8C1C36C10CBB2D5008D835B /* PreppedIngredient.m in Sources */,
+				C8C1C36D10CBB2D5008D835B /* ShoppingListItem.m in Sources */,
+				C8C1C36E10CBB2D5008D835B /* Ingredient.m in Sources */,
+				C8C1C36F10CBB2D5008D835B /* PreparationMethod.m in Sources */,
+				C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
