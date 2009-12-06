@@ -7,6 +7,9 @@
 //
 
 
+@class RecipesViewController, ShoppingListViewController;
+
+
 @interface RecipeAppAppDelegate : NSObject <UIApplicationDelegate> {
     IBOutlet UIWindow *window;
 	IBOutlet UITabBarController* tabBarController;
@@ -14,6 +17,8 @@
 	IBOutlet UINavigationController* shoppingListNavController;
 	IBOutlet UINavigationController* settingsNavController;
 	IBOutlet UINavigationController* helpNavController;
+	IBOutlet RecipesViewController* recipesViewController;
+	IBOutlet ShoppingListViewController* shoppingListViewController;
 
     NSManagedObjectModel *managedObjectModel;
     NSManagedObjectContext *managedObjectContext;	    
@@ -25,6 +30,8 @@
 @property(nonatomic, retain) UINavigationController* shoppingListNavController;
 @property(nonatomic, retain) UINavigationController* settingsNavController;
 @property(nonatomic, retain) UINavigationController* helpNavController;
+@property(nonatomic, retain) RecipesViewController* recipesViewController;
+@property(nonatomic, retain) ShoppingListViewController* shoppingListViewController;
 
 @property(nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @end

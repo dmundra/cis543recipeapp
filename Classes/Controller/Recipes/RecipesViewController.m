@@ -21,10 +21,14 @@
 - (void)dealloc {
 	[recipesTable release];
 	
+	[managedObjectContext release];
+	
     [super dealloc];
 }
 
 
 #pragma mark Properties
 @synthesize recipesTable;
+
+@synthesize managedObjectContext;
 @end

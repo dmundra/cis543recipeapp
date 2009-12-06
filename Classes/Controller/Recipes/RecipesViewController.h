@@ -9,6 +9,10 @@
 
 @interface RecipesViewController : UIViewController {
 	IBOutlet UITableView* recipesTable;
+	
+	NSManagedObjectContext* managedObjectContext;
 }
 @property(nonatomic, retain) UITableView* recipesTable;
+
+@property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end

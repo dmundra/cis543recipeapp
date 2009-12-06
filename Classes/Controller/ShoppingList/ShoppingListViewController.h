@@ -9,6 +9,10 @@
 
 @interface ShoppingListViewController : UIViewController {
 	IBOutlet UITableView* shoppingListTable;
+	
+	NSManagedObjectContext* managedObjectContext;
 }
 @property(nonatomic, retain) UITableView* shoppingListTable;
+
+@property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end

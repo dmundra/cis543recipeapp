@@ -21,10 +21,14 @@
 - (void)dealloc {
 	[shoppingListTable release];
 	
+	[managedObjectContext release];
+	
     [super dealloc];
 }
 
 
 #pragma mark Properties
 @synthesize shoppingListTable;
+
+@synthesize managedObjectContext;
 @end

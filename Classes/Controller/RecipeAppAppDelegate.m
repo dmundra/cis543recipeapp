@@ -8,6 +8,8 @@
 
 
 #import "RecipeAppAppDelegate.h"
+#import "RecipesViewController.h"
+#import "ShoppingListViewController.h"
 #import "Ingredient.h"
 #import "PreparationMethod.h"
 #import "PreppedIngredient.h"
@@ -64,6 +66,11 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 		[pool drain];
 	}	
 	
+	// Set the recipe/shopping list views managed object context
+	recipesViewController.managedObjectContext = self.managedObjectContext;
+	shoppingListViewController.managedObjectContext = self.managedObjectContext;
+	
+	// Add the top level view controller to the window and display it
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 }
@@ -87,6 +94,8 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	[shoppingListNavController release];
 	[settingsNavController release];
 	[helpNavController release];
+	[recipesViewController release];
+	[shoppingListViewController release];
 	
     [managedObjectContext release];
     [managedObjectModel release];
@@ -233,6 +242,8 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 @synthesize shoppingListNavController;
 @synthesize settingsNavController;
 @synthesize helpNavController;
+@synthesize recipesViewController;
+@synthesize shoppingListViewController;
 
 
 - (NSManagedObjectContext*)managedObjectContext {

@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="12"/>
 			<integer value="17"/>
+			<integer value="12"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -251,6 +251,22 @@
 						<reference key="destination" ref="583072685"/>
 					</object>
 					<int key="connectionID">57</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">recipesViewController</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="1014927670"/>
+					</object>
+					<int key="connectionID">58</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">shoppingListViewController</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="14441433"/>
+					</object>
+					<int key="connectionID">59</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -530,7 +546,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">57</int>
+			<int key="maxID">59</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -556,8 +572,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>helpNavController</string>
 							<string>recipeNavController</string>
+							<string>recipesViewController</string>
 							<string>settingsNavController</string>
 							<string>shoppingListNavController</string>
+							<string>shoppingListViewController</string>
 							<string>tabBarController</string>
 							<string>window</string>
 						</object>
@@ -565,8 +583,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UINavigationController</string>
 							<string>UINavigationController</string>
+							<string>RecipesViewController</string>
 							<string>UINavigationController</string>
 							<string>UINavigationController</string>
+							<string>ShoppingListViewController</string>
 							<string>UITabBarController</string>
 							<string>UIWindow</string>
 						</object>
