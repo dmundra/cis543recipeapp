@@ -17,6 +17,8 @@
 	IBOutlet UINavigationController* newRecipeNavController;
 	IBOutlet RecipeDetailViewController* newRecipeDetailViewController;
 	
+	NSFetchedResultsController *fetchedResultsController;
+
 	NSManagedObjectContext* managedObjectContext;
 }
 - (IBAction)addNewRecipe:(id)sender;
