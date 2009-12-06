@@ -23,5 +23,8 @@ extern double const kQuantityToTaste;
 @property(nonatomic, retain) Recipe* recipe;
 @end
 
+// Returns a string representation of the quantity
+extern NSString* NSStringFromQuantity(NSNumber* quantity);
+
 
 

@@ -7,9 +7,9 @@
 //
 
 
-@interface ShoppingListViewController : UIViewController {
+@interface ShoppingListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 	IBOutlet UITableView* shoppingListTable;
-	
+    NSFetchedResultsController *fetchedResultsController;	
 	NSManagedObjectContext* managedObjectContext;
 }
 @property(nonatomic, retain) UITableView* shoppingListTable;

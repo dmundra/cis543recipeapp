@@ -15,6 +15,7 @@
 #import "PreppedIngredient.h"
 #import "Recipe.h"
 #import "RecipeItem.h"
+#import "ShoppingListItem.h"
 #import "Unit.h"
 
 
@@ -25,6 +26,7 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 - (void)_addHungarianMushroomSoupRecipe;
 - (void)_addTurkeyChowMeinRecipe;
 - (void)_addLemonBarsRecipe;
+- (void)_addShoppingListIngredients;
 
 @property(nonatomic, retain, readonly) NSPersistentStoreCoordinator* persistentStoreCoordinator;
 @property(nonatomic, retain, readonly) NSManagedObjectModel* managedObjectModel;
@@ -43,6 +45,7 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 		[self _addHungarianMushroomSoupRecipe];
 		[self _addTurkeyChowMeinRecipe];
 		[self _addLemonBarsRecipe];
+		[self _addShoppingListIngredients];
 		
 		// Save the data
 		NSError* error;
@@ -108,6 +111,33 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	[super dealloc];
 }
 
+#pragma mark Private
+- (void)_addShoppingListIngredients {
+	NSFetchRequest* request = [[NSFetchRequest alloc] init];
+	[request setEntity:[NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext]];
+	[request setPredicate:[NSPredicate predicateWithFormat:@"self.name = %@", @"Hungarian Mushroom Soup"]];
+	NSError* error;
+	NSArray* recipes = [managedObjectContext executeFetchRequest:request error:&error];
+	if(recipes == nil) {
+		NSLog(@"Error looking up recipes: %@\n%@", error, [error userInfo]);
+	}
+	Recipe* soup = [recipes objectAtIndex:0];
+	
+	[request release];	
+	
+	for(RecipeItem* recipeItem in soup.recipeItems) {
+		ShoppingListItem* shopListItem = [NSEntityDescription insertNewObjectForEntityForName:@"ShoppingListItem" inManagedObjectContext:self.managedObjectContext];
+		shopListItem.quantity = recipeItem.quantity;
+		shopListItem.unit = recipeItem.unit;
+		if(recipeItem.ingredient != nil) {
+			shopListItem.ingredient = recipeItem.ingredient;
+		}
+		else {
+			shopListItem.ingredient = recipeItem.preppedIngredient.ingredient;
+		}
+		shopListItem.recipe = soup;
+	}
+}
 
 #pragma mark Private
 - (void)_addHungarianMushroomSoupRecipe {
@@ -180,52 +210,52 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	itemThree.quantity = [NSNumber numberWithDouble:2.0];
 	itemThree.unit = [NSNumber numberWithInteger:UnitTablespoon];
 	RecipeItem* itemFour = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemFour.ingredient = butter;
+	itemFour.ingredient = skimMilk;
 	itemFour.orderIndex = [NSNumber numberWithInteger:3];
 	itemFour.quantity = [NSNumber numberWithDouble:3.0];
 	itemFour.unit = [NSNumber numberWithInteger:UnitTablespoon];
 	RecipeItem* itemFive = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemFive.ingredient = butter;
+	itemFive.ingredient = dillWeed;
 	itemFive.orderIndex = [NSNumber numberWithInteger:4];
 	itemFive.quantity = [NSNumber numberWithDouble:1.0];
 	itemFive.unit = [NSNumber numberWithInteger:UnitCup];
 	RecipeItem* itemSix = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemSix.ingredient = butter;
+	itemSix.ingredient = paprika;
 	itemSix.orderIndex = [NSNumber numberWithInteger:5];
 	itemSix.quantity = [NSNumber numberWithDouble:2.0];
 	itemSix.unit = [NSNumber numberWithInteger:UnitTeaspoon];
 	RecipeItem* itemSeven = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemSeven.ingredient = butter;
+	itemSeven.ingredient = soySauce;
 	itemSeven.orderIndex = [NSNumber numberWithInteger:6];
 	itemSeven.quantity = [NSNumber numberWithDouble:1.0];
 	itemSeven.unit = [NSNumber numberWithInteger:UnitTablespoon];
 	RecipeItem* itemEight = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemEight.ingredient = butter;
+	itemEight.ingredient = salt;
 	itemEight.orderIndex = [NSNumber numberWithInteger:7];
 	itemEight.quantity = [NSNumber numberWithDouble:1.0];
 	itemEight.unit = [NSNumber numberWithInteger:UnitTablespoon];
 	RecipeItem* itemNine = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemNine.ingredient = butter;
+	itemNine.ingredient = stock;
 	itemNine.orderIndex = [NSNumber numberWithInteger:8];
 	itemNine.quantity = [NSNumber numberWithDouble:1.0];
 	itemNine.unit = [NSNumber numberWithInteger:UnitTeaspoon];
 	RecipeItem* itemTen = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemTen.ingredient = butter;
+	itemTen.ingredient = freshLemonJuice;
 	itemTen.orderIndex = [NSNumber numberWithInteger:9];
 	itemTen.quantity = [NSNumber numberWithDouble:2.0];
 	itemTen.unit = [NSNumber numberWithInteger:UnitCup];
 	RecipeItem* itemEleven = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemEleven.ingredient = butter;
+	itemEleven.ingredient = parsley;
 	itemEleven.orderIndex = [NSNumber numberWithInteger:10];
 	itemEleven.quantity = [NSNumber numberWithDouble:2.0];
 	itemEleven.unit = [NSNumber numberWithInteger:UnitTeaspoon];
 	RecipeItem* itemTwelve = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemTwelve.ingredient = butter;
+	itemTwelve.ingredient = pepper;
 	itemTwelve.orderIndex = [NSNumber numberWithInteger:11];
 	itemTwelve.quantity = [NSNumber numberWithDouble:0.25];
 	itemTwelve.unit = [NSNumber numberWithInteger:UnitCup];
 	RecipeItem* itemThirteen = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
-	itemThirteen.ingredient = butter;
+	itemThirteen.ingredient = sourCream;
 	itemThirteen.orderIndex = [NSNumber numberWithInteger:12];
 	itemThirteen.quantity = [NSNumber numberWithDouble:kQuantityToTaste];
 	itemThirteen.unit = [NSNumber numberWithInteger:UnitIgnored];
@@ -382,7 +412,7 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	Recipe* lemonBars = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext];
 	lemonBars.name = @"Lemon Bars";
 	lemonBars.source = @"Epicurious.com";
-	lemonBars.instructions = @"Preheat oven to 350oF. \nIn a bowl whisk together eggs and granulated sugar until combined well and stir in lemon juice and flour. Pour lemon mixture over hot shortbread. Reduce oven temperature to 300°F. and bake confection in middle of oven until set, about 30 minutes. Cool completely in pan and cut into 24 bars. Bar cookies keep, covered and chilled, 3 days. Sift confectioners' sugar over bars before serving.";
+	lemonBars.instructions = @"Preheat oven to 350 degrees farenheit. \nIn a bowl whisk together eggs and granulated sugar until combined well and stir in lemon juice and flour. Pour lemon mixture over hot shortbread. Reduce oven temperature to 300°F. and bake confection in middle of oven until set, about 30 minutes. Cool completely in pan and cut into 24 bars. Bar cookies keep, covered and chilled, 3 days. Sift confectioners' sugar over bars before serving.";
 	lemonBars.preparationTime = [NSNumber numberWithInteger:45];
 	lemonBars.servingSize = [NSNumber numberWithInteger:12];
 	

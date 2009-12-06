@@ -12,7 +12,7 @@
 #import "PreppedIngredient.h"
 
 
-double const kQuantityToTaste = -1;
+double const kQuantityToTaste = -1.0;
 
 
 @implementation RecipeItem 
@@ -24,3 +24,23 @@ double const kQuantityToTaste = -1;
 @dynamic preppedIngredient;
 @dynamic recipe;
 @end
+
+NSString* NSStringFromQuantity(NSNumber* quantity) {
+	double value = [quantity doubleValue];
+	NSString* result = nil;
+	static NSNumberFormatter* numberFormatter;	
+	if(numberFormatter == nil) {
+		numberFormatter = [[NSNumberFormatter alloc] init];
+		[numberFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+		[numberFormatter setMinimumIntegerDigits:0];
+		[numberFormatter setMaximumFractionDigits:2];
+	}
+	
+	if(value == kQuantityToTaste) {
+		result = @"add to taste";
+	} else {		
+		result = [numberFormatter stringFromNumber:quantity];
+	}
+	
+	return result;
+}

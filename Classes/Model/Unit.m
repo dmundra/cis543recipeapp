@@ -9,7 +9,6 @@
 
 #import "Unit.h"
 
-
 NSString* NSStringFromUnit(NSNumber* unit) {
 	NSInteger value = [unit integerValue];
 	NSString* result = nil;
