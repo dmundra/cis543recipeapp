@@ -14,6 +14,7 @@
 
 @implementation ShoppingListItem 
 #pragma mark Properties (CoreData)
+@dynamic purchased;
 @dynamic quantity;
 @dynamic unit;
 @dynamic ingredient;

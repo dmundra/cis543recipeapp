@@ -12,6 +12,7 @@
 
 @interface ShoppingListItem : NSManagedObject {
 }
+@property(nonatomic, retain) NSNumber* purchased;
 @property(nonatomic, retain) NSNumber* quantity;
 @property(nonatomic, retain) NSNumber* unit;
 @property(nonatomic, retain) Ingredient* ingredient;

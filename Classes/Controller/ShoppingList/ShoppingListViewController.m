@@ -67,13 +67,59 @@
     UITableViewCell *cell = [self.shoppingListTable dequeueReusableCellWithIdentifier:kCellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCellIdentifier] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
     }
     ShoppingListItem *shoppingListItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = shoppingListItem.ingredient.name;
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(shoppingListItem.quantity), NSStringFromUnit(shoppingListItem.unit)];
     return cell;
+}
+
+#pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [table deselectRowAtIndexPath:indexPath animated:YES];
+	ShoppingListItem* item = [fetchedResultsController objectAtIndexPath:indexPath];
+	UITableViewCell *cell = [self.shoppingListTable cellForRowAtIndexPath:indexPath];
+	
+	if ([item.purchased boolValue]) {
+		[cell.textLabel setTextColor:[UIColor blackColor]];
+		item.purchased = [NSNumber numberWithBool:NO];
+	
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	} else {
+		[cell.textLabel setTextColor:[UIColor grayColor]];
+		item.purchased = [NSNumber numberWithBool:YES];
+		
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	}
+
 }
 
 #pragma mark Properties
