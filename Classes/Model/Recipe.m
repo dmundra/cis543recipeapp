@@ -8,6 +8,7 @@
 
 
 #import "Recipe.h"
+#import "RecipeImage.h"
 #import "RecipeItem.h"
 #import "ShoppingListItem.h"
 
@@ -15,7 +16,8 @@
 @implementation Recipe 
 #pragma mark Properties (CoreData)
 @dynamic category;
-@dynamic description;
+@dynamic descriptionText;
+@dynamic image;
 @dynamic instructions;
 @dynamic name;
 @dynamic preparationTime;
@@ -35,3 +37,38 @@
 	return result;
 }
 @end
+
+
+NSString* NSStringFromCategory(NSNumber* category) {
+	NSInteger value = [category integerValue];
+	NSString* result = nil;
+	
+	switch(value) {
+		case CategoryBeverage:
+			result = @"Beverage";
+			break;
+		case CategoryBread:
+			result = @"Bread";
+			break;
+		case CategoryMainDish:
+			result = @"Main Dish";
+			break;
+		case CategorySoup:
+			result = @"Soup";
+			break;
+		case CategorySandwich:
+			result = @"Sandwich";
+			break;
+		case CategorySideDish:
+			result = @"Side Dish";
+			break;
+		case CategorySalad:
+			result = @"Salad";
+			break;
+		case CategoryDessert:
+			result = @"Dessert";
+			break;
+	}
+	
+	return result;
+}

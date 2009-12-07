@@ -7,13 +7,25 @@
 //
 
 
-@class RecipeItem, ShoppingListItem;
+@class RecipeImage, RecipeItem, ShoppingListItem;
+
+
+typedef enum {
+	CategoryBeverage,
+	CategoryBread,
+	CategoryMainDish,
+	CategorySoup,
+	CategorySandwich,
+	CategorySideDish,
+	CategorySalad,
+	CategoryDessert
+} Category;
 
 
 @interface Recipe : NSManagedObject {
 }
 @property(nonatomic, retain) NSNumber* category;
-@property(nonatomic, retain) NSString* description;
+@property(nonatomic, retain) NSString* descriptionText;
 @property(nonatomic, retain) NSString* instructions;
 @property(nonatomic, retain) NSString* name;
 @property(nonatomic, retain) NSNumber* preparationTime;
@@ -21,8 +33,9 @@
 @property(nonatomic, retain) NSString* source;
 @property(nonatomic, retain) NSSet* recipeItems;
 @property(nonatomic, retain) NSSet* shoppingListItems;
+@property(nonatomic, retain) RecipeImage* image;
 
-@property(nonatomic, retain) NSArray* sortedRecipeItems;
+@property(nonatomic, retain, readonly) NSArray* sortedRecipeItems;
 @end
 
 
@@ -38,3 +51,5 @@
 - (void)removeShoppingListItems:(NSSet*)value;
 @end
 
+
+extern NSString* NSStringFromCategory(NSNumber* category);

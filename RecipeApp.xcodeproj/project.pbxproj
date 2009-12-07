@@ -12,8 +12,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
-		46EC574610CC9E18001EAB4E /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
-		46EC574710CC9E18001EAB4E /* ShoppingListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */; };
 		C85F4E2C10B5203200F90C8A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */; };
 		C85F4E2D10B5203200F90C8A /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */; };
 		C85F4E3810B5204500F90C8A /* RecipeAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */; };
@@ -38,6 +36,10 @@
 		C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */; };
 		C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */; };
 		C8C1C41C10CC604D008D835B /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C41B10CC604D008D835B /* Unit.m */; };
+		C8C1C4C010CC8EC7008D835B /* emptyImageView.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */; };
+		C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */; };
+		C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */; };
+		C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C4C610CC9051008D835B /* RecipeImage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,12 @@
 		C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
 		C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailView.xib; sourceTree = "<group>"; };
 		C8C1C41B10CC604D008D835B /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
+		C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageView.png; sourceTree = "<group>"; };
+		C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageViewAddButton.png; sourceTree = "<group>"; };
+		C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageViewAddButtonSelected.png; sourceTree = "<group>"; };
+		C8C1C4C310CC8ED2008D835B /* emptyImageView.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = emptyImageView.psd; sourceTree = "<group>"; };
+		C8C1C4C510CC9051008D835B /* RecipeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeImage.h; sourceTree = "<group>"; };
+		C8C1C4C610CC9051008D835B /* RecipeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeImage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -253,6 +261,8 @@
 				C8C1C36210CBB2D5008D835B /* PreppedIngredient.m */,
 				C8C1C36910CBB2D5008D835B /* Recipe.h */,
 				C8C1C36A10CBB2D5008D835B /* Recipe.m */,
+				C8C1C4C510CC9051008D835B /* RecipeImage.h */,
+				C8C1C4C610CC9051008D835B /* RecipeImage.m */,
 				C8C1C35F10CBB2D5008D835B /* RecipeItem.h */,
 				C8C1C36010CBB2D5008D835B /* RecipeItem.m */,
 				C8C1C36310CBB2D5008D835B /* ShoppingListItem.h */,
@@ -273,6 +283,9 @@
 		C85F4E3C10B520AF00F90C8A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */,
+				C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */,
+				C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */,
 				C85F4E3D10B520AF00F90C8A /* Source */,
 			);
 			path = Images;
@@ -282,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				C85F4E6B10B526E300F90C8A /* applepie.jpg */,
+				C8C1C4C310CC8ED2008D835B /* emptyImageView.psd */,
 				C85F4E6C10B526E300F90C8A /* icon.psd */,
 			);
 			path = Source;
@@ -391,7 +405,9 @@
 				C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */,
 				C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */,
 				C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */,
-				46EC574710CC9E18001EAB4E /* ShoppingListDetailView.xib in Resources */,
+				C8C1C4C010CC8EC7008D835B /* emptyImageView.png in Resources */,
+				C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */,
+				C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +435,7 @@
 				C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */,
 				C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */,
 				C8C1C41C10CC604D008D835B /* Unit.m in Sources */,
-				46EC574610CC9E18001EAB4E /* ShoppingListDetailViewController.m in Sources */,
+				C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
