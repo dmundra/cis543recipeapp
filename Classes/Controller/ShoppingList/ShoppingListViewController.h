@@ -7,12 +7,16 @@
 //
 
 
-@interface ShoppingListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
-	IBOutlet UITableView* shoppingListTable;
-    NSFetchedResultsController *fetchedResultsController;	
+@interface ShoppingListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate> {
+	IBOutlet UITableView* shoppingListTable;	
 	NSManagedObjectContext* managedObjectContext;
+	
+	NSMutableArray* modifiedShoppingList;
 }
+- (IBAction)clearAll:(id)sender;
+
 @property(nonatomic, retain) UITableView* shoppingListTable;
 
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, retain, readonly) NSArray *tableData;
 @end

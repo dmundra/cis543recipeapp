@@ -137,6 +137,31 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 		}
 		shopListItem.recipe = soup;
 	}
+	
+	request = [[NSFetchRequest alloc] init];
+	[request setEntity:[NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext]];
+	[request setPredicate:[NSPredicate predicateWithFormat:@"self.name = %@", @"Lemon Bars"]];
+	recipes = [managedObjectContext executeFetchRequest:request error:&error];
+	if(recipes == nil) {
+		NSLog(@"Error looking up recipes: %@\n%@", error, [error userInfo]);
+	}
+	Recipe* bars = [recipes objectAtIndex:0];
+	
+	[request release];	
+	
+	for(RecipeItem* recipeItem in bars.recipeItems) {
+		ShoppingListItem* shopListItem = [NSEntityDescription insertNewObjectForEntityForName:@"ShoppingListItem" inManagedObjectContext:self.managedObjectContext];
+		shopListItem.quantity = recipeItem.quantity;
+		shopListItem.unit = recipeItem.unit;
+		if(recipeItem.ingredient != nil) {
+			shopListItem.ingredient = recipeItem.ingredient;
+		}
+		else {
+			shopListItem.ingredient = recipeItem.preppedIngredient.ingredient;
+		}
+		shopListItem.recipe = bars;
+	}
+	
 }
 
 #pragma mark Private
@@ -407,7 +432,9 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	Ingredient* hotshortbreadBase = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:self.managedObjectContext];
 	hotshortbreadBase.name = @"hotshortbread base";
 	Ingredient* confectionersSugar = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:self.managedObjectContext];
-	confectionersSugar.name = @"confectioners' sugar";	
+	confectionersSugar.name = @"confectioners' sugar";
+	Ingredient* salt = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:self.managedObjectContext];
+	salt.name = @"salt";	
 	
 	Recipe* lemonBars = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext];
 	lemonBars.name = @"Lemon Bars";
@@ -446,8 +473,13 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	itemSix.orderIndex = [NSNumber numberWithInteger:5];
 	itemSix.quantity = [NSNumber numberWithDouble:3.0];
 	itemSix.unit = [NSNumber numberWithInteger:UnitTablespoon];
+	RecipeItem* itemSeven = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
+	itemSeven.ingredient = salt;
+	itemSeven.orderIndex = [NSNumber numberWithInteger:6];
+	itemSeven.quantity = [NSNumber numberWithDouble:0.5];
+	itemSeven.unit = [NSNumber numberWithInteger:UnitTablespoon];
 	
-	[lemonBars setRecipeItems:[NSSet setWithObjects:itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix, nil]];
+	[lemonBars setRecipeItems:[NSSet setWithObjects:itemOne, itemTwo, itemThree, itemFour, itemFive, itemSix, itemSeven, nil]];
 }
 
 

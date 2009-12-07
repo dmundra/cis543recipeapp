@@ -13,12 +13,25 @@
 #import "RecipeItem.h"
 #import "Unit.h"
 
-@interface ShoppingListViewController (/*Private*/)
-@property(nonatomic, retain, readonly) NSFetchedResultsController* fetchedResultsController;
-@end
-
-
 @implementation ShoppingListViewController
+
+#pragma mark Initialization
+- (id)initWithCoder:(NSCoder *)aDecoder {
+	if(self = [super initWithCoder:aDecoder]) {
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStyleBordered target:self action:@selector(clearAll:)];
+	}
+	
+	return self;
+}
+
+
+#pragma mark View Management
+- (void)viewWillAppear:(BOOL)animated {
+	// Clear the table data
+	[modifiedShoppingList release];
+	modifiedShoppingList = nil;
+}
+
 
 #pragma mark View Life Cycle
 - (void)viewDidUnload {
@@ -29,37 +42,15 @@
 #pragma mark Memory Management
 - (void)dealloc {
 	[shoppingListTable release];
-	[fetchedResultsController release];
+	[modifiedShoppingList release];
 	[managedObjectContext release];
 	
     [super dealloc];
 }
 
-- (void)fetch {
-	NSError *error = nil;
-	BOOL success = [self.fetchedResultsController performFetch:&error];
-	NSAssert2(success, @"Unhandled error performing fetch at ShoppingListViewController.m, line %d: %@", __LINE__, [error localizedDescription]);
-	[self.shoppingListTable reloadData];
-}
-
-- (NSFetchedResultsController *)fetchedResultsController {
-	if (fetchedResultsController == nil) {
-		NSFetchRequest* fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-		[fetchRequest setEntity:[NSEntityDescription entityForName:@"ShoppingListItem" inManagedObjectContext:self.managedObjectContext]];
-		NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredient.name" ascending:YES];
-		[fetchRequest setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-		[sortDescriptor release];
-		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"ShoppingListCache"];
-		[fetchedResultsController performFetch:nil];
-	}
-	
-	return fetchedResultsController;
-}
-
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+    return [self.tableData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,7 +61,7 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
     }
-    ShoppingListItem *shoppingListItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    ShoppingListItem *shoppingListItem = [self.tableData objectAtIndex:indexPath.row];
     cell.textLabel.text = shoppingListItem.ingredient.name;
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(shoppingListItem.quantity), NSStringFromUnit(shoppingListItem.unit)];
     return cell;
@@ -79,7 +70,7 @@
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [table deselectRowAtIndexPath:indexPath animated:YES];
-	ShoppingListItem* item = [fetchedResultsController objectAtIndexPath:indexPath];
+	ShoppingListItem* item = [self.tableData objectAtIndex:indexPath.row];
 	UITableViewCell *cell = [self.shoppingListTable cellForRowAtIndexPath:indexPath];
 	
 	if ([item.purchased boolValue]) {
@@ -119,11 +110,68 @@
 			}
 		}
 	}
+}
 
+#pragma mark IBAction
+- (IBAction)clearAll:(id)sender {
+	UIActionSheet *action;
+	action = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to clear shopping list?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Yes" otherButtonTitles:nil];
+	[action showInView:[[UIApplication sharedApplication] keyWindow]];
+	[action release];	
+}
+
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	switch (buttonIndex) {
+		case 0:
+			// TODO: Need to clear list when user selects clear all
+			break;
+		case 1:
+			break;
+	}	
 }
 
 #pragma mark Properties
 @synthesize shoppingListTable;
 
 @synthesize managedObjectContext;
+
+- (NSArray*)tableData {
+	if (modifiedShoppingList == nil) {
+		modifiedShoppingList = [[NSMutableArray alloc] init];
+
+		NSFetchRequest* fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+		[fetchRequest setEntity:[NSEntityDescription entityForName:@"ShoppingListItem" inManagedObjectContext:self.managedObjectContext]];
+		
+		NSError* error;
+		NSArray* shoppingList = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+		if(shoppingList == nil) {
+			NSLog(@"Error looking up shopping list items: %@\n%@", error, [error userInfo]);
+		}
+		
+		for (ShoppingListItem* listItem in shoppingList) {
+			BOOL flag = YES;
+			for (ShoppingListItem* listItemAlreadyStored in modifiedShoppingList) {
+				if ([listItem.ingredient.name isEqualToString:listItemAlreadyStored.ingredient.name]) {
+					if (listItem.unit == listItemAlreadyStored.unit) {
+						double temp1 = [listItemAlreadyStored.quantity doubleValue]; 
+						double temp2 = [listItem.quantity doubleValue];
+						listItemAlreadyStored.quantity = [NSNumber numberWithDouble:(temp1 + temp2)];
+						flag = NO;
+						NSLog(@"Similar units");
+					}				
+				}
+			}
+			
+			if (flag) {
+				[modifiedShoppingList addObject:listItem];
+			}
+		}
+		
+		NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredient.name" ascending:YES];
+		[modifiedShoppingList sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+	}
+	
+	return [NSArray arrayWithArray:modifiedShoppingList];
+}
 @end
