@@ -202,7 +202,7 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	Recipe* hungarianMushroomSoup = [NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext];
 	hungarianMushroomSoup.name = @"Hungarian Mushroom Soup";
 	hungarianMushroomSoup.source = @"The Moosewood Cookbook";
-	hungarianMushroomSoup.instructions = @"1. Saute onions in 2 Tbsp stock, salt lightly. A few minutes later, add mushrooms, 1 tsp dill, 1/2 cup stock or water, tamari, and paprika. Cover and simmer 15 minutes.\n2. Melt butter in large saucepan. Whisk in flour and cook, whisking, a few minutes. Add milk. Cook, stirring frequently, over low heat about 10 minutes - until thick.\n3. Stir in mushroom mixture and remaining stock. Cover and simmer 10-15 minutes.\n4. Just before serving, add salt, pepper, lemon juice, sour cream, and if desired extra dill (1 tsp). Serve garnished with parsley.";
+	hungarianMushroomSoup.instructions = @"1. Saute onions in 2 Tbsp stock, salt lightly. A few minutes later, add mushrooms, 1 tsp dill, 1/2 cup stock or water, tamari, and paprika. Cover and simmer 15 minutes.\n\n2. Melt butter in large saucepan. Whisk in flour and cook, whisking, a few minutes. Add milk. Cook, stirring frequently, over low heat about 10 minutes - until thick.\n\n3. Stir in mushroom mixture and remaining stock. Cover and simmer 10-15 minutes.\n\n4. Just before serving, add salt, pepper, lemon juice, sour cream, and if desired extra dill (1 tsp). Serve garnished with parsley.";
 	hungarianMushroomSoup.preparationTime = [NSNumber numberWithInteger:60];
 	hungarianMushroomSoup.servingSize = [NSNumber numberWithInteger:4];
 	

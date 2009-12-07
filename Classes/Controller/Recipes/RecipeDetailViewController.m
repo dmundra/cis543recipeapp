@@ -9,6 +9,8 @@
 
 #import "RecipeDetailViewController.h"
 #import "RecipeNameCategoryAndSourceEditorViewController.h"
+#import "PreparationMethod.h"
+#import "PreppedIngredient.h"
 #import "Recipe.h"
 #import "RecipeImage.h"
 #import "RecipeItem.h"
@@ -141,6 +143,9 @@ enum {
 
 
 - (IBAction)cancel:(id)sender {
+	[newRecipe release];
+	newRecipe = nil;
+	
 	[self.managedObjectContext rollback];
 	
 	[self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
@@ -219,7 +224,8 @@ enum {
 				
 				if(result == nil) {
 					result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"] autorelease];
-					result.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+					result.accessoryType = UITableViewCellAccessoryNone;
+					result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 				}
 				
 				result.textLabel.text = @"Add Ingredient...";
@@ -231,10 +237,18 @@ enum {
 			
 			if(result == nil) {
 				result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecipeCell"] autorelease];
-				result.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+				result.accessoryType = UITableViewCellAccessoryNone;
+				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
 			
-			result.textLabel.text = ((RecipeItem*)[recipe.sortedRecipeItems objectAtIndex:ingredientIndex]).ingredient.name;
+			RecipeItem* recipeItem = (RecipeItem*)[recipe.sortedRecipeItems objectAtIndex:ingredientIndex];
+			if(recipeItem.ingredient != nil) {
+				result.textLabel.text = recipeItem.ingredient.name;
+			}
+			else {
+				result.textLabel.text = [NSString stringWithFormat:@"%@ %@", recipeItem.preppedIngredient.preparationMethod.name, recipeItem.preppedIngredient.ingredient.name];
+			}
+			result.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(recipeItem.quantity), NSStringFromUnit(recipeItem.unit)];
 		}
 	}
 	else if(indexPath.section == RecipeDetailSectionInstructions) {
@@ -340,6 +354,9 @@ enum {
 			result = recipeDescriptionCell.frame.size.height;
 		}
 	}
+	if(indexPath.section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
+		result = recipeInstructionsCell.frame.size.height;
+	}
 	
 	return result;
 }
@@ -414,7 +431,7 @@ enum {
 		instructionsLabel.text = @"No Instructions Set.";
 	}
 	
-	recipeDescriptionCell.frame = CGRectMake(0.0, 0.0, 320.0, height);
+	recipeInstructionsCell.frame = CGRectMake(0.0, 0.0, 320.0, height);
 }
 
 
