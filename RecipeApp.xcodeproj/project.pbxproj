@@ -38,15 +38,27 @@
 		C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */; };
 		C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */; };
 		C8C1C41C10CC604D008D835B /* Unit.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C41B10CC604D008D835B /* Unit.m */; };
-		C8C1C4C010CC8EC7008D835B /* emptyImageView.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */; };
-		C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */; };
-		C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */; };
 		C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C4C610CC9051008D835B /* RecipeImage.m */; };
 		C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */; };
 		C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
 		C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */; };
 		C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */; };
 		C8C1C82610CCEC79008D835B /* PickerSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C7C610CCE5E6008D835B /* PickerSheetViewController.m */; };
+		C8C1C86D10CCFE47008D835B /* addPhotoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C86810CCFE47008D835B /* addPhotoButton.png */; };
+		C8C1C86E10CCFE47008D835B /* addPhotoButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C86910CCFE47008D835B /* addPhotoButtonHighlighted.png */; };
+		C8C1C87110CCFE47008D835B /* photoPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C86C10CCFE47008D835B /* photoPlaceholder.png */; };
+		C8C1C87310CCFE53008D835B /* recipeImage.psd in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C87210CCFE53008D835B /* recipeImage.psd */; };
+		C8C1C87E10CCFED9008D835B /* changePhotoButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C87C10CCFED9008D835B /* changePhotoButton.png */; };
+		C8C1C87F10CCFED9008D835B /* changePhotoButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C87D10CCFED9008D835B /* changePhotoButtonHighlighted.png */; };
+		C8C1C8AE10CD063F008D835B /* DescriptionEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */; };
+		C8C1C8B310CD0719008D835B /* AbstractTextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8B210CD0719008D835B /* AbstractTextEditorViewController.m */; };
+		C8C1C8B610CD076B008D835B /* InstructionsEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */; };
+		C8C1C8D710CD0A06008D835B /* DescriptionEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */; };
+		C8C1C8D910CD0A10008D835B /* InstructionsEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */; };
+		C8C1C8DF10CD0A9D008D835B /* AddIngredientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */; };
+		C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */; };
+		C8C1C8E410CD0B24008D835B /* AddIngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */; };
+		C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,10 +118,6 @@
 		C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeDetailViewController.m; sourceTree = "<group>"; };
 		C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailView.xib; sourceTree = "<group>"; };
 		C8C1C41B10CC604D008D835B /* Unit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Unit.m; sourceTree = "<group>"; };
-		C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageView.png; sourceTree = "<group>"; };
-		C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageViewAddButton.png; sourceTree = "<group>"; };
-		C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emptyImageViewAddButtonSelected.png; sourceTree = "<group>"; };
-		C8C1C4C310CC8ED2008D835B /* emptyImageView.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = emptyImageView.psd; sourceTree = "<group>"; };
 		C8C1C4C510CC9051008D835B /* RecipeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeImage.h; sourceTree = "<group>"; };
 		C8C1C4C610CC9051008D835B /* RecipeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeImage.m; sourceTree = "<group>"; };
 		C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListDetailView.xib; sourceTree = "<group>"; };
@@ -118,6 +126,27 @@
 		C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeNameCategoryAndSourceEditorView.xib; sourceTree = "<group>"; };
 		C8C1C7C510CCE5E6008D835B /* PickerSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerSheetViewController.h; sourceTree = "<group>"; };
 		C8C1C7C610CCE5E6008D835B /* PickerSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerSheetViewController.m; sourceTree = "<group>"; };
+		C8C1C86810CCFE47008D835B /* addPhotoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addPhotoButton.png; sourceTree = "<group>"; };
+		C8C1C86910CCFE47008D835B /* addPhotoButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addPhotoButtonHighlighted.png; sourceTree = "<group>"; };
+		C8C1C86C10CCFE47008D835B /* photoPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoPlaceholder.png; sourceTree = "<group>"; };
+		C8C1C87210CCFE53008D835B /* recipeImage.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = recipeImage.psd; sourceTree = "<group>"; };
+		C8C1C87C10CCFED9008D835B /* changePhotoButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changePhotoButton.png; sourceTree = "<group>"; };
+		C8C1C87D10CCFED9008D835B /* changePhotoButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changePhotoButtonHighlighted.png; sourceTree = "<group>"; };
+		C8C1C8AC10CD063F008D835B /* DescriptionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionEditorViewController.h; sourceTree = "<group>"; };
+		C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionEditorViewController.m; sourceTree = "<group>"; };
+		C8C1C8B010CD0719008D835B /* AbstractTextEditorViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractTextEditorViewController+Internal.h"; sourceTree = "<group>"; };
+		C8C1C8B110CD0719008D835B /* AbstractTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTextEditorViewController.h; sourceTree = "<group>"; };
+		C8C1C8B210CD0719008D835B /* AbstractTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTextEditorViewController.m; sourceTree = "<group>"; };
+		C8C1C8B410CD076B008D835B /* InstructionsEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsEditorViewController.h; sourceTree = "<group>"; };
+		C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsEditorViewController.m; sourceTree = "<group>"; };
+		C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionEditorView.xib; sourceTree = "<group>"; };
+		C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsEditorView.xib; sourceTree = "<group>"; };
+		C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddIngredientViewController.xib; sourceTree = "<group>"; };
+		C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToShoppingCartView.xib; sourceTree = "<group>"; };
+		C8C1C8E210CD0B24008D835B /* AddIngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIngredientViewController.h; sourceTree = "<group>"; };
+		C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIngredientViewController.m; sourceTree = "<group>"; };
+		C8C1C8E510CD0B40008D835B /* AddToShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToShoppingCartViewController.h; sourceTree = "<group>"; };
+		C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShoppingCartViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +244,7 @@
 		C85F4E2F10B5204500F90C8A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1C8AF10CD0719008D835B /* Abstract */,
 				C85F4E3010B5204500F90C8A /* Help */,
 				C85F4E3110B5204500F90C8A /* Recipes */,
 				C85F4E3410B5204500F90C8A /* Settings */,
@@ -239,6 +269,14 @@
 		C85F4E3110B5204500F90C8A /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1C8E210CD0B24008D835B /* AddIngredientViewController.h */,
+				C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */,
+				C8C1C8E510CD0B40008D835B /* AddToShoppingCartViewController.h */,
+				C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */,
+				C8C1C8AC10CD063F008D835B /* DescriptionEditorViewController.h */,
+				C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */,
+				C8C1C8B410CD076B008D835B /* InstructionsEditorViewController.h */,
+				C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */,
 				C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */,
 				C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */,
 				C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */,
@@ -304,10 +342,12 @@
 		C85F4E3C10B520AF00F90C8A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				C8C1C4BD10CC8EC7008D835B /* emptyImageView.png */,
-				C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */,
-				C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */,
 				C85F4E3D10B520AF00F90C8A /* Source */,
+				C8C1C86810CCFE47008D835B /* addPhotoButton.png */,
+				C8C1C86910CCFE47008D835B /* addPhotoButtonHighlighted.png */,
+				C8C1C87C10CCFED9008D835B /* changePhotoButton.png */,
+				C8C1C87D10CCFED9008D835B /* changePhotoButtonHighlighted.png */,
+				C8C1C86C10CCFE47008D835B /* photoPlaceholder.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -316,8 +356,8 @@
 			isa = PBXGroup;
 			children = (
 				C85F4E6B10B526E300F90C8A /* applepie.jpg */,
-				C8C1C4C310CC8ED2008D835B /* emptyImageView.psd */,
 				C85F4E6C10B526E300F90C8A /* icon.psd */,
+				C8C1C87210CCFE53008D835B /* recipeImage.psd */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -353,6 +393,10 @@
 		C85F4E4310B520AF00F90C8A /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */,
+				C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */,
+				C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */,
+				C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */,
 				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
 				C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */,
 				C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */,
@@ -376,6 +420,16 @@
 				46EC59B210CCDBB1001EAB4E /* ShoppingListRecipeCell.xib */,
 			);
 			path = ShoppingList;
+			sourceTree = "<group>";
+		};
+		C8C1C8AF10CD0719008D835B /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				C8C1C8B010CD0719008D835B /* AbstractTextEditorViewController+Internal.h */,
+				C8C1C8B110CD0719008D835B /* AbstractTextEditorViewController.h */,
+				C8C1C8B210CD0719008D835B /* AbstractTextEditorViewController.m */,
+			);
+			path = Abstract;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -428,12 +482,19 @@
 				C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */,
 				C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */,
 				C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */,
-				C8C1C4C010CC8EC7008D835B /* emptyImageView.png in Resources */,
-				C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */,
-				C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */,
 				C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */,
 				C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */,
 				46EC59B310CCDBB1001EAB4E /* ShoppingListRecipeCell.xib in Resources */,
+				C8C1C86D10CCFE47008D835B /* addPhotoButton.png in Resources */,
+				C8C1C86E10CCFE47008D835B /* addPhotoButtonHighlighted.png in Resources */,
+				C8C1C87110CCFE47008D835B /* photoPlaceholder.png in Resources */,
+				C8C1C87310CCFE53008D835B /* recipeImage.psd in Resources */,
+				C8C1C87E10CCFED9008D835B /* changePhotoButton.png in Resources */,
+				C8C1C87F10CCFED9008D835B /* changePhotoButtonHighlighted.png in Resources */,
+				C8C1C8D710CD0A06008D835B /* DescriptionEditorView.xib in Resources */,
+				C8C1C8D910CD0A10008D835B /* InstructionsEditorView.xib in Resources */,
+				C8C1C8DF10CD0A9D008D835B /* AddIngredientViewController.xib in Resources */,
+				C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +527,11 @@
 				C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */,
 				46EC5A1610CCE50D001EAB4E /* ShoppingListRecipeCell.m in Sources */,
 				C8C1C82610CCEC79008D835B /* PickerSheetViewController.m in Sources */,
+				C8C1C8AE10CD063F008D835B /* DescriptionEditorViewController.m in Sources */,
+				C8C1C8B310CD0719008D835B /* AbstractTextEditorViewController.m in Sources */,
+				C8C1C8B610CD076B008D835B /* InstructionsEditorViewController.m in Sources */,
+				C8C1C8E410CD0B24008D835B /* AddIngredientViewController.m in Sources */,
+				C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

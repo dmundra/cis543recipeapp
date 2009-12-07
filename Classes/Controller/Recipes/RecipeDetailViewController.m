@@ -10,6 +10,10 @@
 #import "RecipeDetailViewController.h"
 #import "PickerSheetViewController.h"
 #import "RecipeNameCategoryAndSourceEditorViewController.h"
+#import "DescriptionEditorViewController.h"
+#import "AddIngredientViewController.h"
+#import "AddToShoppingCartViewController.h"
+#import "InstructionsEditorViewController.h"
 #import "PreparationMethod.h"
 #import "PreppedIngredient.h"
 #import "Recipe.h"
@@ -26,18 +30,23 @@ enum {
 	RecipeDetailSectionCount
 };
 
-
 enum {
 	InfoRowNameCategoryAndSource,
+	InfoRowDescription,
+	InfoRowCount,
 	InfoRowServingSize,
 	InfoRowPreparationTime,
-	InfoRowDescription,
-	InfoRowCount
 };
 
 enum {
 	InstructionsRowInstructions,
 	InstructionsRowCount
+};
+
+enum {
+	ActionButtonIndexRemove,
+	ActionButtonIndexTakePicture,
+	ActionButtonIndexChoosePicture
 };
 
 
@@ -47,6 +56,8 @@ enum {
 - (void)_updateRecipeImageNameCategoryAndSourceCell;
 - (void)_updateRecipeDescriptionCell;
 - (void)_updateRecipeInstructionsCell;
+
+- (void)_updateVisibleCellsForEditMode;
 @end
 
 
@@ -63,6 +74,7 @@ enum {
 		saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save:)];
 		
 		newRecipe = nil;
+		resetForNewRecipe = YES;
 	}
 	
 	return self;
@@ -71,23 +83,27 @@ enum {
 
 #pragma mark View Management
 - (void)viewWillAppear:(BOOL)animated {
-	if(recipe == nil) {
-		if(newRecipe == nil) {
-			newRecipe = [[NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext] retain];
+	if(resetForNewRecipe) {
+		if(recipe == nil) {
+			if(newRecipe == nil) {
+				newRecipe = [[NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext] retain];
+			}
+			
+			self.navigationItem.title = @"New Recipe";
+			self.navigationItem.leftBarButtonItem = cancelButton;
+			self.navigationItem.rightBarButtonItem = saveButton;
+			recipeDetailTable.editing = YES;
+		}
+		else {
+			recipeDetailTable.editing = NO;
+			self.navigationItem.title = recipe.name;
+			self.navigationItem.leftBarButtonItem = nil;
+			self.navigationItem.rightBarButtonItem = editButton;
 		}
 		
-		self.navigationItem.title = @"New Recipe";
-		self.navigationItem.leftBarButtonItem = cancelButton;
-		self.navigationItem.rightBarButtonItem = saveButton;
-		recipeDetailTable.editing = YES;
+		resetForNewRecipe = NO;
 	}
-	else {
-		self.navigationItem.title = recipe.name;
-		self.navigationItem.leftBarButtonItem = nil;
-		self.navigationItem.rightBarButtonItem = editButton;
-		recipeDetailTable.editing = NO;
-	}
-	
+
 	[self _updateRecipeImageNameCategoryAndSourceCell];
 	[self _updateRecipeDescriptionCell];
 	[self _updateRecipeInstructionsCell];
@@ -99,6 +115,10 @@ enum {
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
 	self.recipeNameCategoryAndSourceEditorViewController.managedObjectContext = self.managedObjectContext;
+	self.descriptionEditorViewController.managedObjectContext = self.managedObjectContext;
+	self.addIngredientViewController.managedObjectContext = self.managedObjectContext;
+	self.addToShoppingCartViewController.managedObjectContext = self.managedObjectContext;
+	self.instructionsEditorViewController.managedObjectContext = self.managedObjectContext;
 	
 	servingsPickerSheetViewController = [[PickerSheetViewController alloc] init];
 	servingsPickerSheetViewController.delegate = self;
@@ -116,12 +136,20 @@ enum {
 	self.recipeDetailTable = nil;
 	self.recipeImageNameCategoryAndSourceCell = nil;
 	self.recipeImageView = nil;
+	self.editImageButton = nil;
+	self.addImageButton = nil;
 	self.recipeNameLabel = nil;
 	self.recipeCategoryAndSourceLabel = nil;
 	self.recipeDescriptionCell = nil;
 	self.descriptionTextLabel = nil;
 	self.recipeInstructionsCell = nil;
 	self.instructionsLabel = nil;
+	
+	self.recipeNameCategoryAndSourceEditorViewController = nil;
+	self.descriptionEditorViewController = nil;
+	self.addIngredientViewController = nil;
+	self.addToShoppingCartViewController = nil;
+	self.instructionsEditorViewController = nil;
 }
 
 
@@ -130,6 +158,8 @@ enum {
 	[recipeDetailTable release];
 	[recipeImageNameCategoryAndSourceCell release];
 	[recipeImageView release];
+	[editImageButton release];
+	[addImageButton release];
 	[recipeNameLabel release];
 	[recipeCategoryAndSourceLabel release];
 	[recipeDescriptionCell release];
@@ -138,6 +168,10 @@ enum {
 	[instructionsLabel release];
 	
 	[recipeNameCategoryAndSourceEditorViewController release];
+	[descriptionEditorViewController release];
+	[addIngredientViewController release];
+	[addToShoppingCartViewController release];
+	[instructionsEditorViewController release];
 	
 	[editButton release];
 	[doneButton release];
@@ -158,26 +192,80 @@ enum {
 
 
 #pragma mark IBAction
-- (IBAction)edit:(id)sender {
+- (IBAction)edit:(id)sender {	
+	[recipeDetailTable setEditing:YES animated:YES];
 	
+	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+	[recipeDetailTable insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:RecipeDetailSectionIngredients]] withRowAnimation:UITableViewRowAnimationFade];
+	
+	[self _updateVisibleCellsForEditMode];
+	[self.navigationItem setRightBarButtonItem:doneButton animated:YES];
 }
 
 
 - (IBAction)done:(id)sender {
+	[recipeDetailTable setEditing:NO animated:YES];
+	
+	
+	if(singleEditMode) {
+		singleEditMode = NO;
+	}
+	else {
+		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+		[recipeDetailTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:RecipeDetailSectionIngredients]] withRowAnimation:UITableViewRowAnimationFade];
+
+		[self _updateVisibleCellsForEditMode];
+	}
+	
+	[self.navigationItem setRightBarButtonItem:editButton animated:YES];
 }
 
 
 - (IBAction)cancel:(id)sender {
+	// Release the new recipe and rollback the changes to the context
 	[newRecipe release];
 	newRecipe = nil;
 	
+	resetForNewRecipe = YES;
+	
 	[self.managedObjectContext rollback];
 	
+	// Dismiss the modal view
 	[self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 
 - (IBAction)save:(id)sender {
+	// Save the new recipe then release it
+	NSError* error;
+	if(![self.managedObjectContext save:&error]) {
+		NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+		NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+		if(detailedErrors != nil && [detailedErrors count] > 0) {
+			for(NSError* detailedError in detailedErrors) {
+				NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+			}
+		}
+		else {
+			NSLog(@"  %@", [error userInfo]);
+		}
+	}
+	
+	[newRecipe release];
+	newRecipe = nil;
+	
+	resetForNewRecipe = YES;
+	
+	// Dismiss the modal view
+	[self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
+}
+
+
+- (IBAction)selectImage:(id)sender {
+	UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Image" otherButtonTitles:@"Take A Picture", @"Choose A Picture", nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+	[actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+	[actionSheet release];
 }
 
 
@@ -241,23 +329,20 @@ enum {
 	else if(indexPath.section == RecipeDetailSectionIngredients) {
 		NSInteger ingredientIndex = indexPath.row;
 
-		// If the table view is in editing mode, the first ingredient row will be an "Add ingredient..." row
-		if(tableView.editing) {
-			--ingredientIndex;
-			if(ingredientIndex == -1) {
-				result = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
-				
-				if(result == nil) {
-					result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"] autorelease];
-					result.accessoryType = UITableViewCellAccessoryNone;
-					result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
-				}
-				
-				result.textLabel.text = @"Add Ingredient...";
+		// If the table view is in editing mode, the last ingredient row will be an "Add ingredient..." row
+		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+		if(tableView.editing && !singleEditMode && ingredientIndex == [sourceRecipe.recipeItems count]) {
+			result = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
+			
+			if(result == nil) {
+				result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"] autorelease];
+				result.accessoryType = UITableViewCellAccessoryNone;
+				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
+			
+			result.textLabel.text = @"Add Ingredient...";
 		}
-		
-		if(ingredientIndex >= 0) {
+		else {
 			result = [tableView dequeueReusableCellWithIdentifier:@"RecipeCell"];
 			
 			if(result == nil) {
@@ -280,7 +365,7 @@ enum {
 		result = recipeInstructionsCell;
 	}
 	
-	if(tableView.editing) {
+	if(tableView.editing && !singleEditMode) {
 		result.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
 	else {
@@ -311,7 +396,7 @@ enum {
 		}
 
 		// If in edit mode, an "Add ingredient..." row will be inserted at the top of the ingredients section
-		if(tableView.editing) {
+		if(tableView.editing && !singleEditMode) {
 			++result;
 		}
 	}
@@ -320,6 +405,38 @@ enum {
 	}
 	
 	return result;
+}
+
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+	if(tableView.editing && !singleEditMode && indexPath.section == RecipeDetailSectionIngredients && indexPath.row == [sourceRecipe.recipeItems count]) {
+		[self _addIngredient];
+	}
+	else {
+		RecipeItem* itemToRemove = [sourceRecipe.sortedRecipeItems objectAtIndex:indexPath.row];
+		[sourceRecipe removeRecipeItemsObject:itemToRemove];
+		[self.managedObjectContext deleteObject:itemToRemove];
+		
+		if(recipe != nil) {
+			// Save the data
+			NSError* error;
+			if(![self.managedObjectContext save:&error]) {
+				NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+				NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+				if(detailedErrors != nil && [detailedErrors count] > 0) {
+					for(NSError* detailedError in detailedErrors) {
+						NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+					}
+				}
+				else {
+					NSLog(@"  %@", [error userInfo]);
+				}
+			}
+		}
+		
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
 }
 
 
@@ -341,8 +458,9 @@ enum {
 	
 	// Set an editing style if the section is the ingredients section
 	if(indexPath.section == RecipeDetailSectionIngredients) {
-		// If the row is 0 use the insert style for the "Add Ingredient..." line, otherwise use delete
-		if(indexPath.row == 0) {
+		// If it is the last row and the table is in editing mode use the insert style for the "Add Ingredient..." line, otherwise use delete
+		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+		if(indexPath.row == [sourceRecipe.recipeItems count] && tableView.editing && !singleEditMode) {
 			result = UITableViewCellEditingStyleInsert;
 		}
 		else {
@@ -358,26 +476,67 @@ enum {
 	// Deselect the selected index path
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
-	// Present the appropriate editor for the selected index path
-	if(indexPath.section == RecipeDetailSectionInfo) {
-		if(indexPath.row == InfoRowNameCategoryAndSource) {
-			// If we're dealing with a new recipe, the subview should not save the context
-			if(recipe != nil) {
-				self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = YES;
+	// Only allow selection in editing mode
+	if(tableView.editing && !singleEditMode) {
+		// Present the appropriate editor for the selected index path
+		if(indexPath.section == RecipeDetailSectionInfo) {
+			if(indexPath.row == InfoRowNameCategoryAndSource) {
+				// If we're dealing with a new recipe, the subview should not save the context
+				if(recipe != nil) {
+					self.recipeNameCategoryAndSourceEditorViewController.recipe = recipe;
+					self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = YES;
+				}
+				else {
+					self.recipeNameCategoryAndSourceEditorViewController.recipe = newRecipe;
+					self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = NO;
+				}
+				
+				// Push the view controller
+				[((UINavigationController*)self.parentViewController) pushViewController:self.recipeNameCategoryAndSourceEditorViewController animated:YES];
+			}
+			else if(indexPath.row == InfoRowServingSize) {
+				[servingsPickerSheetViewController showInWindow:self];
+			}
+			else if(indexPath.row == InfoRowPreparationTime) {
+				[prepTimePickerSheetViewController showInWindow:self];
+			}
+			else if(indexPath.row == InfoRowDescription) {
+				// If we're dealing with a new recipe, the subview should not save the context
+				if(recipe != nil) {
+					self.descriptionEditorViewController.recipe = recipe;
+					self.descriptionEditorViewController.shouldSaveChanges = YES;
+				}
+				else {
+					self.descriptionEditorViewController.recipe = newRecipe;
+					self.descriptionEditorViewController.shouldSaveChanges = NO;
+				}
+				
+				// Push the view controller
+				[((UINavigationController*)self.parentViewController) pushViewController:self.descriptionEditorViewController animated:YES];
+			}
+		}
+		else if(indexPath.section == RecipeDetailSectionIngredients) {
+			Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+			if(indexPath.row == [sourceRecipe.recipeItems count]) {
+				[self _addIngredient];
 			}
 			else {
-				self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = NO;
+				// TODO: Modify Ingredient?
+			}
+		}
+		else if(indexPath.section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
+			// If we're dealing with a new recipe, the subview should not save the context
+			if(recipe != nil) {
+				self.instructionsEditorViewController.recipe = recipe;
+				self.instructionsEditorViewController.shouldSaveChanges = YES;
+			}
+			else {
+				self.instructionsEditorViewController.recipe = newRecipe;
+				self.instructionsEditorViewController.shouldSaveChanges = NO;
 			}
 			
-			self.recipeNameCategoryAndSourceEditorViewController.recipe = (recipe == nil ? newRecipe : recipe);
-			
-			[((UINavigationController*)self.parentViewController) pushViewController:self.recipeNameCategoryAndSourceEditorViewController animated:YES];
-		}
-		else if(indexPath.row == InfoRowServingSize) {
-			[servingsPickerSheetViewController showInWindow:self];
-		}
-		else if(indexPath.row == InfoRowPreparationTime) {
-			[prepTimePickerSheetViewController showInWindow:self];
+			// Push the view controller
+			[((UINavigationController*)self.parentViewController) pushViewController:self.instructionsEditorViewController animated:YES];
 		}
 	}
 }
@@ -399,6 +558,20 @@ enum {
 	}
 	
 	return result;
+}
+
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self.navigationItem setRightBarButtonItem:doneButton animated:YES];
+	
+	singleEditMode = YES;
+}
+
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+	[self.navigationItem setRightBarButtonItem:editButton animated:YES];
+	
+	singleEditMode = NO;
 }
 
 
@@ -457,8 +630,112 @@ enum {
 }
 
 
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if(buttonIndex == ActionButtonIndexRemove) {
+		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+		if(sourceRecipe.image != nil) {
+			[self.managedObjectContext deleteObject:sourceRecipe.image];
+			sourceRecipe.image = nil;
+
+			if(recipe != nil) {
+				// Save the data
+				NSError* error;
+				if(![self.managedObjectContext save:&error]) {
+					NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+					NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+					if(detailedErrors != nil && [detailedErrors count] > 0) {
+						for(NSError* detailedError in detailedErrors) {
+							NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+						}
+					}
+					else {
+						NSLog(@"  %@", [error userInfo]);
+					}
+				}
+			}
+			
+			[self _updateRecipeImageNameCategoryAndSourceCell];
+		}
+	}
+	else if(buttonIndex == ActionButtonIndexTakePicture) {
+		if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+			UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+			imagePicker.delegate = self;
+			imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+			imagePicker.editing = YES;
+		
+			[self presentModalViewController:imagePicker animated:YES];
+		}
+		else {
+			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"No Camera" message:@"Your device does not have a camera." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
+	else if(buttonIndex == ActionButtonIndexChoosePicture) {
+		UIImagePickerController* imagePicker = [[UIImagePickerController alloc] init];
+		imagePicker.delegate = self;
+		imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+		
+		[self presentModalViewController:imagePicker animated:YES];
+	}
+}
+
+
+#pragma mark UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+
+	NSData* imageData;
+	if(picker.sourceType == UIImagePickerControllerSourceTypeCamera && [info objectForKey:UIImagePickerControllerEditedImage] != nil) {
+		imageData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerEditedImage], 0.6);
+	}
+	else {
+		imageData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.6);
+	}
+	
+	if(sourceRecipe.image == nil) {
+		sourceRecipe.image = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeImage" inManagedObjectContext:self.managedObjectContext];
+	}
+	sourceRecipe.image.data = imageData;
+	
+	if(recipe != nil) {
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	}
+	
+	[self _updateRecipeImageNameCategoryAndSourceCell];
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+
 #pragma mark Private
 - (void)_addIngredient {
+	// If we're dealing with a new recipe, the subview should not save the context
+	if(recipe != nil) {
+		self.addIngredientViewController.recipe = recipe;
+		self.addIngredientViewController.shouldSaveChanges = YES;
+	}
+	else {
+		self.addIngredientViewController.recipe = newRecipe;
+		self.addIngredientViewController.shouldSaveChanges = NO;
+	}
+	
+	// Push the view controller
+	[((UINavigationController*)self.parentViewController) pushViewController:self.addIngredientViewController animated:YES];
 }
 
 
@@ -467,10 +744,12 @@ enum {
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 	
 	if(sourceRecipe.image == nil) {
-		recipeImageView.image = [UIImage imageNamed:@"emptyImageView.png"];
+		recipeImageView.image = [UIImage imageNamed:@"photoPlaceholder.png"];
+		recipeImageView.backgroundColor = [UIColor whiteColor];
 	}
 	else {
 		recipeImageView.image = [UIImage imageWithData:sourceRecipe.image.data];
+		recipeImageView.backgroundColor = [UIColor blackColor];
 	}
 	recipeNameLabel.text = sourceRecipe.name;
 	if([sourceRecipe.source length] > 0) {
@@ -478,7 +757,29 @@ enum {
 	}
 	else {
 		recipeCategoryAndSourceLabel.text = NSStringFromCategory(sourceRecipe.category);
-	 }
+	}
+	
+	if(recipeDetailTable.editing) {
+		recipeImageNameCategoryAndSourceCell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		
+		if(sourceRecipe.image == nil) {
+			recipeImageView.hidden = YES;
+			editImageButton.hidden = YES;
+			addImageButton.hidden = NO;
+		}
+		else {
+			recipeImageView.hidden = NO;
+			editImageButton.hidden = NO;
+			addImageButton.hidden = YES;
+		}
+	}
+	else {
+		recipeImageNameCategoryAndSourceCell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+		recipeImageView.hidden = NO;
+		editImageButton.hidden = YES;
+		addImageButton.hidden = YES;
+	}
 }
 
 
@@ -530,10 +831,21 @@ enum {
 }
 
 
+- (void)_updateVisibleCellsForEditMode {
+	[self _updateRecipeImageNameCategoryAndSourceCell];
+	
+	for(UITableViewCell* cell in [recipeDetailTable visibleCells]) {
+		cell.selectionStyle = (recipeDetailTable.editing ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone);
+	}
+}
+
+
 #pragma mark Properties
 @synthesize recipeDetailTable;
 @synthesize recipeImageNameCategoryAndSourceCell;
 @synthesize recipeImageView;
+@synthesize editImageButton;
+@synthesize addImageButton;
 @synthesize recipeNameLabel;
 @synthesize recipeCategoryAndSourceLabel;
 @synthesize recipeDescriptionCell;
@@ -542,16 +854,24 @@ enum {
 @synthesize instructionsLabel;
 
 @synthesize recipeNameCategoryAndSourceEditorViewController;
+@synthesize descriptionEditorViewController;
+@synthesize addIngredientViewController;
+@synthesize addToShoppingCartViewController;
+@synthesize instructionsEditorViewController;
 
 @synthesize recipe;
 
 
 - (void)setRecipe:(Recipe *)aRecipe {
-	[self willChangeValueForKey:@"recipe"];
-	[aRecipe retain];
-	[recipe release];
-	recipe = aRecipe;
-	[self didChangeValueForKey:@"recipe"];
+	if(aRecipe != recipe) {
+		[self willChangeValueForKey:@"recipe"];
+		[aRecipe retain];
+		[recipe release];
+		recipe = aRecipe;
+		[self didChangeValueForKey:@"recipe"];
+
+		resetForNewRecipe = YES;
+	}
 }
 
 

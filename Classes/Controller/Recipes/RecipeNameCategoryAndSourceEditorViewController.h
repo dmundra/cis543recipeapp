@@ -11,7 +11,6 @@
 
 
 @interface RecipeNameCategoryAndSourceEditorViewController : UIViewController {
-	
 	IBOutlet UITableView* nameCategoryAndSourceTable;
 	IBOutlet UITextField *titleTextField;
 	IBOutlet UITextField *sourceTextField;

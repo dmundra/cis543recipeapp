@@ -28,6 +28,15 @@
 }
 
 
+#pragma mark View Management
+- (void)viewWillAppear:(BOOL)animated {
+	[fetchedResultsController release];
+	fetchedResultsController = nil;
+	
+	[recipesTable reloadData];
+}
+
+
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
 	self.recipeDetailViewController.managedObjectContext = managedObjectContext;
@@ -58,13 +67,6 @@
     [super dealloc];
 }
 
-
-- (void)fetch {
-	NSError *error = nil;
-	BOOL success = [self.fetchedResultsController performFetch:&error];
-	NSAssert2(success, @"Unhandled error performing fetch at RecipesViewController.m, line %d: %@", __LINE__, [error localizedDescription]);
-	[self.recipesTable reloadData];
-}
 
 - (NSFetchedResultsController *)fetchedResultsController {
 	if (fetchedResultsController == nil) {
