@@ -11,6 +11,8 @@
 #import "ShoppingListItem.h"
 #import "Ingredient.h"
 #import "Recipe.h"
+#import "ShoppingListRecipeCell.h"
+
 @interface ShoppingListDetailViewController (/*Private*/)
 @property(nonatomic, retain, readonly) NSFetchedResultsController* fetchedResultsController;
 @end
@@ -29,15 +31,30 @@
 #pragma mark View Life Cycle
 - (void)viewDidUnload {
 	self.recipesTable = nil;
+	self.cell = nil;
 }
 
 
 #pragma mark Memory Management
 - (void)dealloc {
 	[recipesTable release];
+	[cell release];
+	[shoppingListItem release];
+	[fetchedResultsController release];
 	[managedObjectContext release];
 	
     [super dealloc];
+}
+
+#pragma mark IBAction
+- (IBAction)showRecipe:(id)sender {
+	
+	for (ShoppingListRecipeCell* cell in [self.recipesTable visibleCells]) {
+		if (cell.button == sender) {
+			//NSIndexPath* indexPath = [self.recipesTable indexPathForCell:cell];
+			NSLog(@"%@",cell.label.text);
+		}
+	}	
 }
 
 #pragma mark UITableViewDataSource
@@ -69,18 +86,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	ShoppingListRecipeCell* result;
     static NSString *kCellIdentifier = @"ShoppingListRecipeListItemCell";
-    UITableViewCell *cell = [self.recipesTable dequeueReusableCellWithIdentifier:kCellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-		cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    result = (ShoppingListRecipeCell *) [self.recipesTable dequeueReusableCellWithIdentifier:kCellIdentifier];
+    if (result == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"ShoppingListRecipeCell" owner:self options:nil];
+		result = [cell autorelease];
+		cell = nil;
     }
-    ShoppingListItem* listItem = nil;
-	listItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = listItem.recipe.name;
 	
-    return cell;
+    ShoppingListItem* listItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    result.label.text = listItem.recipe.name;
+    return result;
 }
 
 #pragma mark UITableViewDelegate
@@ -91,6 +108,7 @@
 
 #pragma mark Properties
 @synthesize recipesTable;
+@synthesize cell;
 @synthesize shoppingListItem;
 @synthesize managedObjectContext;
 

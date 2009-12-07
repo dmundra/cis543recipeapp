@@ -12,6 +12,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		46EC59B310CCDBB1001EAB4E /* ShoppingListRecipeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46EC59B210CCDBB1001EAB4E /* ShoppingListRecipeCell.xib */; };
+		46EC5A1610CCE50D001EAB4E /* ShoppingListRecipeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC5A1510CCE50D001EAB4E /* ShoppingListRecipeCell.m */; };
 		C85F4E2C10B5203200F90C8A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */; };
 		C85F4E2D10B5203200F90C8A /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */; };
 		C85F4E3810B5204500F90C8A /* RecipeAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */; };
@@ -56,6 +58,9 @@
 		32CA4F630368D1EE00C91783 /* RecipeApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeApp_Prefix.pch; sourceTree = "<group>"; };
 		46EC574310CC9E18001EAB4E /* ShoppingListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListDetailViewController.h; sourceTree = "<group>"; };
 		46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListDetailViewController.m; sourceTree = "<group>"; };
+		46EC59B210CCDBB1001EAB4E /* ShoppingListRecipeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListRecipeCell.xib; sourceTree = "<group>"; };
+		46EC5A1410CCE50D001EAB4E /* ShoppingListRecipeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListRecipeCell.h; sourceTree = "<group>"; };
+		46EC5A1510CCE50D001EAB4E /* ShoppingListRecipeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListRecipeCell.m; sourceTree = "<group>"; };
 		C85F4E2610B5203200F90C8A /* NSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDebug.h; sourceTree = "<group>"; };
 		C85F4E2710B5203200F90C8A /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		C85F4E2810B5203200F90C8A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
@@ -285,6 +290,8 @@
 		C85F4E3710B5204500F90C8A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				46EC5A1410CCE50D001EAB4E /* ShoppingListRecipeCell.h */,
+				46EC5A1510CCE50D001EAB4E /* ShoppingListRecipeCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -361,6 +368,7 @@
 			children = (
 				C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */,
 				C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */,
+				46EC59B210CCDBB1001EAB4E /* ShoppingListRecipeCell.xib */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -420,6 +428,7 @@
 				C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */,
 				C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */,
 				C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */,
+				46EC59B310CCDBB1001EAB4E /* ShoppingListRecipeCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +459,7 @@
 				C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */,
 				C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */,
 				C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */,
+				46EC5A1610CCE50D001EAB4E /* ShoppingListRecipeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
