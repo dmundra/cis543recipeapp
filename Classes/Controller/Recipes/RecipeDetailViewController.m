@@ -8,6 +8,7 @@
 
 
 #import "RecipeDetailViewController.h"
+#import "RecipeNameCategoryAndSourceEditorViewController.h"
 #import "Recipe.h"
 #import "RecipeImage.h"
 #import "RecipeItem.h"
@@ -72,7 +73,7 @@ enum {
 			newRecipe.descriptionText = @"Some descriptive text.";
 		}
 		
-		self.navigationItem.title = @"Add New Recipe";
+		self.navigationItem.title = @"New Recipe";
 		self.navigationItem.leftBarButtonItem = cancelButton;
 		self.navigationItem.rightBarButtonItem = saveButton;
 		recipeDetailTable.editing = YES;
@@ -92,6 +93,11 @@ enum {
 
 
 #pragma mark View Life Cycle
+- (void)viewDidLoad {
+	self.recipeNameCategoryAndSourceEditorViewController.managedObjectContext = self.managedObjectContext;
+}
+
+
 - (void)viewDidUnload {
 	self.recipeDetailTable = nil;
 	self.recipeImageNameCategoryAndSourceCell = nil;
@@ -280,6 +286,19 @@ enum {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// Present the appropriate editor for the selected index path
+	if(indexPath.section == RecipeDetailSectionInfo && indexPath.row == InfoRowNameCategoryAndSource) {
+		// If we're dealing with a new recipe, the subview should not save the context
+		if(recipe != nil) {
+			self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = YES;
+		}
+		else {
+			self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = NO;
+		}
+		
+		self.recipeNameCategoryAndSourceEditorViewController.recipe = (recipe == nil ? newRecipe : recipe);
+		
+		[((UINavigationController*)self.parentViewController) pushViewController:self.recipeNameCategoryAndSourceEditorViewController animated:YES];
+	}
 }
 
 
@@ -351,6 +370,8 @@ enum {
 @synthesize recipeCategoryAndSourceLabel;
 @synthesize recipeDescriptionCell;
 @synthesize descriptionTextLabel;
+
+@synthesize recipeNameCategoryAndSourceEditorViewController;
 
 @synthesize recipe;
 

@@ -7,7 +7,7 @@
 //
 
 
-@class Recipe;
+@class Recipe, RecipeNameCategoryAndSourceEditorViewController;
 
 
 @interface RecipeDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
@@ -18,6 +18,8 @@
 	IBOutlet UILabel* recipeCategoryAndSourceLabel;
 	IBOutlet UITableViewCell* recipeDescriptionCell;
 	IBOutlet UILabel* descriptionTextLabel;
+	
+	IBOutlet RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 	
 	UIBarButtonItem* editButton;
 	UIBarButtonItem* doneButton;
@@ -42,6 +44,8 @@
 @property(nonatomic, retain) UILabel* recipeCategoryAndSourceLabel;
 @property(nonatomic, retain) UITableViewCell* recipeDescriptionCell;
 @property(nonatomic, retain) UILabel* descriptionTextLabel;
+
+@property(nonatomic, retain) RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 
 @property(nonatomic, retain) Recipe* recipe;
 

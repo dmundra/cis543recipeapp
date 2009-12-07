@@ -42,6 +42,8 @@
 		C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C4C610CC9051008D835B /* RecipeImage.m */; };
 		C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */; };
 		C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
+		C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */; };
+		C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,9 @@
 		C8C1C4C510CC9051008D835B /* RecipeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeImage.h; sourceTree = "<group>"; };
 		C8C1C4C610CC9051008D835B /* RecipeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeImage.m; sourceTree = "<group>"; };
 		C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListDetailView.xib; sourceTree = "<group>"; };
+		C8C1C6B110CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeNameCategoryAndSourceEditorViewController.h; sourceTree = "<group>"; };
+		C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeNameCategoryAndSourceEditorViewController.m; sourceTree = "<group>"; };
+		C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeNameCategoryAndSourceEditorView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +233,8 @@
 				C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */,
 				C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */,
 				C8C1C3E710CC440D008D835B /* RecipeDetailViewController.m */,
+				C8C1C6B110CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.h */,
+				C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -336,6 +343,7 @@
 			children = (
 				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
 				C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */,
+				C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -411,6 +419,7 @@
 				C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */,
 				C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */,
 				C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */,
+				C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +449,7 @@
 				C8C1C41C10CC604D008D835B /* Unit.m in Sources */,
 				C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */,
 				C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */,
+				C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
