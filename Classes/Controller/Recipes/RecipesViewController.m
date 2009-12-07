@@ -10,6 +10,8 @@
 #import "RecipesViewController.h"
 #import "RecipeDetailViewController.h"
 #import "Recipe.h"
+#import "Ingredient.h"
+#import "RecipeItem.h"
 @interface RecipesViewController (/*Private*/)
 @property(nonatomic, retain, readonly) NSFetchedResultsController* fetchedResultsController;
 @end
@@ -30,6 +32,7 @@
 - (void)viewDidLoad {
 	self.recipeDetailViewController.managedObjectContext = managedObjectContext;
 	self.newRecipeDetailViewController.managedObjectContext = managedObjectContext;
+	self.filteredRecipeList = [NSMutableArray array];
 }
 
 
@@ -45,11 +48,11 @@
 #pragma mark Memory Management
 - (void)dealloc {
 	[recipesTable release];
-
+	[searchBar release];
 	[recipeDetailViewController release];
 	[newRecipeNavController release];
 	[newRecipeDetailViewController release];
-	
+	[filteredRecipeList release];
 	[managedObjectContext release];
 	
     [super dealloc];
@@ -79,8 +82,15 @@
 
 #pragma mark UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+	if (table == self.searchDisplayController.searchResultsTableView)
+	{
+		return [self.filteredRecipeList count];
+	}
+	else
+	{
+		id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+		return [sectionInfo numberOfObjects];
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)table cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -91,7 +101,15 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
     }
-    Recipe *recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Recipe *recipe = nil;
+	if( table == self.searchDisplayController.searchResultsTableView)
+	{
+		recipe = [self.filteredRecipeList objectAtIndex:indexPath.row];
+	}
+	else
+	{
+		recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
+	}
     cell.textLabel.text = recipe.name;
 	
     return cell;
@@ -116,6 +134,82 @@
 	[((UINavigationController*)self.parentViewController) pushViewController:recipeDetailViewController animated:YES];
 }
 
+#pragma mark Recipe Search Filtering
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+	/*
+	 Update the filtered array based on the search text and scope.
+	 */
+	
+	[self.filteredRecipeList removeAllObjects]; // First clear the filtered array.
+	
+	[self.filteredRecipeList addObjectsFromArray:fetchedResultsController.fetchedObjects];
+	if ([scope isEqualToString:@"All"])
+	{
+		[self.filteredRecipeList filterUsingPredicate:[NSPredicate predicateWithFormat:@"(self.name contains[cd] %@) OR (ANY self.recipeItems.ingredient.name contains[cd] %@)", searchText, searchText]];
+	}
+	else if ([@"Title" isEqualToString:scope])
+	{
+		[self.filteredRecipeList filterUsingPredicate:[NSPredicate predicateWithFormat:@"self.name contains[cd] %@", searchText]];
+	}
+	else if ( [@"Ingredient" isEqualToString:scope]){
+		[self.filteredRecipeList filterUsingPredicate:[NSPredicate predicateWithFormat:@"ANY self.recipeItems.ingredient.name contains[cd] %@", searchText]];
+	}
+	/*
+	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
+	 */
+//	for (Recipe *recipe in fetchedResultsController.fetchedObjects)
+//	{
+//		if ([scope isEqualToString:@"All"] || [@"Title" isEqualToString:scope])
+//		{
+//			NSComparisonResult result = [recipe.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+//            if ((result == NSOrderedSame) && (![filteredRecipeList containsObject:recipe]))
+//			{
+//				[self.filteredRecipeList addObject:recipe];
+//            }
+//		}
+//		if ([scope isEqualToString:@"All"] || [@"Ingredient" isEqualToString:scope])
+//		{
+//			for(RecipeItem *ritem in recipe.recipeItems)			{
+//				Ingredient *ingred = ritem.ingredient; 
+//				NSComparisonResult result = [ingred.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+//				if ((result == NSOrderedSame)   && (![filteredRecipeList containsObject:recipe]))
+//
+//				{
+//					[self.filteredRecipeList addObject:recipe];
+//				}
+//			}
+//		}
+//		
+//	}
+//OR (self.recipeItems.ingredient.name contains[cd] %@)
+	
+}
+
+
+
+#pragma mark searchDisplayController
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+{
+    [self filterContentForSearchText:searchString scope:
+	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
+	 [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
 
 #pragma mark Properties
 @synthesize recipesTable;
@@ -123,6 +217,7 @@
 @synthesize recipeDetailViewController;
 @synthesize newRecipeNavController;
 @synthesize newRecipeDetailViewController;
-
+@synthesize searchBar;
+@synthesize filteredRecipeList;
 @synthesize managedObjectContext;
 @end
