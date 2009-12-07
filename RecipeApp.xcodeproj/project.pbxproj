@@ -12,6 +12,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		46EC574610CC9E18001EAB4E /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
+		46EC574710CC9E18001EAB4E /* ShoppingListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */; };
 		C85F4E2C10B5203200F90C8A /* GTMObjC2Runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2910B5203200F90C8A /* GTMObjC2Runtime.m */; };
 		C85F4E2D10B5203200F90C8A /* GTMStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E2B10B5203200F90C8A /* GTMStackTrace.m */; };
 		C85F4E3810B5204500F90C8A /* RecipeAppAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */; };
@@ -46,6 +48,9 @@
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* RecipeApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeApp_Prefix.pch; sourceTree = "<group>"; };
+		46EC574310CC9E18001EAB4E /* ShoppingListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListDetailViewController.h; sourceTree = "<group>"; };
+		46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListDetailViewController.m; sourceTree = "<group>"; };
+		46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListDetailView.xib; sourceTree = "<group>"; };
 		C85F4E2610B5203200F90C8A /* NSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDebug.h; sourceTree = "<group>"; };
 		C85F4E2710B5203200F90C8A /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		C85F4E2810B5203200F90C8A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
@@ -231,6 +236,8 @@
 			children = (
 				C85F4E9F10B52BFD00F90C8A /* ShoppingListViewController.h */,
 				C85F4EA010B52BFD00F90C8A /* ShoppingListViewController.m */,
+				46EC574310CC9E18001EAB4E /* ShoppingListDetailViewController.h */,
+				46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -329,6 +336,7 @@
 			isa = PBXGroup;
 			children = (
 				C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */,
+				46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -383,6 +391,7 @@
 				C85F4E9110B52BA100F90C8A /* SettingsView.xib in Resources */,
 				C85F4E9310B52BA900F90C8A /* ShoppingListView.xib in Resources */,
 				C8C1C3F710CC487E008D835B /* RecipeDetailView.xib in Resources */,
+				46EC574710CC9E18001EAB4E /* ShoppingListDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +419,7 @@
 				C8C1C37010CBB2D5008D835B /* Recipe.m in Sources */,
 				C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */,
 				C8C1C41C10CC604D008D835B /* Unit.m in Sources */,
+				46EC574610CC9E18001EAB4E /* ShoppingListDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

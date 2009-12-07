@@ -8,10 +8,15 @@
 
 
 #import "ShoppingListViewController.h"
+#import "ShoppingListDetailViewController.h"
 #import "ShoppingListItem.h"
 #import "Ingredient.h"
 #import "RecipeItem.h"
 #import "Unit.h"
+
+@interface ShoppingListViewController (/*Private*/)
+- (void)_updateClearAllButton;
+@end
 
 @implementation ShoppingListViewController
 
@@ -30,12 +35,18 @@
 	// Clear the table data
 	[modifiedShoppingList release];
 	modifiedShoppingList = nil;
+	[self _updateClearAllButton];
 }
 
 
 #pragma mark View Life Cycle
+- (void)viewDidLoad {
+	self.shoppingListDetailViewController.managedObjectContext = managedObjectContext;
+}
+
 - (void)viewDidUnload {
 	self.shoppingListTable = nil;
+	self.shoppingListDetailViewController = nil;
 }
 
 
@@ -44,6 +55,7 @@
 	[shoppingListTable release];
 	[modifiedShoppingList release];
 	[managedObjectContext release];
+	[shoppingListDetailViewController release];
 	
     [super dealloc];
 }
@@ -68,6 +80,18 @@
 }
 
 #pragma mark UITableViewDelegate
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	ShoppingListItem* item = [self.tableData objectAtIndex:indexPath.row];
+	// Deselect the selected cell
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	// Set the selected recipe on the detail view
+	shoppingListDetailViewController.shoppingListItem = item;
+	// Show the detail view
+	[((UINavigationController*)self.parentViewController) pushViewController:shoppingListDetailViewController animated:YES];
+}
+
+
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [table deselectRowAtIndexPath:indexPath animated:YES];
 	ShoppingListItem* item = [self.tableData objectAtIndex:indexPath.row];
@@ -113,21 +137,54 @@
 }
 
 #pragma mark IBAction
+- (void)_updateClearAllButton {
+	if ([self.tableData count] == 0) {
+		[self.navigationItem.rightBarButtonItem setEnabled:NO];
+	} else {		
+		[self.navigationItem.rightBarButtonItem setEnabled:YES];
+	}
+}
+
 - (IBAction)clearAll:(id)sender {
 	UIActionSheet *action;
 	action = [[UIActionSheet alloc] initWithTitle:@"Are you sure you want to clear shopping list?" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Yes" otherButtonTitles:nil];
 	[action showInView:[[UIApplication sharedApplication] keyWindow]];
-	[action release];	
+	[action release];
 }
 
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	switch (buttonIndex) {
-		case 0:
-			// TODO: Need to clear list when user selects clear all
-			break;
-		case 1:
-			break;
+	if (buttonIndex == 0) {
+		NSFetchRequest* fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
+		[fetchRequest setEntity:[NSEntityDescription entityForName:@"ShoppingListItem" inManagedObjectContext:self.managedObjectContext]];
+			
+		NSError* error;
+		NSArray* shoppingList = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+		if(shoppingList == nil) {
+			NSLog(@"Error looking up shopping list items: %@\n%@", error, [error userInfo]);
+		}
+			
+		for (ShoppingListItem* listItem in shoppingList) {
+			[managedObjectContext deleteObject:listItem];
+		}
+			
+		// Save the data
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			} else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+			
+		[modifiedShoppingList release];
+		modifiedShoppingList = nil;
+		[self.shoppingListTable reloadData];
+		[self _updateClearAllButton];
 	}	
 }
 
@@ -149,6 +206,7 @@
 			NSLog(@"Error looking up shopping list items: %@\n%@", error, [error userInfo]);
 		}
 		
+		// Aggregates list by combining similar recipes that have similar units
 		for (ShoppingListItem* listItem in shoppingList) {
 			BOOL flag = YES;
 			for (ShoppingListItem* listItemAlreadyStored in modifiedShoppingList) {
@@ -158,7 +216,6 @@
 						double temp2 = [listItem.quantity doubleValue];
 						listItemAlreadyStored.quantity = [NSNumber numberWithDouble:(temp1 + temp2)];
 						flag = NO;
-						NSLog(@"Similar units");
 					}				
 				}
 			}
@@ -171,7 +228,10 @@
 		NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredient.name" ascending:YES];
 		[modifiedShoppingList sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 	}
-	
+		
 	return [NSArray arrayWithArray:modifiedShoppingList];
 }
+
+@synthesize shoppingListDetailViewController;
+
 @end
