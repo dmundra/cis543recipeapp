@@ -23,7 +23,7 @@
 #pragma mark Initialization
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStyleBordered target:self action:@selector(clearAll:)];
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Clear All" style:UIBarButtonItemStyleBordered target:self action:@selector(clearAll:)] autorelease];
 	}
 	
 	return self;
@@ -36,6 +36,8 @@
 	[modifiedShoppingList release];
 	modifiedShoppingList = nil;
 	[self _updateClearAllButton];
+	
+	[shoppingListTable reloadData];
 }
 
 

@@ -22,6 +22,7 @@
 	IBOutlet UILabel* recipeCategoryAndSourceLabel;
 	IBOutlet UITableViewCell* recipeDescriptionCell;
 	IBOutlet UILabel* descriptionTextLabel;
+	IBOutlet UITableViewCell* addToShoppingCartButtonCell;
 	IBOutlet UITableViewCell* recipeInstructionsCell;
 	IBOutlet UILabel* instructionsLabel;
 	
@@ -54,6 +55,7 @@
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
 - (IBAction)selectImage:(id)sender;
+- (IBAction)addToCart:(id)sender;
 
 @property(nonatomic, retain) UITableView* recipeDetailTable;
 @property(nonatomic, retain) UITableViewCell* recipeImageNameCategoryAndSourceCell;
@@ -64,6 +66,7 @@
 @property(nonatomic, retain) UILabel* recipeCategoryAndSourceLabel;
 @property(nonatomic, retain) UITableViewCell* recipeDescriptionCell;
 @property(nonatomic, retain) UILabel* descriptionTextLabel;
+@property(nonatomic, retain) UITableViewCell* addToShoppingCartButtonCell;
 @property(nonatomic, retain) UITableViewCell* recipeInstructionsCell;
 @property(nonatomic, retain) UILabel* instructionsLabel;
 

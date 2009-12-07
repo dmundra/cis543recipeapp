@@ -19,7 +19,6 @@ enum {
 	IngredientRowCount
 };
 
-
 enum {
 	PickerComponentQuantityInteger,
 	PickerComponentQuantityFraction,

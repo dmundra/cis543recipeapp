@@ -59,6 +59,9 @@
 		C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */; };
 		C8C1C8E410CD0B24008D835B /* AddIngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */; };
 		C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */; };
+		C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */; };
+		C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4310CDAA82008D835B /* addToCartButton.png */; };
+		C8C1CA4610CDAA82008D835B /* addToCartButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4410CDAA82008D835B /* addToCartButtonHighlighted.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,6 +150,9 @@
 		C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIngredientViewController.m; sourceTree = "<group>"; };
 		C8C1C8E510CD0B40008D835B /* AddToShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToShoppingCartViewController.h; sourceTree = "<group>"; };
 		C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShoppingCartViewController.m; sourceTree = "<group>"; };
+		C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = addToCartButton.psd; sourceTree = "<group>"; };
+		C8C1CA4310CDAA82008D835B /* addToCartButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addToCartButton.png; sourceTree = "<group>"; };
+		C8C1CA4410CDAA82008D835B /* addToCartButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addToCartButtonHighlighted.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,6 +351,8 @@
 				C85F4E3D10B520AF00F90C8A /* Source */,
 				C8C1C86810CCFE47008D835B /* addPhotoButton.png */,
 				C8C1C86910CCFE47008D835B /* addPhotoButtonHighlighted.png */,
+				C8C1CA4310CDAA82008D835B /* addToCartButton.png */,
+				C8C1CA4410CDAA82008D835B /* addToCartButtonHighlighted.png */,
 				C8C1C87C10CCFED9008D835B /* changePhotoButton.png */,
 				C8C1C87D10CCFED9008D835B /* changePhotoButtonHighlighted.png */,
 				C8C1C86C10CCFE47008D835B /* photoPlaceholder.png */,
@@ -355,6 +363,7 @@
 		C85F4E3D10B520AF00F90C8A /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */,
 				C85F4E6B10B526E300F90C8A /* applepie.jpg */,
 				C85F4E6C10B526E300F90C8A /* icon.psd */,
 				C8C1C87210CCFE53008D835B /* recipeImage.psd */,
@@ -495,6 +504,9 @@
 				C8C1C8D910CD0A10008D835B /* InstructionsEditorView.xib in Resources */,
 				C8C1C8DF10CD0A9D008D835B /* AddIngredientViewController.xib in Resources */,
 				C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */,
+				C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */,
+				C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */,
+				C8C1CA4610CDAA82008D835B /* addToCartButtonHighlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

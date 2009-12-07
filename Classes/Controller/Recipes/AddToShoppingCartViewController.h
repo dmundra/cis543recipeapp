@@ -12,12 +12,19 @@
 
 @interface AddToShoppingCartViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
 	IBOutlet UITableView* addToCartTable;
+	IBOutlet UIBarButtonItem* addButton;
 	
 	Recipe* recipe;
+	NSInteger selectedRowCount;
+	NSMutableArray* selectedState;
 	
 	NSManagedObjectContext* managedObjectContext;
 }
+- (IBAction)addToCart:(id)sender;
+- (IBAction)cancel:(id)sender;
+
 @property(nonatomic, retain) UITableView* addToCartTable;
+@property(nonatomic, retain) UIBarButtonItem* addButton;
 
 @property(nonatomic, retain) Recipe* recipe;
 

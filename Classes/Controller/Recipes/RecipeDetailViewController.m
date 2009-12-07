@@ -25,6 +25,7 @@
 
 enum {
 	RecipeDetailSectionInfo,
+	RecipeDetailSectionAddIngredientsButton,
 	RecipeDetailSectionIngredients,
 	RecipeDetailSectionInstructions,
 	RecipeDetailSectionCount
@@ -52,6 +53,8 @@ enum {
 
 @interface RecipeDetailViewController (/*Private*/)
 - (void)_addIngredient;
+
+- (NSInteger)_modifySectionIndex:(NSInteger)anIndex;
 
 - (void)_updateRecipeImageNameCategoryAndSourceCell;
 - (void)_updateRecipeDescriptionCell;
@@ -142,6 +145,7 @@ enum {
 	self.recipeCategoryAndSourceLabel = nil;
 	self.recipeDescriptionCell = nil;
 	self.descriptionTextLabel = nil;
+	self.addToShoppingCartButtonCell = nil;
 	self.recipeInstructionsCell = nil;
 	self.instructionsLabel = nil;
 	
@@ -164,6 +168,7 @@ enum {
 	[recipeCategoryAndSourceLabel release];
 	[recipeDescriptionCell release];
 	[descriptionTextLabel release];
+	[addToShoppingCartButtonCell release];
 	[recipeInstructionsCell release];
 	[instructionsLabel release];
 	
@@ -196,7 +201,11 @@ enum {
 	[recipeDetailTable setEditing:YES animated:YES];
 	
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
-	[recipeDetailTable insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:RecipeDetailSectionIngredients]] withRowAnimation:UITableViewRowAnimationFade];
+	[recipeDetailTable beginUpdates];
+	[recipeDetailTable deleteSections:[NSIndexSet indexSetWithIndex:RecipeDetailSectionAddIngredientsButton] withRowAnimation:UITableViewRowAnimationFade];
+	[recipeDetailTable insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+	[recipeDetailTable endUpdates];
+	[recipeDetailTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 	
 	[self _updateVisibleCellsForEditMode];
 	[self.navigationItem setRightBarButtonItem:doneButton animated:YES];
@@ -212,7 +221,10 @@ enum {
 	}
 	else {
 		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
-		[recipeDetailTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:RecipeDetailSectionIngredients]] withRowAnimation:UITableViewRowAnimationFade];
+		[recipeDetailTable beginUpdates];
+		[recipeDetailTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+		[recipeDetailTable insertSections:[NSIndexSet indexSetWithIndex:RecipeDetailSectionAddIngredientsButton] withRowAnimation:UITableViewRowAnimationFade];
+		[recipeDetailTable endUpdates];
 
 		[self _updateVisibleCellsForEditMode];
 	}
@@ -269,14 +281,22 @@ enum {
 }
 
 
+- (IBAction)addToCart:(id)sender {
+	addToShoppingCartViewController.recipe = recipe;
+	
+	[self presentModalViewController:addToShoppingCartViewController animated:YES];
+}
+
+
 #pragma mark UITableViewDataSource
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString* result = nil;
 	
-	if(section == RecipeDetailSectionIngredients) {
+	NSInteger modifiedSection = [self _modifySectionIndex:section];
+	if(modifiedSection == RecipeDetailSectionIngredients) {
 		result = @"Ingredients:";
 	}
-	else if(section == RecipeDetailSectionInstructions) {
+	else if(modifiedSection == RecipeDetailSectionInstructions) {
 		result = @"Instructions:";
 	}
 	
@@ -287,7 +307,8 @@ enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell* result = nil;
 	
-	if(indexPath.section == RecipeDetailSectionInfo) {
+	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	if(section == RecipeDetailSectionInfo) {
 		if(indexPath.row == InfoRowNameCategoryAndSource) {
 			result = recipeImageNameCategoryAndSourceCell;
 		}
@@ -326,7 +347,10 @@ enum {
 			}
 		}
 	}
-	else if(indexPath.section == RecipeDetailSectionIngredients) {
+	else if(section == RecipeDetailSectionAddIngredientsButton) {
+		result = addToShoppingCartButtonCell;
+	}
+	else if(section == RecipeDetailSectionIngredients) {
 		NSInteger ingredientIndex = indexPath.row;
 
 		// If the table view is in editing mode, the last ingredient row will be an "Add ingredient..." row
@@ -343,10 +367,10 @@ enum {
 			result.textLabel.text = @"Add Ingredient...";
 		}
 		else {
-			result = [tableView dequeueReusableCellWithIdentifier:@"RecipeCell"];
+			result = [tableView dequeueReusableCellWithIdentifier:@"IngredientCell"];
 			
 			if(result == nil) {
-				result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"RecipeCell"] autorelease];
+				result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"IngredientCell"] autorelease];
 				result.accessoryType = UITableViewCellAccessoryNone;
 				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
@@ -361,7 +385,7 @@ enum {
 			result.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(recipeItem.quantity), NSStringFromUnit(recipeItem.unit)];
 		}
 	}
-	else if(indexPath.section == RecipeDetailSectionInstructions) {
+	else if(section == RecipeDetailSectionInstructions) {
 		result = recipeInstructionsCell;
 	}
 	
@@ -377,17 +401,27 @@ enum {
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return RecipeDetailSectionCount;
+	NSInteger result = RecipeDetailSectionCount;
+	
+	if(recipe == nil || (recipe != nil && recipeDetailTable.editing && !singleEditMode)) {
+		--result;
+	}
+	
+	return result;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger result = 0;
 	
-	if(section == RecipeDetailSectionInfo) {
+	NSInteger modifiedSection = [self _modifySectionIndex:section];
+	if(modifiedSection == RecipeDetailSectionInfo) {
 		result = InfoRowCount;
 	}
-	else if(section == RecipeDetailSectionIngredients) {
+	else if(modifiedSection == RecipeDetailSectionAddIngredientsButton) {
+		result = 1;
+	}
+	else if(modifiedSection == RecipeDetailSectionIngredients) {
 		if(recipe != nil) {
 			result = [recipe.recipeItems count];
 		}
@@ -400,7 +434,7 @@ enum {
 			++result;
 		}
 	}
-	else if(section == RecipeDetailSectionInstructions) {
+	else if(modifiedSection == RecipeDetailSectionInstructions) {
 		result = InstructionsRowCount;
 	}
 	
@@ -410,7 +444,8 @@ enum {
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
-	if(tableView.editing && !singleEditMode && indexPath.section == RecipeDetailSectionIngredients && indexPath.row == [sourceRecipe.recipeItems count]) {
+	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	if(tableView.editing && !singleEditMode && section == RecipeDetailSectionIngredients && indexPath.row == [sourceRecipe.recipeItems count]) {
 		[self _addIngredient];
 	}
 	else {
@@ -445,7 +480,8 @@ enum {
 	// Only indent the ingredients section
 	BOOL result = NO;
 
-	if(indexPath.section == RecipeDetailSectionIngredients) {
+	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	if(section == RecipeDetailSectionIngredients) {
 		result = YES;
 	}
 	
@@ -457,7 +493,8 @@ enum {
 	UITableViewCellEditingStyle result = UITableViewCellEditingStyleNone;
 	
 	// Set an editing style if the section is the ingredients section
-	if(indexPath.section == RecipeDetailSectionIngredients) {
+	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	if(section == RecipeDetailSectionIngredients) {
 		// If it is the last row and the table is in editing mode use the insert style for the "Add Ingredient..." line, otherwise use delete
 		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 		if(indexPath.row == [sourceRecipe.recipeItems count] && tableView.editing && !singleEditMode) {
@@ -478,8 +515,9 @@ enum {
 	
 	// Only allow selection in editing mode
 	if(tableView.editing && !singleEditMode) {
+		NSInteger section = [self _modifySectionIndex:indexPath.section];
 		// Present the appropriate editor for the selected index path
-		if(indexPath.section == RecipeDetailSectionInfo) {
+		if(section == RecipeDetailSectionInfo) {
 			if(indexPath.row == InfoRowNameCategoryAndSource) {
 				// If we're dealing with a new recipe, the subview should not save the context
 				if(recipe != nil) {
@@ -515,7 +553,7 @@ enum {
 				[((UINavigationController*)self.parentViewController) pushViewController:self.descriptionEditorViewController animated:YES];
 			}
 		}
-		else if(indexPath.section == RecipeDetailSectionIngredients) {
+		else if(section == RecipeDetailSectionIngredients) {
 			Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 			if(indexPath.row == [sourceRecipe.recipeItems count]) {
 				[self _addIngredient];
@@ -524,7 +562,7 @@ enum {
 				// TODO: Modify Ingredient?
 			}
 		}
-		else if(indexPath.section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
+		else if(section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
 			// If we're dealing with a new recipe, the subview should not save the context
 			if(recipe != nil) {
 				self.instructionsEditorViewController.recipe = recipe;
@@ -545,7 +583,8 @@ enum {
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat result = tableView.rowHeight;
 	
-	if(indexPath.section == RecipeDetailSectionInfo) {
+	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	if(section == RecipeDetailSectionInfo) {
 		if(indexPath.row == InfoRowNameCategoryAndSource) {
 			result = recipeImageNameCategoryAndSourceCell.frame.size.height;
 		}
@@ -553,7 +592,7 @@ enum {
 			result = recipeDescriptionCell.frame.size.height;
 		}
 	}
-	if(indexPath.section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
+	if(section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
 		result = recipeInstructionsCell.frame.size.height;
 	}
 	
@@ -740,6 +779,19 @@ enum {
 
 
 #pragma mark Private (UI)
+- (NSInteger)_modifySectionIndex:(NSInteger)anIndex {
+	NSInteger result = anIndex;
+	
+	if(recipe == nil || (recipe != nil && recipeDetailTable.editing && !singleEditMode)) {
+		if(anIndex > RecipeDetailSectionInfo) {
+			++result;
+		}
+	}
+	
+	return result;
+}
+
+
 - (void)_updateRecipeImageNameCategoryAndSourceCell {
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 	
@@ -850,6 +902,7 @@ enum {
 @synthesize recipeCategoryAndSourceLabel;
 @synthesize recipeDescriptionCell;
 @synthesize descriptionTextLabel;
+@synthesize addToShoppingCartButtonCell;
 @synthesize recipeInstructionsCell;
 @synthesize instructionsLabel;
 
