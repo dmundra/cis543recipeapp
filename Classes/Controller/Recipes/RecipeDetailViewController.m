@@ -255,6 +255,13 @@ enum {
 		result = recipeInstructionsCell;
 	}
 	
+	if(tableView.editing) {
+		result.selectionStyle = UITableViewCellSelectionStyleBlue;
+	}
+	else {
+		result.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	
 	return result;
 }
 
