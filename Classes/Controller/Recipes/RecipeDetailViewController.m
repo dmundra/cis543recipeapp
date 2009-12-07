@@ -41,6 +41,7 @@ enum {
 @interface RecipeDetailViewController (/*Private*/)
 - (void)_updateRecipeImageNameCategoryAndSourceCell;
 - (void)_updateRecipeDescriptionCell;
+- (void)_updateRecipeInstructionsCell;
 @end
 
 
@@ -68,8 +69,6 @@ enum {
 	if(recipe == nil) {
 		if(newRecipe == nil) {
 			newRecipe = [[NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext] retain];
-			
-			newRecipe.descriptionText = @"Some descriptive text.";
 		}
 		
 		self.navigationItem.title = @"New Recipe";
@@ -86,6 +85,7 @@ enum {
 	
 	[self _updateRecipeImageNameCategoryAndSourceCell];
 	[self _updateRecipeDescriptionCell];
+	[self _updateRecipeInstructionsCell];
 
 	[recipeDetailTable reloadData];
 }
@@ -105,6 +105,8 @@ enum {
 	self.recipeCategoryAndSourceLabel = nil;
 	self.recipeDescriptionCell = nil;
 	self.descriptionTextLabel = nil;
+	self.recipeInstructionsCell = nil;
+	self.instructionsLabel = nil;
 }
 
 
@@ -117,6 +119,8 @@ enum {
 	[recipeCategoryAndSourceLabel release];
 	[recipeDescriptionCell release];
 	[descriptionTextLabel release];
+	[recipeInstructionsCell release];
+	[instructionsLabel release];
 	
 	[managedObjectContext release];
 	
@@ -217,14 +221,7 @@ enum {
 		}
 	}
 	else if(indexPath.section == RecipeDetailSectionInstructions) {
-		result = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
-		
-		if(result == nil) {
-			result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"] autorelease];
-			result.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		}
-		
-		result.textLabel.text = [NSString stringWithFormat:@"instruction row %d", indexPath.row + 1];
+		result = recipeInstructionsCell;
 	}
 	
 	return result;
@@ -375,6 +372,30 @@ enum {
 }
 
 
+- (void)_updateRecipeInstructionsCell {
+	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+	
+	instructionsLabel.text = sourceRecipe.instructions;
+	
+	CGFloat height = recipeDetailTable.rowHeight;
+	
+	if([sourceRecipe.instructions length] > 0) {
+		instructionsLabel.textColor = [UIColor blackColor];
+		
+		CGFloat textHeight = [sourceRecipe.instructions sizeWithFont:instructionsLabel.font constrainedToSize:CGSizeMake(instructionsLabel.frame.size.width, 1800.0) lineBreakMode:UILineBreakModeWordWrap].height + 20.0;
+		if(textHeight > height) {
+			height = textHeight;
+		}
+	}
+	else {
+		instructionsLabel.textColor = [UIColor lightGrayColor];
+		instructionsLabel.text = @"No Instructions Set.";
+	}
+	
+	recipeDescriptionCell.frame = CGRectMake(0.0, 0.0, 320.0, height);
+}
+
+
 #pragma mark Properties
 @synthesize recipeDetailTable;
 @synthesize recipeImageNameCategoryAndSourceCell;
@@ -383,6 +404,8 @@ enum {
 @synthesize recipeCategoryAndSourceLabel;
 @synthesize recipeDescriptionCell;
 @synthesize descriptionTextLabel;
+@synthesize recipeInstructionsCell;
+@synthesize instructionsLabel;
 
 @synthesize recipeNameCategoryAndSourceEditorViewController;
 

@@ -18,6 +18,8 @@
 	IBOutlet UILabel* recipeCategoryAndSourceLabel;
 	IBOutlet UITableViewCell* recipeDescriptionCell;
 	IBOutlet UILabel* descriptionTextLabel;
+	IBOutlet UITableViewCell* recipeInstructionsCell;
+	IBOutlet UILabel* instructionsLabel;
 	
 	IBOutlet RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 	
@@ -44,6 +46,8 @@
 @property(nonatomic, retain) UILabel* recipeCategoryAndSourceLabel;
 @property(nonatomic, retain) UITableViewCell* recipeDescriptionCell;
 @property(nonatomic, retain) UILabel* descriptionTextLabel;
+@property(nonatomic, retain) UITableViewCell* recipeInstructionsCell;
+@property(nonatomic, retain) UILabel* instructionsLabel;
 
 @property(nonatomic, retain) RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 
