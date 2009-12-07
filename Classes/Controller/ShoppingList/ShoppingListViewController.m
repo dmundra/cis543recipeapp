@@ -61,6 +61,16 @@
 }
 
 #pragma mark UITableViewDataSource
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		NSMutableDictionary* item = [self.tableData objectAtIndex:indexPath.row];
+		[modifiedShoppingList removeObjectAtIndex:indexPath.row];
+		
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
+
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
     return [self.tableData count];
 }
@@ -73,15 +83,19 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.textLabel.font = [UIFont boldSystemFontOfSize:14];
     }
-    ShoppingListItem *shoppingListItem = [self.tableData objectAtIndex:indexPath.row];
-    cell.textLabel.text = shoppingListItem.ingredient.name;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(shoppingListItem.quantity), NSStringFromUnit(shoppingListItem.unit)];
+    NSMutableDictionary *shoppingListItem = [self.tableData objectAtIndex:indexPath.row];
+    cell.textLabel.text = [shoppingListItem objectForKey:@"Name"];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity([shoppingListItem objectForKey:@"Quantity"]), NSStringFromUnit([shoppingListItem objectForKey:@"Unit"])];
     return cell;
 }
 
 #pragma mark UITableViewDelegate
+- (UITableViewCellEditingStyle)table:(UITableView *)table editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return UITableViewCellEditingStyleDelete;		
+}
+
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	ShoppingListItem* item = [self.tableData objectAtIndex:indexPath.row];
+	NSMutableDictionary* item = [self.tableData objectAtIndex:indexPath.row];
 	// Deselect the selected cell
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
@@ -94,45 +108,15 @@
 
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [table deselectRowAtIndexPath:indexPath animated:YES];
-	ShoppingListItem* item = [self.tableData objectAtIndex:indexPath.row];
+	NSMutableDictionary* item = [self.tableData objectAtIndex:indexPath.row];
 	UITableViewCell *cell = [self.shoppingListTable cellForRowAtIndexPath:indexPath];
 	
-	if ([item.purchased boolValue]) {
+	if ([[item objectForKey:@"Purchased"] boolValue]) {
 		[cell.textLabel setTextColor:[UIColor blackColor]];
-		item.purchased = [NSNumber numberWithBool:NO];
-	
-		// Save the data
-		NSError* error;
-		if(![self.managedObjectContext save:&error]) {
-			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
-			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-			if(detailedErrors != nil && [detailedErrors count] > 0) {
-				for(NSError* detailedError in detailedErrors) {
-					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
-				}
-			}
-			else {
-				NSLog(@"  %@", [error userInfo]);
-			}
-		}
+		[item setObject:[NSNumber numberWithBool:NO] forKey:@"Purchased"];
 	} else {
 		[cell.textLabel setTextColor:[UIColor grayColor]];
-		item.purchased = [NSNumber numberWithBool:YES];
-		
-		// Save the data
-		NSError* error;
-		if(![self.managedObjectContext save:&error]) {
-			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
-			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-			if(detailedErrors != nil && [detailedErrors count] > 0) {
-				for(NSError* detailedError in detailedErrors) {
-					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
-				}
-			}
-			else {
-				NSLog(@"  %@", [error userInfo]);
-			}
-		}
+		[item setObject:[NSNumber numberWithBool:YES] forKey:@"Purchased"];
 	}
 }
 
@@ -209,19 +193,22 @@
 		// Aggregates list by combining similar recipes that have similar units
 		for (ShoppingListItem* listItem in shoppingList) {
 			BOOL flag = YES;
-			for (ShoppingListItem* listItemAlreadyStored in modifiedShoppingList) {
-				if ([listItem.ingredient.name isEqualToString:listItemAlreadyStored.ingredient.name]) {
-					if (listItem.unit == listItemAlreadyStored.unit) {
-						double temp1 = [listItemAlreadyStored.quantity doubleValue]; 
+			for (NSMutableDictionary* listItemAlreadyStored in modifiedShoppingList) {
+				if ([listItem.ingredient.name isEqualToString:[listItemAlreadyStored objectForKey:@"Name"]]) {
+					if ([listItem.unit isEqualToNumber:[listItemAlreadyStored objectForKey:@"Unit"]]) {
+						double temp1 = [[listItemAlreadyStored objectForKey:@"Quantity"] doubleValue]; 
 						double temp2 = [listItem.quantity doubleValue];
-						listItemAlreadyStored.quantity = [NSNumber numberWithDouble:(temp1 + temp2)];
+						
+						[listItemAlreadyStored setObject:[NSNumber numberWithDouble:(temp1 + temp2)] forKey:@"Quantity"];
+						// listItemAlreadyStored.quantity = [NSNumber numberWithDouble:(temp1 + temp2)];
 						flag = NO;
 					}				
 				}
 			}
 			
 			if (flag) {
-				[modifiedShoppingList addObject:listItem];
+				[modifiedShoppingList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:listItem.ingredient.name, @"Name", listItem.unit, @"Unit", listItem.quantity, @"Quantity", listItem.purchased, @"Purchased", nil]];
+				// [modifiedShoppingList addObject:listItem];
 			}
 		}
 		

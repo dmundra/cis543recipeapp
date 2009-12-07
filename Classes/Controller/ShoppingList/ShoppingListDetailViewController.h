@@ -8,14 +8,16 @@
 
 @class ShoppingListItem;
 
-@interface ShoppingListDetailViewController : UIViewController {
-	ShoppingListItem* shoppingListItem;
+@interface ShoppingListDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+	IBOutlet UITableView* recipesTable;
 	
+	NSMutableDictionary* shoppingListItem;	
+	NSFetchedResultsController *fetchedResultsController;
 	NSManagedObjectContext* managedObjectContext;
 }
 
-@property(nonatomic, retain) ShoppingListItem* shoppingListItem;
+@property(nonatomic, retain) UITableView* recipesTable;
 
+@property(nonatomic, retain) NSMutableDictionary* shoppingListItem;
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-
 @end
