@@ -18,7 +18,6 @@
 
 enum {
 	RecipeDetailSectionInfo,
-	RecipeDetailSectionDescription,
 	RecipeDetailSectionIngredients,
 	RecipeDetailSectionInstructions,
 	RecipeDetailSectionCount
@@ -147,6 +146,20 @@ enum {
 
 
 #pragma mark UITableViewDataSource
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	NSString* result = nil;
+	
+	if(section == RecipeDetailSectionIngredients) {
+		result = @"Ingredients:";
+	}
+	else if(section == RecipeDetailSectionInstructions) {
+		result = @"Instructions:";
+	}
+	
+	return result;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell* result = nil;
 	
