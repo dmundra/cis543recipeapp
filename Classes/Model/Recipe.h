@@ -18,7 +18,8 @@ typedef enum {
 	CategorySandwich,
 	CategorySideDish,
 	CategorySalad,
-	CategoryDessert
+	CategoryDessert,
+	CategoryCount
 } Category;
 
 extern const NSInteger kPreparationTimeNotSet;
