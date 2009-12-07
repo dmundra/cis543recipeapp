@@ -41,7 +41,7 @@
 
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
-	self.shoppingListDetailViewController.managedObjectContext = managedObjectContext;
+	self.shoppingListDetailViewController.managedObjectContext = self.managedObjectContext;
 }
 
 - (void)viewDidUnload {

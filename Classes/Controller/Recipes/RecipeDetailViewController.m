@@ -311,7 +311,7 @@ enum {
 	}
 	recipeNameLabel.text = sourceRecipe.name;
 	if([sourceRecipe.source length] > 0) {
-		recipeCategoryAndSourceLabel.text = [NSString stringWithFormat:@"%@, %@", sourceRecipe.category, sourceRecipe.source];
+		recipeCategoryAndSourceLabel.text = [NSString stringWithFormat:@"%@, %@", NSStringFromCategory(sourceRecipe.category), sourceRecipe.source];
 	}
 	else {
 		recipeCategoryAndSourceLabel.text = NSStringFromCategory(sourceRecipe.category);

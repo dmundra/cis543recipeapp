@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="9"/>
+			<integer value="14"/>
 			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -80,10 +80,16 @@
 				</object>
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 			</object>
-			<object class="IBUIViewController" id="814431647">
-				<string key="IBUITitle">Shopping List Detail</string>
+			<object class="IBUIViewController" id="841305587">
 				<string key="IBUINibName">ShoppingListDetailView</string>
-				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
+				<object class="IBUISimulatedNavigationBarMetrics" key="IBUISimulatedTopBarMetrics">
+					<int key="IBUIBarStyle">1</int>
+					<bool key="IBUIPrompted">NO</bool>
+				</object>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
+					<int key="IBUIStatusBarStyle">2</int>
+				</object>
 				<bool key="IBUIWantsFullScreenLayout">YES</bool>
 			</object>
 		</object>
@@ -126,9 +132,9 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">shoppingListDetailViewController</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="814431647"/>
+						<reference key="destination" ref="841305587"/>
 					</object>
-					<int key="connectionID">10</int>
+					<int key="connectionID">15</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -166,8 +172,8 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">9</int>
-						<reference key="object" ref="814431647"/>
+						<int key="objectID">14</int>
+						<reference key="object" ref="841305587"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</object>
@@ -180,10 +186,10 @@
 					<string>-2.CustomClassName</string>
 					<string>1.IBEditorWindowLastContentRect</string>
 					<string>1.IBPluginDependency</string>
+					<string>14.CustomClassName</string>
+					<string>14.IBEditorWindowLastContentRect</string>
+					<string>14.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
-					<string>9.CustomClassName</string>
-					<string>9.IBEditorWindowLastContentRect</string>
-					<string>9.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -191,9 +197,9 @@
 					<string>UIResponder</string>
 					<string>{{354, 376}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>ShoppingListDetailViewController</string>
-					<string>{{0, 376}, {320, 480}}</string>
+					<string>{{126, 205}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -213,7 +219,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">10</int>
+			<int key="maxID">15</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -40,6 +40,8 @@
 		C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BE10CC8EC7008D835B /* emptyImageViewAddButton.png */; };
 		C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C4BF10CC8EC7008D835B /* emptyImageViewAddButtonSelected.png */; };
 		C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C4C610CC9051008D835B /* RecipeImage.m */; };
+		C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */; };
+		C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +54,6 @@
 		32CA4F630368D1EE00C91783 /* RecipeApp_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeApp_Prefix.pch; sourceTree = "<group>"; };
 		46EC574310CC9E18001EAB4E /* ShoppingListDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingListDetailViewController.h; sourceTree = "<group>"; };
 		46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingListDetailViewController.m; sourceTree = "<group>"; };
-		46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListDetailView.xib; sourceTree = "<group>"; };
 		C85F4E2610B5203200F90C8A /* NSDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDebug.h; sourceTree = "<group>"; };
 		C85F4E2710B5203200F90C8A /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		C85F4E2810B5203200F90C8A /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
@@ -103,6 +104,7 @@
 		C8C1C4C310CC8ED2008D835B /* emptyImageView.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = emptyImageView.psd; sourceTree = "<group>"; };
 		C8C1C4C510CC9051008D835B /* RecipeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeImage.h; sourceTree = "<group>"; };
 		C8C1C4C610CC9051008D835B /* RecipeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeImage.m; sourceTree = "<group>"; };
+		C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShoppingListDetailView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,7 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				C85F4E9210B52BA900F90C8A /* ShoppingListView.xib */,
-				46EC574510CC9E18001EAB4E /* ShoppingListDetailView.xib */,
+				C8C1C66310CCAEE0008D835B /* ShoppingListDetailView.xib */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -408,6 +410,7 @@
 				C8C1C4C010CC8EC7008D835B /* emptyImageView.png in Resources */,
 				C8C1C4C110CC8EC7008D835B /* emptyImageViewAddButton.png in Resources */,
 				C8C1C4C210CC8EC7008D835B /* emptyImageViewAddButtonSelected.png in Resources */,
+				C8C1C66410CCAEE0008D835B /* ShoppingListDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +439,7 @@
 				C8C1C3E810CC440D008D835B /* RecipeDetailViewController.m in Sources */,
 				C8C1C41C10CC604D008D835B /* Unit.m in Sources */,
 				C8C1C4C710CC9051008D835B /* RecipeImage.m in Sources */,
+				C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
