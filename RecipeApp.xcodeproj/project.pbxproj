@@ -46,6 +46,7 @@
 		C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EC574410CC9E18001EAB4E /* ShoppingListDetailViewController.m */; };
 		C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */; };
 		C8C1C6B510CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */; };
+		C8C1C82610CCEC79008D835B /* PickerSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C7C610CCE5E6008D835B /* PickerSheetViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,8 @@
 		C8C1C6B110CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecipeNameCategoryAndSourceEditorViewController.h; sourceTree = "<group>"; };
 		C8C1C6B210CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecipeNameCategoryAndSourceEditorViewController.m; sourceTree = "<group>"; };
 		C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeNameCategoryAndSourceEditorView.xib; sourceTree = "<group>"; };
+		C8C1C7C510CCE5E6008D835B /* PickerSheetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerSheetViewController.h; sourceTree = "<group>"; };
+		C8C1C7C610CCE5E6008D835B /* PickerSheetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerSheetViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +219,8 @@
 				C85F4E3110B5204500F90C8A /* Recipes */,
 				C85F4E3410B5204500F90C8A /* Settings */,
 				C85F4E3510B5204500F90C8A /* ShoppingList */,
+				C8C1C7C510CCE5E6008D835B /* PickerSheetViewController.h */,
+				C8C1C7C610CCE5E6008D835B /* PickerSheetViewController.m */,
 				C85F4E3210B5204500F90C8A /* RecipeAppAppDelegate.h */,
 				C85F4E3310B5204500F90C8A /* RecipeAppAppDelegate.m */,
 			);
@@ -460,6 +465,7 @@
 				C8C1C6A510CCB2A8008D835B /* ShoppingListDetailViewController.m in Sources */,
 				C8C1C6B310CCB5DF008D835B /* RecipeNameCategoryAndSourceEditorViewController.m in Sources */,
 				46EC5A1610CCE50D001EAB4E /* ShoppingListRecipeCell.m in Sources */,
+				C8C1C82610CCEC79008D835B /* PickerSheetViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

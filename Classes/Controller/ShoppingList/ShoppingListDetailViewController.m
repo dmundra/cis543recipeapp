@@ -49,10 +49,10 @@
 #pragma mark IBAction
 - (IBAction)showRecipe:(id)sender {
 	
-	for (ShoppingListRecipeCell* cell in [self.recipesTable visibleCells]) {
-		if (cell.button == sender) {
+	for (ShoppingListRecipeCell* aCell in [self.recipesTable visibleCells]) {
+		if (aCell.button == sender) {
 			//NSIndexPath* indexPath = [self.recipesTable indexPathForCell:cell];
-			NSLog(@"%@",cell.label.text);
+			NSLog(@"%@",aCell.label.text);
 		}
 	}	
 }

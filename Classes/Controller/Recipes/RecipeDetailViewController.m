@@ -8,6 +8,7 @@
 
 
 #import "RecipeDetailViewController.h"
+#import "PickerSheetViewController.h"
 #import "RecipeNameCategoryAndSourceEditorViewController.h"
 #import "PreparationMethod.h"
 #import "PreppedIngredient.h"
@@ -98,6 +99,16 @@ enum {
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
 	self.recipeNameCategoryAndSourceEditorViewController.managedObjectContext = self.managedObjectContext;
+	
+	servingsPickerSheetViewController = [[PickerSheetViewController alloc] init];
+	servingsPickerSheetViewController.delegate = self;
+	servingsPickerSheetViewController.pickerView.dataSource = self;
+	servingsPickerSheetViewController.pickerView.delegate = self;
+	
+	prepTimePickerSheetViewController = [[PickerSheetViewController alloc] init];
+	prepTimePickerSheetViewController.delegate = self;
+	prepTimePickerSheetViewController.pickerView.dataSource = self;
+	prepTimePickerSheetViewController.pickerView.delegate = self;
 }
 
 
@@ -125,6 +136,20 @@ enum {
 	[descriptionTextLabel release];
 	[recipeInstructionsCell release];
 	[instructionsLabel release];
+	
+	[recipeNameCategoryAndSourceEditorViewController release];
+	
+	[editButton release];
+	[doneButton release];
+	
+	[cancelButton release];
+	[saveButton release];
+	
+	[servingsPickerSheetViewController release];
+	[prepTimePickerSheetViewController release];
+	
+	[recipe release];
+	[newRecipe release];
 	
 	[managedObjectContext release];
 	
@@ -334,18 +359,26 @@ enum {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// Present the appropriate editor for the selected index path
-	if(indexPath.section == RecipeDetailSectionInfo && indexPath.row == InfoRowNameCategoryAndSource) {
-		// If we're dealing with a new recipe, the subview should not save the context
-		if(recipe != nil) {
-			self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = YES;
+	if(indexPath.section == RecipeDetailSectionInfo) {
+		if(indexPath.row == InfoRowNameCategoryAndSource) {
+			// If we're dealing with a new recipe, the subview should not save the context
+			if(recipe != nil) {
+				self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = YES;
+			}
+			else {
+				self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = NO;
+			}
+			
+			self.recipeNameCategoryAndSourceEditorViewController.recipe = (recipe == nil ? newRecipe : recipe);
+			
+			[((UINavigationController*)self.parentViewController) pushViewController:self.recipeNameCategoryAndSourceEditorViewController animated:YES];
 		}
-		else {
-			self.recipeNameCategoryAndSourceEditorViewController.shouldSaveChanges = NO;
+		else if(indexPath.row == InfoRowServingSize) {
+			[servingsPickerSheetViewController showInWindow:self];
 		}
-		
-		self.recipeNameCategoryAndSourceEditorViewController.recipe = (recipe == nil ? newRecipe : recipe);
-		
-		[((UINavigationController*)self.parentViewController) pushViewController:self.recipeNameCategoryAndSourceEditorViewController animated:YES];
+		else if(indexPath.row == InfoRowPreparationTime) {
+			[prepTimePickerSheetViewController showInWindow:self];
+		}
 	}
 }
 
@@ -363,6 +396,61 @@ enum {
 	}
 	if(indexPath.section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
 		result = recipeInstructionsCell.frame.size.height;
+	}
+	
+	return result;
+}
+
+
+#pragma mark PickerSheetViewControllerDelegate
+- (void)pickerSheetDidDismissWithCancel:(PickerSheetViewController*)pickerSheet {
+	if(pickerSheet == servingsPickerSheetViewController) {
+	}
+	else if(pickerSheet == prepTimePickerSheetViewController) {
+	}
+}
+
+
+- (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet {
+	if(pickerSheet == servingsPickerSheetViewController) {
+	}
+	else if(pickerSheet == prepTimePickerSheetViewController) {
+	}
+}
+
+
+#pragma mark UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	NSInteger result = 1;
+	
+	if(pickerView == servingsPickerSheetViewController.pickerView) {
+	}
+	else if(pickerView == prepTimePickerSheetViewController.pickerView) {
+	}
+	
+	return result;
+}
+
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	NSInteger result = 1;
+	
+	if(pickerView == servingsPickerSheetViewController.pickerView) {
+	}
+	else if(pickerView == prepTimePickerSheetViewController.pickerView) {
+	}
+	
+	return result;
+}
+
+
+#pragma mark UIPickerViewDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	NSString* result = [NSString stringWithFormat:@"%d", row];
+	
+	if(pickerView == servingsPickerSheetViewController.pickerView) {
+	}
+	else if(pickerView == prepTimePickerSheetViewController.pickerView) {
 	}
 	
 	return result;

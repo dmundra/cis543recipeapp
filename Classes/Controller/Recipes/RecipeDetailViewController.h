@@ -7,10 +7,12 @@
 //
 
 
+#import "PickerSheetViewController.h"
+
 @class Recipe, RecipeNameCategoryAndSourceEditorViewController;
 
 
-@interface RecipeDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface RecipeDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
 	IBOutlet UITableView* recipeDetailTable;
 	IBOutlet UITableViewCell* recipeImageNameCategoryAndSourceCell;
 	IBOutlet UIImageView* recipeImageView;
@@ -28,6 +30,9 @@
 	
 	UIBarButtonItem* cancelButton;
 	UIBarButtonItem* saveButton;
+	
+	PickerSheetViewController* servingsPickerSheetViewController;
+	PickerSheetViewController* prepTimePickerSheetViewController;
 	
 	Recipe* recipe;
 	Recipe* newRecipe;
