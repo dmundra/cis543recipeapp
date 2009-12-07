@@ -13,6 +13,10 @@
 #import "ShoppingListItem.h"
 
 
+const NSInteger kPreparationTimeNotSet = 0;
+const NSInteger kServingSizeNotSet = 0;
+
+
 @implementation Recipe 
 #pragma mark Properties (CoreData)
 @dynamic category;
@@ -68,6 +72,60 @@ NSString* NSStringFromCategory(NSNumber* category) {
 		case CategoryDessert:
 			result = @"Dessert";
 			break;
+	}
+	
+	return result;
+}
+
+
+extern NSString* NSStringFromPreparationTime(NSNumber* preparationTime) {
+	NSInteger value = [preparationTime integerValue];
+	NSString* result = nil;
+	
+	NSInteger minutes = 0;
+	NSInteger hours = 0;
+	
+	hours = value / 60;
+	minutes = value % 60;
+	
+	NSString* hoursString = @"";
+	if(hours > 0) {
+		hoursString = [NSString stringWithFormat:@"%d hour%@", hours, (hours == 1 ? @"" : @"s")];
+	}
+	
+	NSString* minutesString = @"";
+	if(minutes > 0) {
+		minutesString = [NSString stringWithFormat:@"%d minute%@", minutes, (minutes == 1 ? @"" : @"s")];
+	}
+	
+	if(value != kPreparationTimeNotSet) {
+		if([hoursString length] > 0 && [minutesString length] > 0) {
+			result = [NSString stringWithFormat:@"%@, %@", hoursString, minutesString];
+		}
+		else if([hoursString length] > 0) {
+			result = hoursString;
+		}
+		else {
+			result = minutesString;
+		}
+	}
+	else {
+		result = @"Not set";
+	}
+	
+	return result;
+}
+
+
+extern NSString* NSStringFromServingSize(NSNumber* servingSize) {
+	NSInteger value = [servingSize integerValue];
+	NSString* result = nil;
+	
+	if(value != kServingSizeNotSet) {
+		result = [NSString stringWithFormat:@"%d serving%@", value, (value == 1 ? @"" : @"s")];
+	}
+	else {
+		result = @"Not set";
 	}
 	
 	return result;

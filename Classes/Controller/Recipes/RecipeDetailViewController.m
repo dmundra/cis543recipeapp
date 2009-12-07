@@ -39,6 +39,8 @@ enum {
 
 
 @interface RecipeDetailViewController (/*Private*/)
+- (void)_addIngredient;
+
 - (void)_updateRecipeImageNameCategoryAndSourceCell;
 - (void)_updateRecipeDescriptionCell;
 - (void)_updateRecipeInstructionsCell;
@@ -183,11 +185,26 @@ enum {
 				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
 		
+			Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 			if(indexPath.row == InfoRowPreparationTime) {
+				if([sourceRecipe.preparationTime integerValue] == kPreparationTimeNotSet) {
+					result.detailTextLabel.textColor = [UIColor lightGrayColor];
+				}
+				else {
+					result.detailTextLabel.textColor = [UIColor blackColor];
+				}
 				result.textLabel.text = @"prep time";
+				result.detailTextLabel.text = NSStringFromPreparationTime(sourceRecipe.preparationTime);
 			}
 			else if(indexPath.row == InfoRowServingSize) {
+				if([sourceRecipe.servingSize integerValue] == kServingSizeNotSet) {
+					result.detailTextLabel.textColor = [UIColor lightGrayColor];
+				}
+				else {
+					result.detailTextLabel.textColor = [UIColor blackColor];
+				}
 				result.textLabel.text = @"servings";
+				result.detailTextLabel.text = NSStringFromServingSize(sourceRecipe.servingSize);
 			}
 		}
 	}
@@ -329,6 +346,11 @@ enum {
 
 
 #pragma mark Private
+- (void)_addIngredient {
+}
+
+
+#pragma mark Private (UI)
 - (void)_updateRecipeImageNameCategoryAndSourceCell {
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 	

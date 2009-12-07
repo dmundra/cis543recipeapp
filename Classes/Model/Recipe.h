@@ -21,6 +21,9 @@ typedef enum {
 	CategoryDessert
 } Category;
 
+extern const NSInteger kPreparationTimeNotSet;
+extern const NSInteger kServingSizeNotSet;
+
 
 @interface Recipe : NSManagedObject {
 }
@@ -53,3 +56,5 @@ typedef enum {
 
 
 extern NSString* NSStringFromCategory(NSNumber* category);
+extern NSString* NSStringFromPreparationTime(NSNumber* preparationTime);
+extern NSString* NSStringFromServingSize(NSNumber* servingSize);

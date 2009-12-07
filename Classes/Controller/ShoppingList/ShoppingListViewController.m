@@ -64,7 +64,6 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		NSMutableDictionary* item = [self.tableData objectAtIndex:indexPath.row];
 		[modifiedShoppingList removeObjectAtIndex:indexPath.row];
 		
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
