@@ -7,7 +7,7 @@
 //
 
 
-@class RecipeDetailViewController;
+@class Recipe, RecipeDetailViewController;
 
 
 @interface RecipesViewController : UIViewController {
@@ -24,6 +24,8 @@
 	NSManagedObjectContext* managedObjectContext;
 }
 - (IBAction)addNewRecipe:(id)sender;
+
+- (void)showDetailViewForRecipe:(Recipe*)recipe;
 
 @property(nonatomic, retain) UITableView* recipesTable;
 @property(nonatomic, retain) UISearchBar* searchBar;

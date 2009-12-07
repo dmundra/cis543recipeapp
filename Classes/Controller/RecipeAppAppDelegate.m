@@ -111,6 +111,20 @@ static NSString* const kDefaultsKeyDefaultPreferencesCreated = @"DefaultsKeyDefa
 	[super dealloc];
 }
 
+
+#pragma mark Public
+- (void)presentRecipe:(Recipe*)recipe {
+	[recipeNavController popToRootViewControllerAnimated:NO];
+	[tabBarController setSelectedViewController:recipeNavController];
+	[self performSelector:@selector(_pushRecipeDetail:) withObject:recipe afterDelay:0.1];
+}
+
+
+- (void)_pushRecipeDetail:(Recipe*)recipe {
+	[recipesViewController showDetailViewForRecipe:recipe];
+}
+
+
 #pragma mark Private
 - (void)_addShoppingListIngredients {
 	NSFetchRequest* request = [[NSFetchRequest alloc] init];

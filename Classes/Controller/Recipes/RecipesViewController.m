@@ -121,6 +121,15 @@
 }
 
 
+#pragma mark Public
+- (void)showDetailViewForRecipe:(Recipe*)recipe {
+	// Set the selected recipe on the detail view
+	recipeDetailViewController.recipe = recipe;
+	// Show the detail view
+	[((UINavigationController*)self.parentViewController) pushViewController:recipeDetailViewController animated:YES];	
+}
+
+
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Recipe *recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];

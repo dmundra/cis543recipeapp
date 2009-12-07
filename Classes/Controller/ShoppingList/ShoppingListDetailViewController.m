@@ -8,6 +8,7 @@
 
 
 #import "ShoppingListDetailViewController.h"
+#import "RecipeAppAppDelegate.h"
 #import "ShoppingListItem.h"
 #import "Ingredient.h"
 #import "Recipe.h"
@@ -51,8 +52,9 @@
 	
 	for (ShoppingListRecipeCell* aCell in [self.recipesTable visibleCells]) {
 		if (aCell.button == sender) {
-			//NSIndexPath* indexPath = [self.recipesTable indexPathForCell:cell];
-			NSLog(@"%@",aCell.label.text);
+			NSIndexPath* indexPath = [self.recipesTable indexPathForCell:aCell];
+			ShoppingListItem* item = [fetchedResultsController objectAtIndexPath:indexPath];
+			[((RecipeAppAppDelegate*)[[UIApplication sharedApplication] delegate]) presentRecipe:item.recipe];
 		}
 	}	
 }

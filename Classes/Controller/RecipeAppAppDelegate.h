@@ -7,7 +7,7 @@
 //
 
 
-@class RecipesViewController, ShoppingListViewController;
+@class Recipe, RecipesViewController, ShoppingListViewController;
 
 
 @interface RecipeAppAppDelegate : NSObject <UIApplicationDelegate> {
@@ -24,6 +24,8 @@
     NSManagedObjectContext* managedObjectContext;	    
     NSPersistentStoreCoordinator* persistentStoreCoordinator;
 }
+- (void)presentRecipe:(Recipe*)recipe;
+
 @property(nonatomic, retain) UIWindow *window;
 @property(nonatomic, retain) UITabBarController* tabBarController;
 @property(nonatomic, retain) UINavigationController* recipeNavController;
