@@ -14,17 +14,31 @@
 #pragma mark View Life Cycle
 - (void)viewDidUnload {
 	self.helpTable = nil;
+	self.helpCell = nil;
 }
 
 
 #pragma mark Memory Management
 - (void)dealloc {
 	[helpTable release];
+	[helpCell release];
 	
     [super dealloc];
 }
 
 
+#pragma mark UITableViewDataSource
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return helpCell;
+}
+
+
+- (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
+	return 1;
+}
+
+
 #pragma mark Properties
 @synthesize helpTable;
+@synthesize helpCell;
 @end

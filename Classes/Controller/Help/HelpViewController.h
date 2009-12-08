@@ -7,8 +7,10 @@
 //
 
 
-@interface HelpViewController : UIViewController {
+@interface HelpViewController : UIViewController <UITableViewDataSource> {
 	IBOutlet UITableView* helpTable;
+	IBOutlet UITableViewCell* helpCell;
 }
 @property(nonatomic, retain) UITableView* helpTable;
+@property(nonatomic, retain) UITableViewCell* helpCell;
 @end
