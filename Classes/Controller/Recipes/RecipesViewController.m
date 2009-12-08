@@ -213,35 +213,6 @@
 	else if ( [@"Ingredient" isEqualToString:scope]){
 		[self.filteredRecipeList filterUsingPredicate:[NSPredicate predicateWithFormat:@"ANY self.recipeItems.ingredient.name contains[cd] %@", searchText]];
 	}
-	/*
-	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
-	 */
-//	for (Recipe *recipe in fetchedResultsController.fetchedObjects)
-//	{
-//		if ([scope isEqualToString:@"All"] || [@"Title" isEqualToString:scope])
-//		{
-//			NSComparisonResult result = [recipe.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-//            if ((result == NSOrderedSame) && (![filteredRecipeList containsObject:recipe]))
-//			{
-//				[self.filteredRecipeList addObject:recipe];
-//            }
-//		}
-//		if ([scope isEqualToString:@"All"] || [@"Ingredient" isEqualToString:scope])
-//		{
-//			for(RecipeItem *ritem in recipe.recipeItems)			{
-//				Ingredient *ingred = ritem.ingredient; 
-//				NSComparisonResult result = [ingred.name compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-//				if ((result == NSOrderedSame)   && (![filteredRecipeList containsObject:recipe]))
-//
-//				{
-//					[self.filteredRecipeList addObject:recipe];
-//				}
-//			}
-//		}
-//		
-//	}
-//OR (self.recipeItems.ingredient.name contains[cd] %@)
-	
 }
 
 
