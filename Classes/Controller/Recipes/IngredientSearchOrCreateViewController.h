@@ -9,9 +9,25 @@
 
 #import "AbstractSearchOrCreateViewController.h"
 
+@class Ingredient;
+
+@protocol IngredientSearchOrCreateViewControllerDelegate;
+
 
 @interface IngredientSearchOrCreateViewController : AbstractSearchOrCreateViewController {
-
+	NSString* ingredientName;
+	
+	NSArray* ingredients;
+	
+	IBOutlet id <IngredientSearchOrCreateViewControllerDelegate> delegate;
 }
+@property(nonatomic, retain) NSString* ingredientName;
 
+@property(nonatomic, assign) id <IngredientSearchOrCreateViewControllerDelegate> delegate;
+@end
+
+
+@protocol IngredientSearchOrCreateViewControllerDelegate <NSObject>
+- (void)didChooseIngredient:(Ingredient*)ingredient;
+- (void)didCreateNewIngredient:(NSString*)ingredientName;
 @end

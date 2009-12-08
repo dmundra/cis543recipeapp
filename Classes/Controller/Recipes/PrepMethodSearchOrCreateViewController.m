@@ -33,6 +33,7 @@
 	
 	[preparationMethods release];
 	preparationMethods = [[self.managedObjectContext executeFetchRequest:fetchRequest error:nil] retain];
+	[fetchRequest release];
 	
 	return [preparationMethods valueForKey:@"name"];
 }

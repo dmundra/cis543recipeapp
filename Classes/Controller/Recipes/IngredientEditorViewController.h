@@ -14,7 +14,7 @@
 @class RecipeItem;
 
 
-@interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, PrepMethodSearchOrCreateViewControllerDelegate> {
+@interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, IngredientSearchOrCreateViewControllerDelegate, PrepMethodSearchOrCreateViewControllerDelegate> {
 	IBOutlet UITableView* ingredientTable;
 	IBOutlet UITableViewCell* changeUnitQuantityButtonsCell;
 	IBOutlet UITableViewCell* unitQuantityCell;
@@ -31,6 +31,10 @@
 	
 	RecipeItem* recipeItem;
 	RecipeItem* newRecipeItem;
+	PreparationMethod* preparationMethod;
+	NSString* newPrepMethod;
+	Ingredient* ingredient;
+	NSString* newIngredient;
 	BOOL resetForNewRecipeItem;
 	
 	BOOL shouldSaveChanges;

@@ -13,6 +13,7 @@
 @interface PickerSheetViewController : NSObject <UIPickerViewDelegate> {
 	UIActionSheet* actionSheet;
 	UIPickerView* pickerView;
+	UIToolbar* toolbar;
 	
 	id <PickerSheetViewControllerDelegate> delegate;
 }
@@ -20,8 +21,10 @@
 - (id)initWithUIPickerView:(UIPickerView*)pickerView;
 
 - (IBAction)showInWindow:(id)sender;
+- (IBAction)dismiss:(id)sender;
 
 @property(nonatomic, retain, readonly) UIPickerView* pickerView;
+@property(nonatomic, retain, readonly) UIToolbar* toolbar;
 
 @property(nonatomic, assign) id <PickerSheetViewControllerDelegate> delegate;
 @end

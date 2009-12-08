@@ -45,7 +45,7 @@
 	actionSheet.frame = CGRectMake(0.0, 0.0, 320.0, 260.0);
 	[actionSheet addSubview:pickerView];
 	pickerView.frame = CGRectMake(0.0, 44.0, pickerView.frame.size.width, pickerView.frame.size.height);
-	UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
+	toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
 	toolbar.barStyle = UIBarStyleBlackOpaque;
 	UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(_cancel:)];
 	UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
@@ -60,6 +60,7 @@
 - (void)dealloc {
 	[actionSheet release];
 	[pickerView release];
+	[toolbar release];
 	
 	// delegate not retained
 	
@@ -71,6 +72,11 @@
 -(IBAction)showInWindow:(id)sender {
 	[actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
 	actionSheet.frame = CGRectMake(0.0, 220.0, 320.0, 260.0);
+}
+
+
+- (IBAction)dismiss:(id)sender {
+	[actionSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 
@@ -93,6 +99,7 @@
 
 #pragma mark Properties
 @synthesize pickerView;
+@synthesize toolbar;
 
 @synthesize delegate;
 @end

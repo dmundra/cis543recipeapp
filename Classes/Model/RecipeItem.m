@@ -36,7 +36,7 @@ NSString* NSStringFromQuantity(NSNumber* quantity) {
 		[numberFormatter setMaximumFractionDigits:2];
 	}
 	
-	if(value == kQuantityToTaste) {
+	if(value >= (kQuantityToTaste - 0.1) && value <= (kQuantityToTaste + 0.1)) {
 		result = @"add to taste";
 	} else {		
 		result = [numberFormatter stringFromNumber:quantity];

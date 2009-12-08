@@ -34,7 +34,8 @@ enum {
 @interface IngredientEditorViewController (/*Private*/)
 - (void)_updateQuantityUnitCell;
 - (void)_updatePreppedIngredientCell;
-- (void)_updateUnitQuantityLabel;
+
+- (void)_addToTasteQuantitySelected;
 
 @property(nonatomic, retain, readonly) RecipeItem* _recipeItemToEdit;
 @end
@@ -92,7 +93,6 @@ static NSNumberFormatter* numberFormatter;
 	// Update the UI to reflect the current state
 	[self _updateQuantityUnitCell];
 	[self _updatePreppedIngredientCell];
-	[self _updateUnitQuantityLabel];
 	
 	[ingredientTable reloadData];
 }
@@ -108,6 +108,11 @@ static NSNumberFormatter* numberFormatter;
 	quantityPickerSheetViewController.pickerView.dataSource = self;
 	quantityPickerSheetViewController.pickerView.delegate = self;
 	quantityPickerSheetViewController.pickerView.showsSelectionIndicator = YES;
+	NSMutableArray* items = [NSMutableArray arrayWithArray:quantityPickerSheetViewController.toolbar.items];
+	[items insertObject:[[[UIBarButtonItem alloc] initWithTitle:@"Add To Taste" style:UIBarButtonItemStyleDone target:self action:@selector(_addToTasteQuantitySelected)] autorelease] atIndex:2];
+	[items insertObject:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL] autorelease] atIndex:3];
+	quantityPickerSheetViewController.toolbar.items = items;
+	
 	unitPickerSheetViewController = [[PickerSheetViewController alloc] init];
 	unitPickerSheetViewController.delegate = self;
 	unitPickerSheetViewController.pickerView.dataSource = self;
@@ -279,9 +284,7 @@ static NSNumberFormatter* numberFormatter;
 		NSInteger tens = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentTens];
 		NSInteger hundreds = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentHundreds];
 		NSInteger decimal = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentDecimal];
-		
-		NSString* quantityValue = [NSString stringWithFormat:@"%d%d%d%@", hundreds, tens, ones, [numberFormatter stringFromNumber:[NSNumber numberWithFloat:(float)decimal * 0.05]]];
-		self._recipeItemToEdit.quantity = [NSNumber numberWithFloat:[quantityValue floatValue]];
+		self._recipeItemToEdit.quantity = [NSNumber numberWithDouble:(double)(hundreds * 100) + (double)(tens * 10) + (double)ones + ((double)decimal * 0.05)];
 	
 	} else if(pickerSheet == unitPickerSheetViewController) {
 		NSInteger unit = [pickerSheet.pickerView selectedRowInComponent:0];
@@ -289,7 +292,7 @@ static NSNumberFormatter* numberFormatter;
 		self._recipeItemToEdit.unit = [NSNumber numberWithInteger:unit];		
 	}
 	
-	[self _updateUnitQuantityLabel];
+	[self _updateQuantityUnitCell];
 }
 
 
@@ -335,17 +338,16 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark UIPickerViewDelegate
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+	CGFloat result = 280.0;
+	
 	if(pickerView == quantityPickerSheetViewController.pickerView) {
-		CGFloat width = 55;
-		if (component == 0 || component == 1 || component == 2) {
-			width = 30;
+		result = 30.0;
+		if (component == QuantityPickerComponentDecimal) {
+			result = 55.0;
 		}
-		return width;
-	} else if (pickerView == unitPickerSheetViewController.pickerView) {
-		return 280.0;
- 	} else {
-		return 280.0;
 	}
+	
+	return result;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
@@ -375,6 +377,12 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark Private
 - (void)_updateQuantityUnitCell {
+	if([self._recipeItemToEdit.quantity doubleValue] >= 0.0) {
+		unitQuantityLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(self._recipeItemToEdit.quantity), NSStringFromUnit(self._recipeItemToEdit.unit)];
+	}
+	else {
+		unitQuantityLabel.text = NSStringFromQuantity(self._recipeItemToEdit.quantity);
+	}
 }
 
 
@@ -382,8 +390,12 @@ static NSNumberFormatter* numberFormatter;
 }
 
 
-- (void)_updateUnitQuantityLabel {
-	[unitQuantityLabel setText:[NSString stringWithFormat:@"%@ %@",NSStringFromQuantity(self._recipeItemToEdit.quantity),NSStringFromUnit(self._recipeItemToEdit.unit)]];
+- (void)_addToTasteQuantitySelected {
+	[quantityPickerSheetViewController dismiss:self];
+	
+	self._recipeItemToEdit.quantity = [NSNumber numberWithDouble:kQuantityToTaste];
+	
+	[self _updateQuantityUnitCell];	
 }
 
 

@@ -9,6 +9,7 @@
 
 #import "AbstractSearchOrCreateViewController.h"
 
+@class PreparationMethod;
 
 @protocol PrepMethodSearchOrCreateViewControllerDelegate;
 
@@ -27,6 +28,6 @@
 
 
 @protocol PrepMethodSearchOrCreateViewControllerDelegate <NSObject>
-- (void)didChoosePrepMethod:(NSString*)prepMethodName;
+- (void)didChoosePrepMethod:(PreparationMethod*)preparationMethod;
 - (void)didCreateNewPrepMethod:(NSString*)prepMethodName;
 @end
