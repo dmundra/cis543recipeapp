@@ -8,11 +8,13 @@
 
 
 #import "PickerSheetViewController.h"
+#import "IngredientSearchOrCreateViewController.h"
+#import "PrepMethodSearchOrCreateViewController.h"
 
-@class RecipeItem, IngredientSearchOrCreateViewController, PrepMethodSearchOrCreateViewController;
+@class RecipeItem;
 
 
-@interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, PrepMethodSearchOrCreateViewControllerDelegate> {
 	IBOutlet UITableView* ingredientTable;
 	IBOutlet UITableViewCell* changeUnitQuantityButtonsCell;
 	IBOutlet UITableViewCell* unitQuantityCell;

@@ -99,6 +99,9 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark View Life Cycle
 - (void)viewDidLoad {
+	ingredientSearchOrCreateViewController.managedObjectContext = self.managedObjectContext;
+	prepMethodSearchOrCreateViewController.managedObjectContext = self.managedObjectContext;
+	
 	quantityPickerSheetViewController = [[PickerSheetViewController alloc] init];
 	quantityPickerSheetViewController.delegate = self;
 	quantityPickerSheetViewController.pickerView.dataSource = self;

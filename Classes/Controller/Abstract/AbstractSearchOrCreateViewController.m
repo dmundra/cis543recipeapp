@@ -37,10 +37,12 @@
 #pragma mark View Management
 - (void)viewDidAppear:(BOOL)animated {
 	[unfilteredNames release];
-	unfilteredNames = [self _names];
+	unfilteredNames = [[self _names] retain];
 	
 	[filterTerm release];
-	filterTerm = nil;
+	filterTerm = [self _initialFilterTerm];
+	
+	nameTextField.text = filterTerm;
 	
 	[self _filterNamesAndUpdateTable];
 	
@@ -66,12 +68,36 @@
 	[unfilteredNames release];
 	[filteredNames release];
 	
+	[managedObjectContext release];
+	
     [super dealloc];
 }
 
 
 #pragma mark IBAction
 - (IBAction)done:(id)sender {
+	NSString* result = nameTextField.text;
+	
+	if([result length] > 0) {
+		NSInteger resultIndex = -1;
+		for(int index = 0; index < [unfilteredNames count] || resultIndex == -1; ++index) {
+			NSString* name = [unfilteredNames objectAtIndex:index];
+			if([result isEqualToString:name]) {
+				resultIndex = index;
+			}
+		}
+		
+		if(resultIndex > -1) {
+			[self _choseNameAtIndex:resultIndex];
+		}
+		else {
+			[self _createdName:result];
+		}
+	}
+	else {
+		[self _createdName:nil];
+	}
+	
 	[nameTextField resignFirstResponder];
 	
 	[UIView beginAnimations:@"searchTableResize" context:nil];
@@ -91,13 +117,14 @@
 	if(result == nil) {
 		result = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"] autorelease];
 	}
+	result.textLabel.text = [filteredNames objectAtIndex:indexPath.row];
 	
 	return result;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 0;
+	return [filteredNames count];
 }
 
 
@@ -138,7 +165,11 @@
 	[filteredNames removeAllObjects];
 
 	if([filterTerm length] > 0) {
-		[filteredNames addObjectsFromArray:[unfilteredNames filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self beginswith '%@'"]]];
+		for(NSString* string in unfilteredNames) {
+			if([string hasPrefix:filterTerm]) {
+				[filteredNames addObject:string];
+			}
+		}
 	}
 	else {
 		[filteredNames addObjectsFromArray:unfilteredNames];
@@ -169,4 +200,6 @@
 @synthesize nameLabel;
 @synthesize nameTextField;
 @synthesize doneButton;
+
+@synthesize managedObjectContext;
 @end

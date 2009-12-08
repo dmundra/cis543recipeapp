@@ -18,6 +18,8 @@
 	NSMutableArray* filteredNames;
 	
 	BOOL keyboardShown;
+	
+	NSManagedObjectContext* managedObjectContext;
 }
 - (IBAction)done:(id)sender;
 
@@ -25,4 +27,6 @@
 @property(nonatomic, retain) UILabel* nameLabel;
 @property(nonatomic, retain) UITextField* nameTextField;
 @property(nonatomic, retain) UIBarButtonItem* doneButton;
+
+@property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end
