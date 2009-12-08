@@ -34,11 +34,23 @@ enum {
 @interface IngredientEditorViewController (/*Private*/)
 - (void)_updateQuantityUnitCell;
 - (void)_updatePreppedIngredientCell;
+- (void)_updateUnitQuantityLabel;
 @end
+
+
+static NSNumberFormatter* numberFormatter;
 
 
 @implementation IngredientEditorViewController
 #pragma mark Initialization
++ (void)initialize {
+	numberFormatter = [[NSNumberFormatter alloc] init];
+	[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	[numberFormatter setMaximumIntegerDigits:0];
+}
+
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
 		self.navigationItem.title = @"Edit Ingredient";
@@ -65,10 +77,12 @@ enum {
 	quantityPickerSheetViewController.delegate = self;
 	quantityPickerSheetViewController.pickerView.dataSource = self;
 	quantityPickerSheetViewController.pickerView.delegate = self;
+	quantityPickerSheetViewController.pickerView.showsSelectionIndicator = YES;
 	unitPickerSheetViewController = [[PickerSheetViewController alloc] init];
 	unitPickerSheetViewController.delegate = self;
 	unitPickerSheetViewController.pickerView.dataSource = self;
 	unitPickerSheetViewController.pickerView.delegate = self;
+	unitPickerSheetViewController.pickerView.showsSelectionIndicator = YES;
 }
 
 
@@ -127,10 +141,12 @@ enum {
 
 
 - (IBAction)pickQuantity:(id)sender {
+	[quantityPickerSheetViewController showInWindow:self];
 }
 
 
 - (IBAction)pickUnit:(id)sender {
+	[unitPickerSheetViewController showInWindow:self];
 }
 
 
@@ -212,12 +228,9 @@ enum {
 }
 
 
+
+
 #pragma mark PickerSheetViewControllerDelegate
-- (void)pickerSheetDidDismissWithCancel:(PickerSheetViewController*)pickerSheet {
-	// Nothing to do here
-}
-
-
 - (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet {
 	if(pickerSheet == quantityPickerSheetViewController) {
 	}
@@ -267,6 +280,20 @@ enum {
 
 
 #pragma mark UIPickerViewDelegate
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+	if(pickerView == quantityPickerSheetViewController.pickerView) {
+		CGFloat width = 55;
+		if (component == 0 || component == 1 || component == 2) {
+			width = 30;
+		}
+		return width;
+	} else if (pickerView == unitPickerSheetViewController.pickerView) {
+		return 280.0;
+ 	} else {
+		return 280.0;
+	}
+}
+
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	NSString* result = nil;
 
@@ -281,7 +308,7 @@ enum {
 			result = [NSString stringWithFormat:@"%d", row];
 		}
 		else if(component == QuantityPickerComponentDecimal) {
-			result = [NSString stringWithFormat:@"%d", row];
+			result = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:(float)row * 0.05]]; 
 		}
 	}
 	else if(pickerView == unitPickerSheetViewController.pickerView) {
@@ -298,6 +325,11 @@ enum {
 
 
 - (void)_updatePreppedIngredientCell {
+}
+
+
+- (void)_updateUnitQuantityLabel {
+
 }
 
 

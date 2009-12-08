@@ -179,7 +179,7 @@ enum {
 	return YES;
 }
 
-
+#pragma mark Private
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];	
 	return NO;
