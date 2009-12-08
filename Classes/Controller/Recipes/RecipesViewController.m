@@ -83,6 +83,49 @@
 }
 
 #pragma mark UITableViewDataSource
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	Recipe* recipe = nil;
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		
+		if (tableView == self.searchDisplayController.searchResultsTableView) {
+			recipe = [self.filteredRecipeList objectAtIndex:indexPath.row];			
+		} else {
+			recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];			
+		}
+		
+		[managedObjectContext deleteObject:recipe];
+		
+		NSError* error;
+		// Save the data
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			} else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+		
+		NSIndexPath* mainTableIndexPath = indexPath;
+		if (tableView == self.searchDisplayController.searchResultsTableView) {
+			mainTableIndexPath = [fetchedResultsController indexPathForObject:recipe];
+			
+			[self.filteredRecipeList release];
+			filteredRecipeList = nil;
+			
+			[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];			
+		}	
+
+		[self.fetchedResultsController release];
+		fetchedResultsController = nil;
+		
+		[self.recipesTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:mainTableIndexPath] withRowAnimation:UITableViewRowAnimationFade];	
+	}
+}
+
 - (NSInteger)tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
 	if (table == self.searchDisplayController.searchResultsTableView)
 	{
@@ -133,6 +176,10 @@
 
 
 #pragma mark UITableViewDelegate
+- (UITableViewCellEditingStyle)table:(UITableView *)table editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return UITableViewCellEditingStyleDelete;		
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	Recipe *recipe = [self.fetchedResultsController objectAtIndexPath:indexPath];
 	// Deselect the selected cell
