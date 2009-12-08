@@ -12,9 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="16"/>
 			<integer value="39"/>
 			<integer value="25"/>
+			<integer value="16"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -344,14 +344,12 @@
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics" id="949279777">
 					<int key="IBUIStatusBarStyle">2</int>
 				</object>
-				<bool key="IBUIWantsFullScreenLayout">YES</bool>
 			</object>
 			<object class="IBUIViewController" id="992959009">
 				<string key="IBUITitle">Pick Prep. Method</string>
 				<string key="IBUINibName">SearchOrCreateView</string>
 				<reference key="IBUISimulatedTopBarMetrics" ref="79681503"/>
 				<reference key="IBUISimulatedStatusBarMetrics" ref="949279777"/>
-				<bool key="IBUIWantsFullScreenLayout">YES</bool>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">

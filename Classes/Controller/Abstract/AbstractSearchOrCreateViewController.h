@@ -6,11 +6,9 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 
 @interface AbstractSearchOrCreateViewController : UIViewController {
 
 }
-
+- (IBAction)done:(id)sender;
 @end
