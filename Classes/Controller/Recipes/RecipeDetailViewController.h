@@ -12,7 +12,9 @@
 @class Recipe, RecipeNameCategoryAndSourceEditorViewController, DescriptionEditorViewController, AddIngredientViewController, AddToShoppingCartViewController, InstructionsEditorViewController;
 
 
+// The Recipe Detail View Controller class
 @interface RecipeDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate> {
+	// IBOutlet UI Components 
 	IBOutlet UITableView* recipeDetailTable;
 	IBOutlet UITableViewCell* recipeImageNameCategoryAndSourceCell;
 	IBOutlet UIImageView* recipeImageView;
@@ -26,12 +28,14 @@
 	IBOutlet UITableViewCell* recipeInstructionsCell;
 	IBOutlet UILabel* instructionsLabel;
 	
+	// IBOutlet Child View Controllers
 	IBOutlet RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 	IBOutlet DescriptionEditorViewController* descriptionEditorViewController;
 	IBOutlet AddIngredientViewController* addIngredientViewController;
 	IBOutlet AddToShoppingCartViewController* addToShoppingCartViewController;
 	IBOutlet InstructionsEditorViewController* instructionsEditorViewController;
 	
+	// Other UI Components
 	UIBarButtonItem* editButton;
 	UIBarButtonItem* doneButton;
 	
@@ -41,15 +45,18 @@
 	PickerSheetViewController* servingsPickerSheetViewController;
 	PickerSheetViewController* prepTimePickerSheetViewController;
 	
+	// Recipe instances
 	Recipe* recipe;
 	Recipe* newRecipe;
 	
+	// Various state flags
 	BOOL singleEditMode;
-	
 	BOOL resetForNewRecipe;
 	
+	// The database context
 	NSManagedObjectContext* managedObjectContext;
 }
+// IBActions
 - (IBAction)edit:(id)sender;
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;
@@ -57,6 +64,7 @@
 - (IBAction)selectImage:(id)sender;
 - (IBAction)addToCart:(id)sender;
 
+// Property declarations
 @property(nonatomic, retain) UITableView* recipeDetailTable;
 @property(nonatomic, retain) UITableViewCell* recipeImageNameCategoryAndSourceCell;
 @property(nonatomic, retain) UIImageView* recipeImageView;

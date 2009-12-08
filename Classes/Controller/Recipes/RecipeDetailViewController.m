@@ -23,6 +23,7 @@
 #import "Unit.h"
 
 
+// Useful enums for table dimensions
 enum {
 	RecipeDetailSectionInfo,
 	RecipeDetailSectionAddIngredientsButton,
@@ -40,10 +41,16 @@ enum {
 };
 
 enum {
+	AddIngredientButtonRowButton,
+	AddIngredientButtonRowCount
+};
+
+enum {
 	InstructionsRowInstructions,
 	InstructionsRowCount
 };
 
+// Enum for Action Sheet button index
 enum {
 	ActionButtonIndexRemove,
 	ActionButtonIndexTakePicture,
@@ -51,6 +58,7 @@ enum {
 };
 
 
+// Private method declarations
 @interface RecipeDetailViewController (/*Private*/)
 - (void)_addIngredient;
 
@@ -64,8 +72,12 @@ enum {
 @end
 
 
+// Class Implementation
 @implementation RecipeDetailViewController
 #pragma mark Initialization
+/**
+ * Constructor called when instance is initialized from a IB file
+ */
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
 		// Buttons for normal mode
@@ -85,19 +97,28 @@ enum {
 
 
 #pragma mark View Management
+/**
+ * Update the view before it is displayed
+ */
 - (void)viewWillAppear:(BOOL)animated {
+	// Only reset the state of the view if a new recipe has been assigned
 	if(resetForNewRecipe) {
+		// If we're being shown without a recipe set, assume new recipe mode
 		if(recipe == nil) {
+			
+			// Only create a new recipe if one does not already exist (this way we don't clear the recipe when an editor view returns to us)
 			if(newRecipe == nil) {
 				newRecipe = [[NSEntityDescription insertNewObjectForEntityForName:@"Recipe" inManagedObjectContext:self.managedObjectContext] retain];
 			}
 			
+			// Set the navigation item for new recipe mode
 			self.navigationItem.title = @"New Recipe";
 			self.navigationItem.leftBarButtonItem = cancelButton;
 			self.navigationItem.rightBarButtonItem = saveButton;
 			recipeDetailTable.editing = YES;
 		}
 		else {
+			// Set the navigation item for normal recipe mode
 			recipeDetailTable.editing = NO;
 			self.navigationItem.title = recipe.name;
 			self.navigationItem.leftBarButtonItem = nil;
@@ -107,6 +128,7 @@ enum {
 		resetForNewRecipe = NO;
 	}
 
+	// Update the UI to reflect the current state
 	[self _updateRecipeImageNameCategoryAndSourceCell];
 	[self _updateRecipeDescriptionCell];
 	[self _updateRecipeInstructionsCell];
@@ -116,6 +138,9 @@ enum {
 
 
 #pragma mark View Life Cycle
+/**
+ * Handle the view loading from the IB file
+ */
 - (void)viewDidLoad {
 	self.recipeNameCategoryAndSourceEditorViewController.managedObjectContext = self.managedObjectContext;
 	self.descriptionEditorViewController.managedObjectContext = self.managedObjectContext;
@@ -135,6 +160,10 @@ enum {
 }
 
 
+/**
+ * Handle the unloading of the view; This happens when a memory warning occurs and only when the view is not visible or in a view hierarchy.  The view objects
+ * will be reloaded (and viewDidLoad will be invoked again) when the view is needed.  Release all IB assigned things here, or anything created in viewDidLoad.
+ */
 - (void)viewDidUnload {
 	self.recipeDetailTable = nil;
 	self.recipeImageNameCategoryAndSourceCell = nil;
@@ -158,6 +187,9 @@ enum {
 
 
 #pragma mark Memory Management
+/**
+ * Release all resources
+ */
 - (void)dealloc {
 	[recipeDetailTable release];
 	[recipeImageNameCategoryAndSourceCell release];
@@ -197,9 +229,15 @@ enum {
 
 
 #pragma mark IBAction
+/**
+ * Handle switching from normal mode to edit mode
+ */
 - (IBAction)edit:(id)sender {	
+	// Set the table editing
 	[recipeDetailTable setEditing:YES animated:YES];
 	
+	// Adjust the table view to hide the add ingredients button and show the add ingredient row in the ingredients section.  The modified section isn't used
+	// here because we're in between normal/edit mode.  Make sure to use the correct recipe instance.
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 	[recipeDetailTable beginUpdates];
 	[recipeDetailTable deleteSections:[NSIndexSet indexSetWithIndex:RecipeDetailSectionAddIngredientsButton] withRowAnimation:UITableViewRowAnimationFade];
@@ -207,34 +245,46 @@ enum {
 	[recipeDetailTable endUpdates];
 	[recipeDetailTable reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 	
+	// Update cells to allow selection and change the nav bar button to done
 	[self _updateVisibleCellsForEditMode];
 	[self.navigationItem setRightBarButtonItem:doneButton animated:YES];
 }
 
 
+/**
+ * Handle switching from edit mode to normal mode
+ */
 - (IBAction)done:(id)sender {
+	// Set the table to not editing
 	[recipeDetailTable setEditing:NO animated:YES];
 	
-	
+	// Only adjust the table structure if we're not in single edit mode.  Single edit mode indicates someone did a horizontal swipe to delete in normal mode.
 	if(singleEditMode) {
 		singleEditMode = NO;
 	}
 	else {
+		// Adjust the table view to show the add ingredients button and hide the add ingredient row in the ingredients section.  The modified section isn't used
+		// here because we're in between normal/edit mode.  Make sure to use the correct recipe instance.
 		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 		[recipeDetailTable beginUpdates];
 		[recipeDetailTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:[sourceRecipe.recipeItems count] inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
 		[recipeDetailTable insertSections:[NSIndexSet indexSetWithIndex:RecipeDetailSectionAddIngredientsButton] withRowAnimation:UITableViewRowAnimationFade];
 		[recipeDetailTable endUpdates];
 
+		// Update cells to allow selection 
 		[self _updateVisibleCellsForEditMode];
 	}
 	
+	// Change the nav bar button to done
 	[self.navigationItem setRightBarButtonItem:editButton animated:YES];
 }
 
 
+/**
+ * Handle the cancel button in new recipe mode
+ */
 - (IBAction)cancel:(id)sender {
-	// Release the new recipe and rollback the changes to the context
+	// Reset the view state and rollback the changes to the context
 	[newRecipe release];
 	newRecipe = nil;
 	
@@ -247,6 +297,9 @@ enum {
 }
 
 
+/**
+ * Handle the save button in new recipe mode
+ */
 - (IBAction)save:(id)sender {
 	// Save the new recipe then release it
 	NSError* error;
@@ -263,6 +316,7 @@ enum {
 		}
 	}
 	
+	// Reset the view state
 	[newRecipe release];
 	newRecipe = nil;
 	
@@ -273,7 +327,11 @@ enum {
 }
 
 
+/**
+ * Handle the add photo button in edit mode
+ */
 - (IBAction)selectImage:(id)sender {
+	// Create an action sheet and display it that asks what the user wants to do
 	UIActionSheet* actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Image" otherButtonTitles:@"Take A Picture", @"Choose A Picture", nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
 	[actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
@@ -281,7 +339,11 @@ enum {
 }
 
 
+/**
+ * Handle add ingredients to shopping cart 
+ */
 - (IBAction)addToCart:(id)sender {
+	// Set the add to shopping cart view recipe and present it as a modal view
 	addToShoppingCartViewController.recipe = recipe;
 	
 	[self presentModalViewController:addToShoppingCartViewController animated:YES];
@@ -289,10 +351,15 @@ enum {
 
 
 #pragma mark UITableViewDataSource
+/**
+ * Provides a header string for table view sections
+ */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString* result = nil;
 	
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger modifiedSection = [self _modifySectionIndex:section];
+	// Return the appropriate header for the section
 	if(modifiedSection == RecipeDetailSectionIngredients) {
 		result = @"Ingredients:";
 	}
@@ -304,10 +371,15 @@ enum {
 }
 
 
+/**
+ * Provides a cell for table view rows
+ */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell* result = nil;
 	
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	// Return an appropriate cell for the indexPath (section and row)
 	if(section == RecipeDetailSectionInfo) {
 		if(indexPath.row == InfoRowNameCategoryAndSource) {
 			result = recipeImageNameCategoryAndSourceCell;
@@ -316,6 +388,8 @@ enum {
 			result = recipeDescriptionCell;
 		}
 		else {
+			// Prep time and serving size cells are displayed using a Value2 style cell, which shows the name of the field on the left
+			// and the data on the right (similar to the address book)
 			result = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
 			
 			if(result == nil) {
@@ -324,6 +398,7 @@ enum {
 				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
 		
+			// Set the content of the cell appropriately based on the row index, make sure to use the correct recipe instance
 			Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
 			if(indexPath.row == InfoRowPreparationTime) {
 				if([sourceRecipe.preparationTime integerValue] == kPreparationTimeNotSet) {
@@ -351,10 +426,14 @@ enum {
 		result = addToShoppingCartButtonCell;
 	}
 	else if(section == RecipeDetailSectionIngredients) {
+		// Each ingredient is presented in a row of its own using a Subtitle style cell.  The ingredient name is presented as the main text
+		// with the quantity and unit presented as a subtitle.  Additionally the row of the section is a simple cell allowing the user to tap to add
+		// an ingredient when the table is in edit mode
 		NSInteger ingredientIndex = indexPath.row;
 
-		// If the table view is in editing mode, the last ingredient row will be an "Add ingredient..." row
+		// Make sure we use the correct recipe instance
 		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+		// If the table view is in editing mode, the last ingredient row will be an "Add ingredient..." row to allow for adding a new ingredient
 		if(tableView.editing && !singleEditMode && ingredientIndex == [sourceRecipe.recipeItems count]) {
 			result = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
 			
@@ -367,6 +446,7 @@ enum {
 			result.textLabel.text = @"Add Ingredient...";
 		}
 		else {
+			// Create a subtitle style cell and set the ingredient data for display
 			result = [tableView dequeueReusableCellWithIdentifier:@"IngredientCell"];
 			
 			if(result == nil) {
@@ -389,6 +469,7 @@ enum {
 		result = recipeInstructionsCell;
 	}
 	
+	// If we're editing (and not in single edit mode) make the cells selectable, otherwise make them not selectable
 	if(tableView.editing && !singleEditMode) {
 		result.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
@@ -400,9 +481,13 @@ enum {
 }
 
 
+/**
+ * Returns the number of sections in the table view
+ */
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	NSInteger result = RecipeDetailSectionCount;
 	
+	// If we're adding a new recipe or in edit mode for an existing recipe, we don't want to show the add ingredients button
 	if(recipe == nil || (recipe != nil && recipeDetailTable.editing && !singleEditMode)) {
 		--result;
 	}
@@ -411,17 +496,23 @@ enum {
 }
 
 
+/**
+ * Returns the number of rows in the specified table view section
+ */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger result = 0;
 	
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger modifiedSection = [self _modifySectionIndex:section];
+	// Use the various enum constants defined above to return the correct value
 	if(modifiedSection == RecipeDetailSectionInfo) {
 		result = InfoRowCount;
 	}
 	else if(modifiedSection == RecipeDetailSectionAddIngredientsButton) {
-		result = 1;
+		result = AddIngredientButtonRowCount;
 	}
 	else if(modifiedSection == RecipeDetailSectionIngredients) {
+		// Make sure to use the correct recipe instance
 		if(recipe != nil) {
 			result = [recipe.recipeItems count];
 		}
@@ -429,7 +520,7 @@ enum {
 			result = [newRecipe.recipeItems count];
 		}
 
-		// If in edit mode, an "Add ingredient..." row will be inserted at the top of the ingredients section
+		// If in edit mode, an "Add ingredient..." row will be inserted at the bottom of the ingredients section
 		if(tableView.editing && !singleEditMode) {
 			++result;
 		}
@@ -442,13 +533,21 @@ enum {
 }
 
 
+/**
+ * Handles the user tapping on the editing style (the + or - widget to the right of a table row while in edit mode, or a confirmed swipe to delete
+ * gesture when not in edit mode).
+ */
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	// Make sure to handle the correct recipe instance
 	Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	// If the row is the last row and we're editing, add a new ingredient
 	if(tableView.editing && !singleEditMode && section == RecipeDetailSectionIngredients && indexPath.row == [sourceRecipe.recipeItems count]) {
 		[self _addIngredient];
 	}
 	else {
+		// Delete the ingredient at the index specified
 		RecipeItem* itemToRemove = [sourceRecipe.sortedRecipeItems objectAtIndex:indexPath.row];
 		[sourceRecipe removeRecipeItemsObject:itemToRemove];
 		[self.managedObjectContext deleteObject:itemToRemove];
@@ -470,17 +569,22 @@ enum {
 			}
 		}
 		
+		// Delete the row from the table to reflect the data changes
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
 
 #pragma mark UITableViewDelegate
+/**
+ * Returns whether or not a particular row should be indented while the table is in editing mode
+ */
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
-	// Only indent the ingredients section
 	BOOL result = NO;
 
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	// Only indent the ingredients section
 	if(section == RecipeDetailSectionIngredients) {
 		result = YES;
 	}
@@ -489,11 +593,16 @@ enum {
 }
 
 
+/**
+ * Returns the editing style for a particular index path (the + or - while the user is in edit mode, or if a swipe to delete gesture is allowed
+ * when not in edit mode)
+ */
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCellEditingStyle result = UITableViewCellEditingStyleNone;
 	
-	// Set an editing style if the section is the ingredients section
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	// Set an editing style if the section is the ingredients section
 	if(section == RecipeDetailSectionIngredients) {
 		// If it is the last row and the table is in editing mode use the insert style for the "Add Ingredient..." line, otherwise use delete
 		Recipe* sourceRecipe = (recipe == nil ? newRecipe : recipe);
@@ -509,12 +618,16 @@ enum {
 }
 
 
+/**
+ * Processes a user selecting a row in the table
+ */
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Deselect the selected index path
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	// Only allow selection in editing mode
 	if(tableView.editing && !singleEditMode) {
+		// Get the modified section value, which will be the correct enum value based on the state of the table
 		NSInteger section = [self _modifySectionIndex:indexPath.section];
 		// Present the appropriate editor for the selected index path
 		if(section == RecipeDetailSectionInfo) {
@@ -580,10 +693,15 @@ enum {
 }
 
 
+/**
+ * Returns the height for a row in the table view
+ */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CGFloat result = tableView.rowHeight;
 	
+	// Get the modified section value, which will be the correct enum value based on the state of the table
 	NSInteger section = [self _modifySectionIndex:indexPath.section];
+	// If the row corresponds to a row with a dynamic height, return the height of the cell
 	if(section == RecipeDetailSectionInfo) {
 		if(indexPath.row == InfoRowNameCategoryAndSource) {
 			result = recipeImageNameCategoryAndSourceCell.frame.size.height;
