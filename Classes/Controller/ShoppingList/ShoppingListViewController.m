@@ -200,8 +200,9 @@
 						double temp1 = [[listItemAlreadyStored objectForKey:@"Quantity"] doubleValue]; 
 						double temp2 = [listItem.quantity doubleValue];
 						
-						[listItemAlreadyStored setObject:[NSNumber numberWithDouble:(temp1 + temp2)] forKey:@"Quantity"];
-						// listItemAlreadyStored.quantity = [NSNumber numberWithDouble:(temp1 + temp2)];
+						if( temp1 != -1.0 && temp2 != -1.0) {
+							[listItemAlreadyStored setObject:[NSNumber numberWithDouble:(temp1 + temp2)] forKey:@"Quantity"];
+						}
 						flag = NO;
 					}				
 				}
@@ -209,7 +210,6 @@
 			
 			if (flag) {
 				[modifiedShoppingList addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:listItem.ingredient.name, @"Name", listItem.unit, @"Unit", listItem.quantity, @"Quantity", listItem.purchased, @"Purchased", nil]];
-				// [modifiedShoppingList addObject:listItem];
 			}
 		}
 		
