@@ -8,6 +8,8 @@
 
 
 #import "IngredientEditorViewController.h"
+#import "PrepMethodSearchOrCreateViewController.h"
+#import "IngredientSearchOrCreateViewController.h"
 #import "Recipe.h"
 #import "Unit.h"
 
@@ -79,6 +81,9 @@ enum {
 	self.preppedIngredientCell = nil;
 	self.preppedIngredientLabel = nil;
 	
+	self.ingredientSearchOrCreateViewController = nil;
+	self.prepMethodSearchOrCreateViewController = nil;
+	
 	[quantityPickerSheetViewController release];
 	quantityPickerSheetViewController = nil;
 	[unitPickerSheetViewController release];
@@ -95,6 +100,9 @@ enum {
 	[prepMethodIngredientButtonsCell release];
 	[preppedIngredientCell release];
 	[preppedIngredientLabel release];
+	
+	[ingredientSearchOrCreateViewController release];
+	[prepMethodSearchOrCreateViewController release];
 	
 	[quantityPickerSheetViewController release];
 	[unitPickerSheetViewController release];
@@ -115,6 +123,24 @@ enum {
 
 - (IBAction)cancel:(id)sender {
 	[((UINavigationController*)self.parentViewController) popViewControllerAnimated:YES];
+}
+
+
+- (IBAction)pickQuantity:(id)sender {
+}
+
+
+- (IBAction)pickUnit:(id)sender {
+}
+
+
+- (IBAction)pickPrepMethod:(id)sender {
+	[self presentModalViewController:prepMethodSearchOrCreateViewController animated:YES];
+}
+
+
+- (IBAction)pickIngredient:(id)sender {
+	[self presentModalViewController:ingredientSearchOrCreateViewController animated:YES];
 }
 
 
@@ -283,6 +309,9 @@ enum {
 @synthesize prepMethodIngredientButtonsCell;
 @synthesize preppedIngredientCell;
 @synthesize preppedIngredientLabel;
+
+@synthesize ingredientSearchOrCreateViewController;
+@synthesize prepMethodSearchOrCreateViewController;
 
 @synthesize recipe;
 

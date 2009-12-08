@@ -9,7 +9,7 @@
 
 #import "PickerSheetViewController.h"
 
-@class Recipe;
+@class Recipe, IngredientSearchOrCreateViewController, PrepMethodSearchOrCreateViewController;
 
 
 @interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
@@ -21,6 +21,9 @@
 	IBOutlet UITableViewCell* preppedIngredientCell;
 	IBOutlet UILabel* preppedIngredientLabel;
 	
+	IBOutlet IngredientSearchOrCreateViewController* ingredientSearchOrCreateViewController;
+	IBOutlet PrepMethodSearchOrCreateViewController* prepMethodSearchOrCreateViewController;
+	
 	PickerSheetViewController* quantityPickerSheetViewController;
 	PickerSheetViewController* unitPickerSheetViewController;
 	
@@ -31,6 +34,10 @@
 }
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)pickQuantity:(id)sender;
+- (IBAction)pickUnit:(id)sender;
+- (IBAction)pickPrepMethod:(id)sender;
+- (IBAction)pickIngredient:(id)sender;
 
 @property(nonatomic, retain) UITableView* ingredientTable;
 @property(nonatomic, retain) UITableViewCell* changeUnitQuantityButtonsCell;
@@ -39,6 +46,9 @@
 @property(nonatomic, retain) UITableViewCell* prepMethodIngredientButtonsCell;
 @property(nonatomic, retain) UITableViewCell* preppedIngredientCell;
 @property(nonatomic, retain) UILabel* preppedIngredientLabel;
+
+@property(nonatomic, retain) IngredientSearchOrCreateViewController* ingredientSearchOrCreateViewController;
+@property(nonatomic, retain) PrepMethodSearchOrCreateViewController* prepMethodSearchOrCreateViewController;
 
 @property(nonatomic, retain) Recipe* recipe;
 

@@ -62,6 +62,10 @@
 		C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */; };
 		C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4310CDAA82008D835B /* addToCartButton.png */; };
 		C8C1CA4610CDAA82008D835B /* addToCartButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4410CDAA82008D835B /* addToCartButtonHighlighted.png */; };
+		C8C1CC5A10CE3D13008D835B /* AbstractSearchOrCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1CC5910CE3D13008D835B /* AbstractSearchOrCreateViewController.m */; };
+		C8C1CC6010CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1CC5F10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m */; };
+		C8C1CC6310CE3E1A008D835B /* IngredientSearchOrCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1CC6210CE3E1A008D835B /* IngredientSearchOrCreateViewController.m */; };
+		C8C1CC6710CE4049008D835B /* SearchOrCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CC6610CE4049008D835B /* SearchOrCreateView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,7 +141,6 @@
 		C8C1C87D10CCFED9008D835B /* changePhotoButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = changePhotoButtonHighlighted.png; sourceTree = "<group>"; };
 		C8C1C8AC10CD063F008D835B /* DescriptionEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionEditorViewController.h; sourceTree = "<group>"; };
 		C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionEditorViewController.m; sourceTree = "<group>"; };
-		C8C1C8B010CD0719008D835B /* AbstractTextEditorViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractTextEditorViewController+Internal.h"; sourceTree = "<group>"; };
 		C8C1C8B110CD0719008D835B /* AbstractTextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractTextEditorViewController.h; sourceTree = "<group>"; };
 		C8C1C8B210CD0719008D835B /* AbstractTextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractTextEditorViewController.m; sourceTree = "<group>"; };
 		C8C1C8B410CD076B008D835B /* InstructionsEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstructionsEditorViewController.h; sourceTree = "<group>"; };
@@ -153,6 +156,15 @@
 		C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = addToCartButton.psd; sourceTree = "<group>"; };
 		C8C1CA4310CDAA82008D835B /* addToCartButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addToCartButton.png; sourceTree = "<group>"; };
 		C8C1CA4410CDAA82008D835B /* addToCartButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addToCartButtonHighlighted.png; sourceTree = "<group>"; };
+		C8C1CC5810CE3D13008D835B /* AbstractSearchOrCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractSearchOrCreateViewController.h; sourceTree = "<group>"; };
+		C8C1CC5910CE3D13008D835B /* AbstractSearchOrCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractSearchOrCreateViewController.m; sourceTree = "<group>"; };
+		C8C1CC5C10CE3D9F008D835B /* AbstractSearchOrCreateViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractSearchOrCreateViewController+Internal.h"; sourceTree = "<group>"; };
+		C8C1CC5D10CE3D9F008D835B /* AbstractTextEditorViewController+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AbstractTextEditorViewController+Internal.h"; sourceTree = "<group>"; };
+		C8C1CC5E10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrepMethodSearchOrCreateViewController.h; sourceTree = "<group>"; };
+		C8C1CC5F10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrepMethodSearchOrCreateViewController.m; sourceTree = "<group>"; };
+		C8C1CC6110CE3E1A008D835B /* IngredientSearchOrCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientSearchOrCreateViewController.h; sourceTree = "<group>"; };
+		C8C1CC6210CE3E1A008D835B /* IngredientSearchOrCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientSearchOrCreateViewController.m; sourceTree = "<group>"; };
+		C8C1CC6610CE4049008D835B /* SearchOrCreateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchOrCreateView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,8 +293,12 @@
 				C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */,
 				C8C1C8E210CD0B24008D835B /* IngredientEditorViewController.h */,
 				C8C1C8E310CD0B24008D835B /* IngredientEditorViewController.m */,
+				C8C1CC6110CE3E1A008D835B /* IngredientSearchOrCreateViewController.h */,
+				C8C1CC6210CE3E1A008D835B /* IngredientSearchOrCreateViewController.m */,
 				C8C1C8B410CD076B008D835B /* InstructionsEditorViewController.h */,
 				C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */,
+				C8C1CC5E10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.h */,
+				C8C1CC5F10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m */,
 				C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */,
 				C85F4E9710B52BDD00F90C8A /* RecipesViewController.m */,
 				C8C1C3E610CC440D008D835B /* RecipeDetailViewController.h */,
@@ -409,6 +425,7 @@
 				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
 				C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */,
 				C8C1C6B410CCB6A8008D835B /* RecipeNameCategoryAndSourceEditorView.xib */,
+				C8C1CC6610CE4049008D835B /* SearchOrCreateView.xib */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -434,11 +451,22 @@
 		C8C1C8AF10CD0719008D835B /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
-				C8C1C8B010CD0719008D835B /* AbstractTextEditorViewController+Internal.h */,
+				C8C1CC5B10CE3D9F008D835B /* Internal */,
 				C8C1C8B110CD0719008D835B /* AbstractTextEditorViewController.h */,
 				C8C1C8B210CD0719008D835B /* AbstractTextEditorViewController.m */,
+				C8C1CC5810CE3D13008D835B /* AbstractSearchOrCreateViewController.h */,
+				C8C1CC5910CE3D13008D835B /* AbstractSearchOrCreateViewController.m */,
 			);
 			path = Abstract;
+			sourceTree = "<group>";
+		};
+		C8C1CC5B10CE3D9F008D835B /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				C8C1CC5C10CE3D9F008D835B /* AbstractSearchOrCreateViewController+Internal.h */,
+				C8C1CC5D10CE3D9F008D835B /* AbstractTextEditorViewController+Internal.h */,
+			);
+			path = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,6 +535,7 @@
 				C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */,
 				C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */,
 				C8C1CA4610CDAA82008D835B /* addToCartButtonHighlighted.png in Resources */,
+				C8C1CC6710CE4049008D835B /* SearchOrCreateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,6 +573,9 @@
 				C8C1C8B610CD076B008D835B /* InstructionsEditorViewController.m in Sources */,
 				C8C1C8E410CD0B24008D835B /* IngredientEditorViewController.m in Sources */,
 				C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */,
+				C8C1CC5A10CE3D13008D835B /* AbstractSearchOrCreateViewController.m in Sources */,
+				C8C1CC6010CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m in Sources */,
+				C8C1CC6310CE3E1A008D835B /* IngredientSearchOrCreateViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
