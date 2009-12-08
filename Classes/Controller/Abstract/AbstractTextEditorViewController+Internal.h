@@ -8,6 +8,6 @@
 
 
 @interface AbstractTextEditorViewController (Internal)
-- (NSString*)initialValueToEdit;
-- (void)valueChange:(NSString*)newValue shouldSave:(BOOL)shouldSave;
+- (NSString*)_initialValueToEdit;
+- (void)_valueChange:(NSString*)newValue shouldSave:(BOOL)shouldSave;
 @end

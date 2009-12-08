@@ -7,7 +7,7 @@
 //
 
 
-@interface AbstractTextEditorViewController : UIViewController <UITextFieldDelegate> {
+@interface AbstractTextEditorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextViewDelegate> {
 	IBOutlet UITableView* textEditorTable;
 	IBOutlet UITableViewCell* textViewCell;
 	IBOutlet UITextView* textView;

@@ -343,10 +343,17 @@ enum {
  * Handle add ingredients to shopping cart 
  */
 - (IBAction)addToCart:(id)sender {
-	// Set the add to shopping cart view recipe and present it as a modal view
-	addToShoppingCartViewController.recipe = recipe;
-	
-	[self presentModalViewController:addToShoppingCartViewController animated:YES];
+	if([recipe.recipeItems count] > 0) {
+		// Set the add to shopping cart view recipe and present it as a modal view
+		addToShoppingCartViewController.recipe = recipe;
+		
+		[self presentModalViewController:addToShoppingCartViewController animated:YES];
+	}
+	else {
+		UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"No Ingredients" message:@"Please add some recipe ingredients and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alertView show];
+		[alertView release];
+	}
 }
 
 

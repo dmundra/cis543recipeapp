@@ -9,6 +9,7 @@
 
 #import "InstructionsEditorViewController.h"
 #import "AbstractTextEditorViewController+Internal.h"
+#import "Recipe.h"
 
 
 @implementation InstructionsEditorViewController
@@ -23,16 +24,30 @@
 
 
 #pragma mark Internal
-- (NSString*)initialValueToEdit {
-	NSString* result = nil;
-	
-	// TODO: Retrieve the instructions from the recipe
-	
-	return result;
+- (NSString*)_initialValueToEdit {
+	return recipe.instructions;
 }
 
 
-- (void)valueChange:(NSString*)newValue shouldSave:(BOOL)shouldSave {
+- (void)_valueChange:(NSString*)newValue shouldSave:(BOOL)shouldSave {
+	recipe.instructions = newValue;
+	
+	if(shouldSaveChanges) {
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	}
 }
 
 
