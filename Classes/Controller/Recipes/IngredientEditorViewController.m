@@ -186,6 +186,8 @@ static NSNumberFormatter* numberFormatter;
 
 
 - (IBAction)pickUnit:(id)sender {
+	NSInteger unit = [self._recipeItemToEdit.unit intValue];
+	[unitPickerSheetViewController.pickerView selectRow:unit inComponent:0 animated:NO];
 	[unitPickerSheetViewController showInWindow:self];
 }
 
