@@ -9,6 +9,7 @@
 
 #import "RecipeNameCategoryAndSourceEditorViewController.h"
 #import "Recipe.h"
+#import "PickerSheetViewController.h"
 
 
 enum {
@@ -28,6 +29,12 @@ enum {
 
 - (void)viewDidLoad {
 	self.nameCategoryAndSourceTable.editing = YES;
+	
+	categoryPickerSheetViewController = [[PickerSheetViewController alloc] init];
+	categoryPickerSheetViewController.delegate = self;
+	categoryPickerSheetViewController.pickerView.dataSource = self;
+	categoryPickerSheetViewController.pickerView.delegate = self;
+	categoryPickerSheetViewController.pickerView.showsSelectionIndicator = YES;
 }
 
 - (void)viewDidUnload {
@@ -49,7 +56,8 @@ enum {
 	[sourceViewCell release];
 	[categoryViewCell release];		
 	[recipe release];	
-	[managedObjectContext release];	
+	[managedObjectContext release];
+	[categoryPickerSheetViewController release];
     [super dealloc];
 }
 
@@ -87,6 +95,15 @@ enum {
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
 	return NO;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	// Deselect the selected index path
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	if(indexPath.section == RecipeInfoSectionCategory) {
+		[categoryPickerSheetViewController showInWindow:self];
+	}
 }
 
 
@@ -160,6 +177,26 @@ enum {
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];	
 	return NO;
+}
+
+#pragma mark PickerSheetViewControllerDelegate
+- (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet {
+
+}
+
+#pragma mark UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+	return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+	return CategoryCount;
+}
+
+#pragma mark UIPickerViewDelegate
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+	NSString* result = NSStringFromCategory([NSNumber numberWithInt:row]);
+	return result;
 }
 
 

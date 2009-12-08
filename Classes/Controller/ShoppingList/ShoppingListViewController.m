@@ -215,6 +215,7 @@
 		
 		NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"ingredient.name" ascending:YES];
 		[modifiedShoppingList sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+		[sortDescriptor release];
 	}
 		
 	return [NSArray arrayWithArray:modifiedShoppingList];

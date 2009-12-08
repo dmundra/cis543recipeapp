@@ -28,6 +28,7 @@
 
 
 @protocol PickerSheetViewControllerDelegate <NSObject>
-- (void)pickerSheetDidDismissWithCancel:(PickerSheetViewController*)pickerSheet;
 - (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet;
+@optional
+- (void)pickerSheetDidDismissWithCancel:(PickerSheetViewController*)pickerSheet;
 @end

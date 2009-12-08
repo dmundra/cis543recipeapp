@@ -78,7 +78,9 @@
 - (void)_cancel:(id)sender {
 	[actionSheet dismissWithClickedButtonIndex:0 animated:YES];
 	
-	[delegate pickerSheetDidDismissWithCancel:self];
+	if([delegate respondsToSelector:@selector(pickerSheetDidDismissWithCancel:)]) {
+	   [delegate pickerSheetDidDismissWithCancel:self];
+	}
 }
 
 

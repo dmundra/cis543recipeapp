@@ -6,11 +6,11 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
+#import "PickerSheetViewController.h"
 
 @class Recipe;
 
-
-@interface RecipeNameCategoryAndSourceEditorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+@interface RecipeNameCategoryAndSourceEditorViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, PickerSheetViewControllerDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
 	IBOutlet UITableView* nameCategoryAndSourceTable;
 	IBOutlet UITextField *titleTextField;
 	IBOutlet UITextField *sourceTextField;
@@ -20,6 +20,8 @@
 	IBOutlet UITableViewCell* categoryViewCell;
 		
 	Recipe* recipe;
+	
+	PickerSheetViewController* categoryPickerSheetViewController;
 	
 	BOOL shouldSaveChanges;
 	NSManagedObjectContext* managedObjectContext;
