@@ -7,8 +7,22 @@
 //
 
 
-@interface AbstractSearchOrCreateViewController : UIViewController {
-
+@interface AbstractSearchOrCreateViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate> {
+	IBOutlet UITableView* searchTable;
+	IBOutlet UILabel* nameLabel;
+	IBOutlet UITextField* nameTextField;
+	IBOutlet UIBarButtonItem* doneButton;
+	
+	NSString* filterTerm;
+	NSArray* unfilteredNames;
+	NSMutableArray* filteredNames;
+	
+	BOOL keyboardShown;
 }
 - (IBAction)done:(id)sender;
+
+@property(nonatomic, retain) UITableView* searchTable;
+@property(nonatomic, retain) UILabel* nameLabel;
+@property(nonatomic, retain) UITextField* nameTextField;
+@property(nonatomic, retain) UIBarButtonItem* doneButton;
 @end

@@ -8,4 +8,5 @@
 
 
 @interface AbstractSearchOrCreateViewController (Internal)
+- (NSArray*)_names;
 @end

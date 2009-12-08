@@ -12,5 +12,8 @@
 
 
 @implementation PrepMethodSearchOrCreateViewController
-
+#pragma mark Internal
+- (NSArray*)_names {
+	return nil;
+}
 @end
