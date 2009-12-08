@@ -11,7 +11,7 @@
 #import "PickerSheetViewController.h"
 #import "RecipeNameCategoryAndSourceEditorViewController.h"
 #import "DescriptionEditorViewController.h"
-#import "AddIngredientViewController.h"
+#import "IngredientEditorViewController.h"
 #import "AddToShoppingCartViewController.h"
 #import "InstructionsEditorViewController.h"
 #import "PreparationMethod.h"
@@ -120,7 +120,7 @@ enum {
 		else {
 			// Set the navigation item for normal recipe mode
 			recipeDetailTable.editing = NO;
-			self.navigationItem.title = recipe.name;
+			self.navigationItem.title = @"Recipe Detail";
 			self.navigationItem.leftBarButtonItem = nil;
 			self.navigationItem.rightBarButtonItem = editButton;
 		}
@@ -144,7 +144,7 @@ enum {
 - (void)viewDidLoad {
 	self.recipeNameCategoryAndSourceEditorViewController.managedObjectContext = self.managedObjectContext;
 	self.descriptionEditorViewController.managedObjectContext = self.managedObjectContext;
-	self.addIngredientViewController.managedObjectContext = self.managedObjectContext;
+	self.ingredientEditorViewController.managedObjectContext = self.managedObjectContext;
 	self.addToShoppingCartViewController.managedObjectContext = self.managedObjectContext;
 	self.instructionsEditorViewController.managedObjectContext = self.managedObjectContext;
 	
@@ -180,7 +180,7 @@ enum {
 	
 	self.recipeNameCategoryAndSourceEditorViewController = nil;
 	self.descriptionEditorViewController = nil;
-	self.addIngredientViewController = nil;
+	self.ingredientEditorViewController = nil;
 	self.addToShoppingCartViewController = nil;
 	self.instructionsEditorViewController = nil;
 }
@@ -206,7 +206,7 @@ enum {
 	
 	[recipeNameCategoryAndSourceEditorViewController release];
 	[descriptionEditorViewController release];
-	[addIngredientViewController release];
+	[ingredientEditorViewController release];
 	[addToShoppingCartViewController release];
 	[instructionsEditorViewController release];
 	
@@ -890,16 +890,16 @@ enum {
 - (void)_addIngredient {
 	// If we're dealing with a new recipe, the subview should not save the context
 	if(recipe != nil) {
-		self.addIngredientViewController.recipe = recipe;
-		self.addIngredientViewController.shouldSaveChanges = YES;
+		self.ingredientEditorViewController.recipe = recipe;
+		self.ingredientEditorViewController.shouldSaveChanges = YES;
 	}
 	else {
-		self.addIngredientViewController.recipe = newRecipe;
-		self.addIngredientViewController.shouldSaveChanges = NO;
+		self.ingredientEditorViewController.recipe = newRecipe;
+		self.ingredientEditorViewController.shouldSaveChanges = NO;
 	}
 	
 	// Push the view controller
-	[((UINavigationController*)self.parentViewController) pushViewController:self.addIngredientViewController animated:YES];
+	[((UINavigationController*)self.parentViewController) pushViewController:self.ingredientEditorViewController animated:YES];
 }
 
 
@@ -1033,7 +1033,7 @@ enum {
 
 @synthesize recipeNameCategoryAndSourceEditorViewController;
 @synthesize descriptionEditorViewController;
-@synthesize addIngredientViewController;
+@synthesize ingredientEditorViewController;
 @synthesize addToShoppingCartViewController;
 @synthesize instructionsEditorViewController;
 

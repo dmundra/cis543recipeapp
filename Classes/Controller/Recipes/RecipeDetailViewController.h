@@ -9,7 +9,7 @@
 
 #import "PickerSheetViewController.h"
 
-@class Recipe, RecipeNameCategoryAndSourceEditorViewController, DescriptionEditorViewController, AddIngredientViewController, AddToShoppingCartViewController, InstructionsEditorViewController;
+@class Recipe, RecipeNameCategoryAndSourceEditorViewController, DescriptionEditorViewController, IngredientEditorViewController, AddToShoppingCartViewController, InstructionsEditorViewController;
 
 
 // The Recipe Detail View Controller class
@@ -31,7 +31,7 @@
 	// IBOutlet Child View Controllers
 	IBOutlet RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 	IBOutlet DescriptionEditorViewController* descriptionEditorViewController;
-	IBOutlet AddIngredientViewController* addIngredientViewController;
+	IBOutlet IngredientEditorViewController* ingredientEditorViewController;
 	IBOutlet AddToShoppingCartViewController* addToShoppingCartViewController;
 	IBOutlet InstructionsEditorViewController* instructionsEditorViewController;
 	
@@ -80,7 +80,7 @@
 
 @property(nonatomic, retain) RecipeNameCategoryAndSourceEditorViewController* recipeNameCategoryAndSourceEditorViewController;
 @property(nonatomic, retain) DescriptionEditorViewController* descriptionEditorViewController;
-@property(nonatomic, retain) AddIngredientViewController* addIngredientViewController;
+@property(nonatomic, retain) IngredientEditorViewController* ingredientEditorViewController;
 @property(nonatomic, retain) AddToShoppingCartViewController* addToShoppingCartViewController;
 @property(nonatomic, retain) InstructionsEditorViewController* instructionsEditorViewController;
 

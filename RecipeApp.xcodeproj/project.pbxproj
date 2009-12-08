@@ -55,9 +55,9 @@
 		C8C1C8B610CD076B008D835B /* InstructionsEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */; };
 		C8C1C8D710CD0A06008D835B /* DescriptionEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */; };
 		C8C1C8D910CD0A10008D835B /* InstructionsEditorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */; };
-		C8C1C8DF10CD0A9D008D835B /* AddIngredientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */; };
+		C8C1C8DF10CD0A9D008D835B /* IngredientEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8DE10CD0A9D008D835B /* IngredientEditorViewController.xib */; };
 		C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */; };
-		C8C1C8E410CD0B24008D835B /* AddIngredientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */; };
+		C8C1C8E410CD0B24008D835B /* IngredientEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E310CD0B24008D835B /* IngredientEditorViewController.m */; };
 		C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */; };
 		C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */; };
 		C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CA4310CDAA82008D835B /* addToCartButton.png */; };
@@ -144,10 +144,10 @@
 		C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstructionsEditorViewController.m; sourceTree = "<group>"; };
 		C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DescriptionEditorView.xib; sourceTree = "<group>"; };
 		C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InstructionsEditorView.xib; sourceTree = "<group>"; };
-		C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddIngredientViewController.xib; sourceTree = "<group>"; };
+		C8C1C8DE10CD0A9D008D835B /* IngredientEditorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientEditorViewController.xib; sourceTree = "<group>"; };
 		C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddToShoppingCartView.xib; sourceTree = "<group>"; };
-		C8C1C8E210CD0B24008D835B /* AddIngredientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIngredientViewController.h; sourceTree = "<group>"; };
-		C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIngredientViewController.m; sourceTree = "<group>"; };
+		C8C1C8E210CD0B24008D835B /* IngredientEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientEditorViewController.h; sourceTree = "<group>"; };
+		C8C1C8E310CD0B24008D835B /* IngredientEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientEditorViewController.m; sourceTree = "<group>"; };
 		C8C1C8E510CD0B40008D835B /* AddToShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddToShoppingCartViewController.h; sourceTree = "<group>"; };
 		C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddToShoppingCartViewController.m; sourceTree = "<group>"; };
 		C8C1CA4110CDA8A1008D835B /* addToCartButton.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = addToCartButton.psd; sourceTree = "<group>"; };
@@ -275,12 +275,12 @@
 		C85F4E3110B5204500F90C8A /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				C8C1C8E210CD0B24008D835B /* AddIngredientViewController.h */,
-				C8C1C8E310CD0B24008D835B /* AddIngredientViewController.m */,
 				C8C1C8E510CD0B40008D835B /* AddToShoppingCartViewController.h */,
 				C8C1C8E610CD0B40008D835B /* AddToShoppingCartViewController.m */,
 				C8C1C8AC10CD063F008D835B /* DescriptionEditorViewController.h */,
 				C8C1C8AD10CD063F008D835B /* DescriptionEditorViewController.m */,
+				C8C1C8E210CD0B24008D835B /* IngredientEditorViewController.h */,
+				C8C1C8E310CD0B24008D835B /* IngredientEditorViewController.m */,
 				C8C1C8B410CD076B008D835B /* InstructionsEditorViewController.h */,
 				C8C1C8B510CD076B008D835B /* InstructionsEditorViewController.m */,
 				C85F4E9610B52BDD00F90C8A /* RecipesViewController.h */,
@@ -402,9 +402,9 @@
 		C85F4E4310B520AF00F90C8A /* Recipe */ = {
 			isa = PBXGroup;
 			children = (
-				C8C1C8DE10CD0A9D008D835B /* AddIngredientViewController.xib */,
 				C8C1C8E010CD0ADE008D835B /* AddToShoppingCartView.xib */,
 				C8C1C8D610CD0A06008D835B /* DescriptionEditorView.xib */,
+				C8C1C8DE10CD0A9D008D835B /* IngredientEditorViewController.xib */,
 				C8C1C8D810CD0A10008D835B /* InstructionsEditorView.xib */,
 				C85F4E8C10B52B9400F90C8A /* RecipesView.xib */,
 				C8C1C3F610CC487E008D835B /* RecipeDetailView.xib */,
@@ -502,7 +502,7 @@
 				C8C1C87F10CCFED9008D835B /* changePhotoButtonHighlighted.png in Resources */,
 				C8C1C8D710CD0A06008D835B /* DescriptionEditorView.xib in Resources */,
 				C8C1C8D910CD0A10008D835B /* InstructionsEditorView.xib in Resources */,
-				C8C1C8DF10CD0A9D008D835B /* AddIngredientViewController.xib in Resources */,
+				C8C1C8DF10CD0A9D008D835B /* IngredientEditorViewController.xib in Resources */,
 				C8C1C8E110CD0ADE008D835B /* AddToShoppingCartView.xib in Resources */,
 				C8C1CA4210CDA8A1008D835B /* addToCartButton.psd in Resources */,
 				C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */,
@@ -542,7 +542,7 @@
 				C8C1C8AE10CD063F008D835B /* DescriptionEditorViewController.m in Sources */,
 				C8C1C8B310CD0719008D835B /* AbstractTextEditorViewController.m in Sources */,
 				C8C1C8B610CD076B008D835B /* InstructionsEditorViewController.m in Sources */,
-				C8C1C8E410CD0B24008D835B /* AddIngredientViewController.m in Sources */,
+				C8C1C8E410CD0B24008D835B /* IngredientEditorViewController.m in Sources */,
 				C8C1C8E710CD0B40008D835B /* AddToShoppingCartViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -71,7 +71,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUINavigationItem" id="564143761">
 								<reference key="IBUINavigationBar" ref="679735459"/>
-								<string key="IBUITitle">Add To Cart</string>
+								<string key="IBUITitle">Add To List</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="793238733">
 									<int key="IBUIStyle">1</int>
 									<int key="IBUISystemItemIdentifier">1</int>
@@ -266,7 +266,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">14</int>
+			<int key="maxID">17</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

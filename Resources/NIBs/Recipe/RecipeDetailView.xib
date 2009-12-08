@@ -399,8 +399,8 @@
 				<bool key="IBUIWantsFullScreenLayout">YES</bool>
 			</object>
 			<object class="IBUIViewController" id="1015150933">
-				<string key="IBUITitle">Add Ingredient</string>
-				<string key="IBUINibName">AddIngredientViewController</string>
+				<string key="IBUITitle">Edit Ingredient</string>
+				<string key="IBUINibName">IngredientEditorViewController</string>
 				<reference key="IBUISimulatedBottomBarMetrics" ref="122763822"/>
 				<reference key="IBUISimulatedTopBarMetrics" ref="364339011"/>
 				<reference key="IBUISimulatedStatusBarMetrics" ref="1031554882"/>
@@ -562,14 +562,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">addIngredientViewController</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1015150933"/>
-					</object>
-					<int key="connectionID">41</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">addToShoppingCartViewController</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="389183586"/>
@@ -610,6 +602,14 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">50</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">ingredientEditorViewController</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1015150933"/>
+					</object>
+					<int key="connectionID">51</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -826,7 +826,7 @@
 					<string>InstructionsEditorViewController</string>
 					<string>{{189, 136}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>AddIngredientViewController</string>
+					<string>IngredientEditorViewController</string>
 					<string>{{210, 113}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -856,7 +856,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">50</int>
+			<int key="maxID">51</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -889,37 +889,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/Controller/Abstract/AbstractTextEditorViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">AddIngredientViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>ingredientCell</string>
-							<string>ingredientLabel</string>
-							<string>ingredientTable</string>
-							<string>prepMethodCell</string>
-							<string>preparationMethodLabel</string>
-							<string>unitQuantityCell</string>
-							<string>unitQuantityLabel</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UITableViewCell</string>
-							<string>UILabel</string>
-							<string>UITableView</string>
-							<string>UITableViewCell</string>
-							<string>UILabel</string>
-							<string>UITableViewCell</string>
-							<string>UILabel</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/Controller/Recipes/AddIngredientViewController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -965,6 +934,37 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">IngredientEditorViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>ingredientCell</string>
+							<string>ingredientLabel</string>
+							<string>ingredientTable</string>
+							<string>prepMethodCell</string>
+							<string>preparationMethodLabel</string>
+							<string>unitQuantityCell</string>
+							<string>unitQuantityLabel</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITableViewCell</string>
+							<string>UILabel</string>
+							<string>UITableView</string>
+							<string>UITableViewCell</string>
+							<string>UILabel</string>
+							<string>UITableViewCell</string>
+							<string>UILabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/Controller/Recipes/IngredientEditorViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">InstructionsEditorViewController</string>
 					<string key="superclassName">AbstractTextEditorViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -1001,12 +1001,12 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>addImageButton</string>
-							<string>addIngredientViewController</string>
 							<string>addToShoppingCartButtonCell</string>
 							<string>addToShoppingCartViewController</string>
 							<string>descriptionEditorViewController</string>
 							<string>descriptionTextLabel</string>
 							<string>editImageButton</string>
+							<string>ingredientEditorViewController</string>
 							<string>instructionsEditorViewController</string>
 							<string>instructionsLabel</string>
 							<string>recipeCategoryAndSourceLabel</string>
@@ -1021,12 +1021,12 @@
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIButton</string>
-							<string>AddIngredientViewController</string>
 							<string>UITableViewCell</string>
 							<string>AddToShoppingCartViewController</string>
 							<string>DescriptionEditorViewController</string>
 							<string>UILabel</string>
 							<string>UIButton</string>
+							<string>IngredientEditorViewController</string>
 							<string>InstructionsEditorViewController</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
