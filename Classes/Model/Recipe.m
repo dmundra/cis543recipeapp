@@ -35,7 +35,7 @@ const NSInteger kServingSizeNotSet = 0;
 - (NSArray*)sortedRecipeItems {
 	// Sort the recipe items by order index
 	NSArray* result = nil;
-	NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderIndex" ascending:NO];
+	NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"orderIndex" ascending:YES];
 	result = [[self.recipeItems allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 	
 	return result;

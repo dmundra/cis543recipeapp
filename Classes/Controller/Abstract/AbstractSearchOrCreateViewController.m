@@ -28,6 +28,7 @@
 	self.nameLabel = nil;
 	self.nameTextField = nil;
 	self.doneButton = nil;
+	self.topNavigationItem = nil;
 	
 	[filteredNames release];
 	filteredNames = nil;
@@ -35,17 +36,23 @@
 
 
 #pragma mark View Management
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
+	nameLabel.text = [self _nameLabel];
+	topNavigationItem.title = [self _navTitle];
+	
 	[unfilteredNames release];
 	unfilteredNames = [[self _names] retain];
 	
 	[filterTerm release];
-	filterTerm = [self _initialFilterTerm];
+	filterTerm = [[self _initialFilterTerm] retain];
 	
 	nameTextField.text = filterTerm;
 	
 	[self _filterNamesAndUpdateTable];
-	
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
 
 	[nameTextField becomeFirstResponder];
@@ -63,6 +70,7 @@
 	[nameLabel release];
 	[nameTextField release];
 	[doneButton release];
+	[topNavigationItem release];
 	
 	[filterTerm release];
 	[unfilteredNames release];
@@ -80,7 +88,7 @@
 	
 	if([result length] > 0) {
 		NSInteger resultIndex = -1;
-		for(int index = 0; index < [unfilteredNames count] || resultIndex == -1; ++index) {
+		for(int index = 0; index < [unfilteredNames count] && resultIndex == -1; ++index) {
 			NSString* name = [unfilteredNames objectAtIndex:index];
 			if([result isEqualToString:name]) {
 				resultIndex = index;
@@ -131,6 +139,12 @@
 #pragma mark UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	
+	[filterTerm release];
+	filterTerm = [[filteredNames objectAtIndex:indexPath.row] retain];
+	nameTextField.text = filterTerm;
+	
+	[self _filterNamesAndUpdateTable];
 }
 
 
@@ -148,6 +162,8 @@
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
 	[filterTerm release];
 	filterTerm = nil;
+	
+	[self _filterNamesAndUpdateTable];
 	
 	return YES;
 }
@@ -200,6 +216,7 @@
 @synthesize nameLabel;
 @synthesize nameTextField;
 @synthesize doneButton;
+@synthesize topNavigationItem;
 
 @synthesize managedObjectContext;
 @end

@@ -462,14 +462,19 @@ enum {
 				result.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			}
 			
-			RecipeItem* recipeItem = (RecipeItem*)[recipe.sortedRecipeItems objectAtIndex:ingredientIndex];
+			RecipeItem* recipeItem = (RecipeItem*)[sourceRecipe.sortedRecipeItems objectAtIndex:ingredientIndex];
 			if(recipeItem.ingredient != nil) {
 				result.textLabel.text = recipeItem.ingredient.name;
 			}
 			else {
 				result.textLabel.text = [NSString stringWithFormat:@"%@ %@", recipeItem.preppedIngredient.preparationMethod.name, recipeItem.preppedIngredient.ingredient.name];
 			}
-			result.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(recipeItem.quantity), NSStringFromUnit(recipeItem.unit)];
+			if([recipeItem.quantity doubleValue] < 0) {
+				result.detailTextLabel.text = NSStringFromQuantity(recipeItem.quantity);
+			}
+			else {
+				result.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(recipeItem.quantity), NSStringFromUnit(recipeItem.unit)];
+			}
 		}
 	}
 	else if(section == RecipeDetailSectionInstructions) {
@@ -901,10 +906,14 @@ enum {
 - (void)_addIngredient {
 	// If we're dealing with a new recipe, the subview should not save the context
 	if(recipe != nil) {
+		self.ingredientEditorViewController.recipe = recipe;
+		self.ingredientEditorViewController.orderIndex = [recipe.recipeItems count];
 		self.ingredientEditorViewController.recipeItem = nil;
 		self.ingredientEditorViewController.shouldSaveChanges = YES;
 	}
 	else {
+		self.ingredientEditorViewController.recipe = newRecipe;
+		self.ingredientEditorViewController.orderIndex = [newRecipe.recipeItems count];
 		self.ingredientEditorViewController.recipeItem = nil;
 		self.ingredientEditorViewController.shouldSaveChanges = NO;
 	}

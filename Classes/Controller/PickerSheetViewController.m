@@ -49,7 +49,7 @@
 	toolbar.barStyle = UIBarStyleBlackOpaque;
 	UIBarButtonItem* cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(_cancel:)];
 	UIBarButtonItem* space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:NULL];
-	UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(_save:)];
+	UIBarButtonItem* saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(_save:)];
 	toolbar.items = [NSArray arrayWithObjects:cancelButton, space, saveButton, nil];
 	[actionSheet addSubview:toolbar];
 	toolbar.frame = CGRectMake(0.0, 0.0, 320.0, 44.0);

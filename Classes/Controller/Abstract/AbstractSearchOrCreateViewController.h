@@ -12,6 +12,7 @@
 	IBOutlet UILabel* nameLabel;
 	IBOutlet UITextField* nameTextField;
 	IBOutlet UIBarButtonItem* doneButton;
+	IBOutlet UINavigationItem* topNavigationItem;
 	
 	NSString* filterTerm;
 	NSArray* unfilteredNames;
@@ -27,6 +28,7 @@
 @property(nonatomic, retain) UILabel* nameLabel;
 @property(nonatomic, retain) UITextField* nameTextField;
 @property(nonatomic, retain) UIBarButtonItem* doneButton;
+@property(nonatomic, retain) UINavigationItem* topNavigationItem;
 
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @end

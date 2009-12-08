@@ -3,7 +3,7 @@
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
 		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">732</string>
+		<string key="IBDocument.InterfaceBuilderVersion">740</string>
 		<string key="IBDocument.AppKitVersion">1038.25</string>
 		<string key="IBDocument.HIToolboxVersion">458.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
@@ -12,10 +12,10 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
 			<integer value="32"/>
-			<integer value="30"/>
+			<integer value="1"/>
 			<integer value="37"/>
+			<integer value="30"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -117,6 +117,8 @@
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">12</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">1</int>
+									<int key="IBUIAutocorrectionType">1</int>
 									<int key="IBUIReturnKeyType">9</int>
 								</object>
 								<int key="IBUIClearButtonMode">3</int>
@@ -124,12 +126,12 @@
 							<object class="IBUILabel" id="391868070">
 								<reference key="NSNextResponder" ref="364198417"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 11}, {41, 21}}</string>
+								<string key="NSFrame">{{10, 11}, {52, 21}}</string>
 								<reference key="NSSuperview" ref="364198417"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">Title:</string>
+								<string key="IBUIText">Name:</string>
 								<object class="NSFont" key="IBUIFont" id="665469756">
 									<string key="NSName">Helvetica-Bold</string>
 									<double key="NSSize">17</double>
@@ -215,6 +217,8 @@
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
 								<float key="IBUIMinimumFontSize">12</float>
 								<object class="IBUITextInputTraits" key="IBUITextInputTraits">
+									<int key="IBUIAutocapitalizationType">1</int>
+									<int key="IBUIAutocorrectionType">1</int>
 									<int key="IBUIReturnKeyType">9</int>
 								</object>
 								<int key="IBUIClearButtonMode">1</int>
@@ -294,6 +298,7 @@
 				<int key="IBUISeparatorStyle">1</int>
 				<reference key="IBUIContentView" ref="965723990"/>
 				<string key="IBUIReuseIdentifier">Category View Cell</string>
+				<int key="IBUIEditingAccessoryType">1</int>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -338,24 +343,6 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">27</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">textFieldDoneEditing:</string>
-						<reference key="source" ref="723050176"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">20</int>
-					</object>
-					<int key="connectionID">28</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">textFieldDoneEditing:</string>
-						<reference key="source" ref="778052684"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">20</int>
-					</object>
-					<int key="connectionID">29</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -536,14 +523,14 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>RecipeNameCategoryAndSourceEditorViewController</string>
 					<string>UIResponder</string>
-					<string>{{622, 648}, {320, 480}}</string>
+					<string>{{503, 376}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{227, 1004}, {320, 44}}</string>
+					<string>{{227, 812}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{227, 907}, {320, 44}}</string>
+					<string>{{227, 812}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{248, 776}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

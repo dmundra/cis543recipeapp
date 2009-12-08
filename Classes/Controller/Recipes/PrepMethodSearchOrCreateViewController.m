@@ -39,6 +39,16 @@
 }
 
 
+- (NSString*)_navTitle {
+	return @"Pick Prep. Method";
+}
+
+
+- (NSString*)_nameLabel {
+	return @"Prep. Method:";
+}
+
+
 - (NSString*)_initialFilterTerm {
 	return preparationMethodName;
 }

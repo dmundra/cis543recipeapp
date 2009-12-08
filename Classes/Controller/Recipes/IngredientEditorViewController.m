@@ -11,14 +11,16 @@
 #import "PrepMethodSearchOrCreateViewController.h"
 #import "IngredientSearchOrCreateViewController.h"
 #import "RecipeItem.h"
+#import "PreppedIngredient.h"
+#import "PreparationMethod.h"
+#import "Ingredient.h"
 #import "Unit.h"
 
 
 enum {
-	IngredientSectionQuantityUnitButtons,
-	IngredientSectionQuantityUnit,
-	IngredientSectionPrepMethodIngredientButtons,
 	IngredientSectionPreppedIngredient,
+	IngredientSectionPrepMethodIngredientButtons,
+	IngredientSectionQuantityUnitButtons,
 	IngredientSectionCount
 };
 
@@ -32,12 +34,10 @@ enum {
 
 
 @interface IngredientEditorViewController (/*Private*/)
-- (void)_updateQuantityUnitCell;
 - (void)_updatePreppedIngredientCell;
+- (void)_updateDoneButton;
 
 - (void)_addToTasteQuantitySelected;
-
-@property(nonatomic, retain, readonly) RecipeItem* _recipeItemToEdit;
 @end
 
 
@@ -57,7 +57,8 @@ static NSNumberFormatter* numberFormatter;
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if(self = [super initWithCoder:aDecoder]) {
 		self.navigationItem.title = @"Edit Ingredient";
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)] autorelease];
+		doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+		self.navigationItem.rightBarButtonItem = doneButton;
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)] autorelease];
 
 		resetForNewRecipeItem = YES;
@@ -73,16 +74,40 @@ static NSNumberFormatter* numberFormatter;
 	if(resetForNewRecipeItem) {
 		// If we're being shown without a recipe item set, assume add recipe item mode
 		if(recipeItem == nil) {
-			
-			// Only create a new recipe item if one does not already exist (this way we don't clear the recipe item when an editor view returns to us)
-			if(newRecipeItem == nil) {
-				newRecipeItem = [[NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext] retain];
-			}
+			quantity = 1.0;
+			unit = 0;
+			[ingredient release];
+			ingredient = nil;
+			[preparationMethod release];
+			preparationMethod = nil;
+			[newIngredient release];
+			newIngredient = nil;
+			[newPrepMethod release];
+			newPrepMethod = nil;
 			
 			// Set the navigation item for new recipe mode
 			self.navigationItem.title = @"Add Ingredient";
 		}
 		else {
+			recipe = recipeItem.recipe;
+			orderIndex = [recipeItem.orderIndex integerValue];
+			quantity = [recipeItem.quantity doubleValue];
+			unit = [recipeItem.unit integerValue];
+			[ingredient release];
+			[preparationMethod release];
+			if(recipeItem.ingredient == nil) {
+				ingredient = [recipeItem.preppedIngredient.ingredient retain];
+				preparationMethod = [recipeItem.preppedIngredient.preparationMethod retain];
+			}
+			else {
+				ingredient = [recipeItem.ingredient retain];
+				preparationMethod = nil;
+			}
+			[newIngredient release];
+			newIngredient = nil;
+			[newPrepMethod release];
+			newPrepMethod = nil;			
+			
 			// Set the navigation item for normal recipe mode
 			self.navigationItem.title = @"Edit Ingredient";
 		}
@@ -91,8 +116,8 @@ static NSNumberFormatter* numberFormatter;
 	}
 	
 	// Update the UI to reflect the current state
-	[self _updateQuantityUnitCell];
 	[self _updatePreppedIngredientCell];
+	[self _updateDoneButton];
 	
 	[ingredientTable reloadData];
 }
@@ -102,6 +127,9 @@ static NSNumberFormatter* numberFormatter;
 - (void)viewDidLoad {
 	ingredientSearchOrCreateViewController.managedObjectContext = self.managedObjectContext;
 	prepMethodSearchOrCreateViewController.managedObjectContext = self.managedObjectContext;
+	
+	preppedIngredientCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+	preppedIngredientCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	
 	quantityPickerSheetViewController = [[PickerSheetViewController alloc] init];
 	quantityPickerSheetViewController.delegate = self;
@@ -123,12 +151,9 @@ static NSNumberFormatter* numberFormatter;
 
 - (void)viewDidUnload {
 	self.ingredientTable = nil;
-	self.changeUnitQuantityButtonsCell = nil;
-	self.unitQuantityCell = nil;
-	self.unitQuantityLabel = nil;
-	self.prepMethodIngredientButtonsCell = nil;
 	self.preppedIngredientCell = nil;
-	self.preppedIngredientLabel = nil;
+	self.changeUnitQuantityButtonsCell = nil;
+	self.prepMethodIngredientButtonsCell = nil;
 	
 	self.ingredientSearchOrCreateViewController = nil;
 	self.prepMethodSearchOrCreateViewController = nil;
@@ -143,12 +168,9 @@ static NSNumberFormatter* numberFormatter;
 #pragma mark Memory Management
 - (void)dealloc {
 	[ingredientTable release];
-	[changeUnitQuantityButtonsCell release];
-	[unitQuantityCell release];
-	[unitQuantityLabel release];
-	[prepMethodIngredientButtonsCell release];
 	[preppedIngredientCell release];
-	[preppedIngredientLabel release];
+	[changeUnitQuantityButtonsCell release];
+	[prepMethodIngredientButtonsCell release];
 	
 	[ingredientSearchOrCreateViewController release];
 	[prepMethodSearchOrCreateViewController release];
@@ -156,8 +178,14 @@ static NSNumberFormatter* numberFormatter;
 	[quantityPickerSheetViewController release];
 	[unitPickerSheetViewController release];
 	
+	[doneButton release];
+	
 	[recipeItem release];
-	[newRecipeItem release];
+	[recipe release];
+	[preparationMethod release];
+	[newPrepMethod release];
+	[ingredient release];
+	[newIngredient release];
 	
 	[managedObjectContext release];
 	
@@ -167,6 +195,62 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark IBAction
 - (IBAction)done:(id)sender {
+	RecipeItem* itemToEdit = nil;
+	if(recipeItem == nil) {
+		itemToEdit = [NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext];
+		itemToEdit.recipe = recipe;
+		itemToEdit.orderIndex = [NSNumber numberWithInteger:orderIndex];
+	}
+	else {
+		itemToEdit = recipeItem;
+	}
+	
+	itemToEdit.quantity = [NSNumber numberWithDouble:quantity];
+	itemToEdit.unit = [NSNumber numberWithInteger:unit];
+	
+	if([newPrepMethod length] > 0) {
+		[preparationMethod release];
+		preparationMethod = [NSEntityDescription insertNewObjectForEntityForName:@"PreparationMethod" inManagedObjectContext:self.managedObjectContext];
+		preparationMethod.name = newPrepMethod;
+	}
+	
+	if([newIngredient length] > 0) {
+		[ingredient release];
+		ingredient = [NSEntityDescription insertNewObjectForEntityForName:@"Ingredient" inManagedObjectContext:self.managedObjectContext];
+		ingredient.name = newIngredient;
+	}
+	
+	if(preparationMethod != nil) {
+		if(itemToEdit.preppedIngredient == nil) {
+			itemToEdit.preppedIngredient = [NSEntityDescription insertNewObjectForEntityForName:@"PreppedIngredient" inManagedObjectContext:self.managedObjectContext];
+		}
+		
+		itemToEdit.ingredient = nil;
+		itemToEdit.preppedIngredient.ingredient = ingredient;
+		itemToEdit.preppedIngredient.preparationMethod = preparationMethod;
+	}
+	else {
+		itemToEdit.ingredient = ingredient;
+		itemToEdit.preppedIngredient = nil;
+	}
+	
+	if(shouldSaveChanges) {
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	}
+	
 	[((UINavigationController*)self.parentViewController) popViewControllerAnimated:YES];
 }
 
@@ -177,7 +261,6 @@ static NSNumberFormatter* numberFormatter;
 
 
 - (IBAction)pickQuantity:(id)sender {
-	double quantity = [self._recipeItemToEdit.quantity doubleValue];
 	NSInteger hundreds =  (int)quantity / 100;
 	NSInteger tens = ((int)quantity / 10) % 10;
 	NSInteger ones = ((int)quantity % 10);
@@ -191,18 +274,19 @@ static NSNumberFormatter* numberFormatter;
 
 
 - (IBAction)pickUnit:(id)sender {
-	NSInteger unit = [self._recipeItemToEdit.unit intValue];
 	[unitPickerSheetViewController.pickerView selectRow:unit inComponent:0 animated:NO];
 	[unitPickerSheetViewController showInWindow:self];
 }
 
 
 - (IBAction)pickPrepMethod:(id)sender {
+	prepMethodSearchOrCreateViewController.preparationMethodName = (preparationMethod == nil ? newPrepMethod : preparationMethod.name);
 	[self presentModalViewController:prepMethodSearchOrCreateViewController animated:YES];
 }
 
 
 - (IBAction)pickIngredient:(id)sender {
+	ingredientSearchOrCreateViewController.ingredientName = (ingredient == nil ? newIngredient : ingredient.name);
 	[self presentModalViewController:ingredientSearchOrCreateViewController animated:YES];
 }
 
@@ -213,9 +297,6 @@ static NSNumberFormatter* numberFormatter;
 	
 	if(indexPath.section == IngredientSectionQuantityUnitButtons) {
 		result = changeUnitQuantityButtonsCell;
-	}
-	else if(indexPath.section == IngredientSectionQuantityUnit) {
-		result = unitQuantityCell;
 	}
 	else if(indexPath.section == IngredientSectionPrepMethodIngredientButtons) {
 		result = prepMethodIngredientButtonsCell;
@@ -241,8 +322,8 @@ static NSNumberFormatter* numberFormatter;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString* result = nil;
 	
-	if(section == IngredientSectionPrepMethodIngredientButtons) {
-		result = @" ";
+	if(section == IngredientSectionPreppedIngredient) {
+		result = @"Ingredient:";
 	}
 	
 	return result;
@@ -267,7 +348,7 @@ static NSNumberFormatter* numberFormatter;
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 	CGFloat result = tableView.sectionHeaderHeight;
 	
-	if(section == IngredientSectionPrepMethodIngredientButtons) {
+	if(section == IngredientSectionPreppedIngredient) {
 		result = 34.0;
 	}
 	
@@ -284,15 +365,13 @@ static NSNumberFormatter* numberFormatter;
 		NSInteger tens = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentTens];
 		NSInteger hundreds = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentHundreds];
 		NSInteger decimal = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentDecimal];
-		self._recipeItemToEdit.quantity = [NSNumber numberWithDouble:(double)(hundreds * 100) + (double)(tens * 10) + (double)ones + ((double)decimal * 0.05)];
+		quantity = (double)(hundreds * 100) + (double)(tens * 10) + (double)ones + ((double)decimal * 0.05);
 	
 	} else if(pickerSheet == unitPickerSheetViewController) {
-		NSInteger unit = [pickerSheet.pickerView selectedRowInComponent:0];
-		
-		self._recipeItemToEdit.unit = [NSNumber numberWithInteger:unit];		
+		unit = [pickerSheet.pickerView selectedRowInComponent:0];
 	}
 	
-	[self _updateQuantityUnitCell];
+	[self _updatePreppedIngredientCell];
 }
 
 
@@ -375,73 +454,140 @@ static NSNumberFormatter* numberFormatter;
 }
 
 
+#pragma mark IngredientSearchOrCreateViewControllerDelegate
+- (void)didChooseIngredient:(Ingredient*)anIngredient {
+	[newIngredient release];
+	newIngredient = nil;
+	[anIngredient retain];
+	[ingredient release];
+	ingredient = anIngredient;
+	
+	[self _updatePreppedIngredientCell];
+}
+
+
+- (void)didCreateNewIngredient:(NSString*)ingredientName {
+	[ingredient release];
+	ingredient = nil;
+	[ingredientName retain];
+	[newIngredient release];
+	newIngredient = ingredientName; 
+	
+	[self _updatePreppedIngredientCell];
+}
+
+
+#pragma mark PrepMethodSearchOrCreateViewControllerDelegate
+- (void)didChoosePrepMethod:(PreparationMethod*)aPreparationMethod {
+	[newPrepMethod release];
+	newPrepMethod = nil;
+	[aPreparationMethod retain];
+	[preparationMethod release];
+	preparationMethod = aPreparationMethod;
+	
+	[self _updatePreppedIngredientCell];
+}
+
+
+- (void)didCreateNewPrepMethod:(NSString*)prepMethodName {
+	[preparationMethod release];
+	preparationMethod = nil;
+	[prepMethodName retain];
+	[newPrepMethod release];
+	newPrepMethod = prepMethodName;
+	
+	[self _updatePreppedIngredientCell];
+}
+
+
 #pragma mark Private
-- (void)_updateQuantityUnitCell {
-	if([self._recipeItemToEdit.quantity doubleValue] >= 0.0) {
-		unitQuantityLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity(self._recipeItemToEdit.quantity), NSStringFromUnit(self._recipeItemToEdit.unit)];
+- (void)_updatePreppedIngredientCell {
+	NSString* preparationMethodValue = nil;
+	if(preparationMethod != nil) {
+		preparationMethodValue = preparationMethod.name;
+	}
+	else if([newPrepMethod length] > 0) {
+		preparationMethodValue = newPrepMethod;
+	}
+	
+	NSString* ingredientValue = nil;
+	if(ingredient != nil) {
+		ingredientValue = ingredient.name;
+	}
+	else if([newIngredient length] > 0) {
+		ingredientValue = newIngredient;
+	}
+	
+	if([ingredientValue length] > 0) {
+		preppedIngredientCell.textLabel.textColor = [UIColor blackColor];
+		preppedIngredientCell.textLabel.font = [UIFont boldSystemFontOfSize:17.0];
+		
+		if([preparationMethodValue length] > 0) {
+			preppedIngredientCell.textLabel.text = [NSString stringWithFormat:@"%@ %@", preparationMethodValue, ingredientValue];
+		}
+		else {
+			preppedIngredientCell.textLabel.text = ingredientValue;
+		}
 	}
 	else {
-		unitQuantityLabel.text = NSStringFromQuantity(self._recipeItemToEdit.quantity);
+		preppedIngredientCell.textLabel.textColor = [UIColor lightGrayColor];
+		preppedIngredientCell.textLabel.font = [UIFont italicSystemFontOfSize:17.0];
+		preppedIngredientCell.textLabel.text = @"No Ingredient Set.";
+	}
+	
+	if(quantity >= 0.0) {
+		preppedIngredientCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@", NSStringFromQuantity([NSNumber numberWithDouble:quantity]), NSStringFromUnit([NSNumber numberWithInteger:unit])];
+	}
+	else {
+		preppedIngredientCell.detailTextLabel.text = NSStringFromQuantity([NSNumber numberWithDouble:quantity]);
 	}
 }
 
 
-- (void)_updatePreppedIngredientCell {
+- (void)_updateDoneButton {
+	if(ingredient != nil || [newIngredient length] > 0) {
+		doneButton.enabled = YES;
+	}
+	else {
+		doneButton.enabled = NO;
+	}
 }
 
 
 - (void)_addToTasteQuantitySelected {
 	[quantityPickerSheetViewController dismiss:self];
 	
-	self._recipeItemToEdit.quantity = [NSNumber numberWithDouble:kQuantityToTaste];
+	quantity = kQuantityToTaste;
 	
-	[self _updateQuantityUnitCell];	
+	[self _updatePreppedIngredientCell];	
 }
 
 
 #pragma mark Properties
 @synthesize ingredientTable;
-@synthesize changeUnitQuantityButtonsCell;
-@synthesize unitQuantityCell;
-@synthesize unitQuantityLabel;
-@synthesize prepMethodIngredientButtonsCell;
 @synthesize preppedIngredientCell;
-@synthesize preppedIngredientLabel;
+@synthesize changeUnitQuantityButtonsCell;
+@synthesize prepMethodIngredientButtonsCell;
 
 @synthesize ingredientSearchOrCreateViewController;
 @synthesize prepMethodSearchOrCreateViewController;
 
 @synthesize recipeItem;
+@synthesize recipe;
+@synthesize orderIndex;
 
 
 - (void)setRecipeItem:(RecipeItem *)aRecipeItem {
-	if(aRecipeItem != recipeItem) {
-		[self willChangeValueForKey:@"recipeItem"];
-		[aRecipeItem retain];
-		[recipeItem release];
-		recipeItem = aRecipeItem;
-		[self didChangeValueForKey:@"recipeItem"];
+	[self willChangeValueForKey:@"recipeItem"];
+	[aRecipeItem retain];
+	[recipeItem release];
+	recipeItem = aRecipeItem;
+	[self didChangeValueForKey:@"recipeItem"];
 		
-		resetForNewRecipeItem = YES;
-	}
+	resetForNewRecipeItem = YES;
 }
 
 
 @synthesize shouldSaveChanges;
 @synthesize managedObjectContext;
-
-
-#pragma mark Properties (Private, Derived)
-- (RecipeItem*)_recipeItemToEdit {
-	RecipeItem* result = nil;
-	
-	if(recipeItem == nil) {
-		result = newRecipeItem;
-	}
-	else {
-		result = recipeItem;
-	}
-	
-	return result;
-}
 @end

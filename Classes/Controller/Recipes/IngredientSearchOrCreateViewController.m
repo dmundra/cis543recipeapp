@@ -39,6 +39,16 @@
 }
 
 
+- (NSString*)_navTitle {
+	return @"Pick Ingredient";
+}
+
+
+- (NSString*)_nameLabel {
+	return @"Ingredient:";
+}
+
+
 - (NSString*)_initialFilterTerm {
 	return ingredientName;
 }

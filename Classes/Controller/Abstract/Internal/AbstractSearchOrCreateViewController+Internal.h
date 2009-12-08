@@ -9,6 +9,8 @@
 
 @interface AbstractSearchOrCreateViewController (Internal)
 - (NSArray*)_names;
+- (NSString*)_navTitle;
+- (NSString*)_nameLabel;
 - (NSString*)_initialFilterTerm;
 - (void)_choseNameAtIndex:(NSInteger)index;
 - (void)_createdName:(NSString*)result;
