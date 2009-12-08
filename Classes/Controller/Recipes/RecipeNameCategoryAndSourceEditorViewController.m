@@ -108,6 +108,8 @@ enum {
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	
 	if(indexPath.section == RecipeInfoSectionCategory) {
+		NSInteger category = [recipe.category intValue];
+		[categoryPickerSheetViewController.pickerView selectRow:category inComponent:0 animated:NO];
 		[categoryPickerSheetViewController showInWindow:self];
 	}
 }
