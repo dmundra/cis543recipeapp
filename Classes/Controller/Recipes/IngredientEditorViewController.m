@@ -92,6 +92,7 @@ static NSNumberFormatter* numberFormatter;
 	// Update the UI to reflect the current state
 	[self _updateQuantityUnitCell];
 	[self _updatePreppedIngredientCell];
+	[self _updateUnitQuantityLabel];
 	
 	[ingredientTable reloadData];
 }
@@ -171,6 +172,15 @@ static NSNumberFormatter* numberFormatter;
 
 
 - (IBAction)pickQuantity:(id)sender {
+	double quantity = [self._recipeItemToEdit.quantity doubleValue];
+	NSInteger hundreds =  (int)quantity / 100;
+	NSInteger tens = ((int)quantity / 10) % 10;
+	NSInteger ones = ((int)quantity % 10);
+	NSInteger decimals = ((int)round(quantity * 100.0) % 100) / 5;
+	[quantityPickerSheetViewController.pickerView selectRow:hundreds inComponent:QuantityPickerComponentHundreds animated:NO];
+	[quantityPickerSheetViewController.pickerView selectRow:tens inComponent:QuantityPickerComponentTens animated:NO];
+	[quantityPickerSheetViewController.pickerView selectRow:ones inComponent:QuantityPickerComponentOnes animated:NO];
+	[quantityPickerSheetViewController.pickerView selectRow:decimals inComponent:QuantityPickerComponentDecimal animated:NO];
 	[quantityPickerSheetViewController showInWindow:self];
 }
 
@@ -262,10 +272,22 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark PickerSheetViewControllerDelegate
 - (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet {
-	if(pickerSheet == quantityPickerSheetViewController) {
+	if(pickerSheet == quantityPickerSheetViewController) {		
+		NSInteger ones = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentOnes];
+		NSInteger tens = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentTens];
+		NSInteger hundreds = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentHundreds];
+		NSInteger decimal = [pickerSheet.pickerView selectedRowInComponent:QuantityPickerComponentDecimal];
+		
+		NSString* quantityValue = [NSString stringWithFormat:@"%d%d%d%@", hundreds, tens, ones, [numberFormatter stringFromNumber:[NSNumber numberWithFloat:(float)decimal * 0.05]]];
+		self._recipeItemToEdit.quantity = [NSNumber numberWithFloat:[quantityValue floatValue]];
+	
+	} else if(pickerSheet == unitPickerSheetViewController) {
+		NSInteger unit = [pickerSheet.pickerView selectedRowInComponent:0];
+		
+		self._recipeItemToEdit.unit = [NSNumber numberWithInteger:unit];		
 	}
-	else if(pickerSheet == unitPickerSheetViewController) {
-	}
+	
+	[self _updateUnitQuantityLabel];
 }
 
 
@@ -359,7 +381,7 @@ static NSNumberFormatter* numberFormatter;
 
 
 - (void)_updateUnitQuantityLabel {
-
+	[unitQuantityLabel setText:[NSString stringWithFormat:@"%@ %@",NSStringFromQuantity(self._recipeItemToEdit.quantity),NSStringFromUnit(self._recipeItemToEdit.unit)]];
 }
 
 
