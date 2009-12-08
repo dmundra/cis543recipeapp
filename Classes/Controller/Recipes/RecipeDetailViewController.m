@@ -679,7 +679,18 @@ enum {
 				[self _addIngredient];
 			}
 			else {
-				// TODO: Modify Ingredient?
+				// If we're dealing with a new recipe, the subview should not save the context
+				if(recipe != nil) {
+					self.ingredientEditorViewController.recipeItem = [recipe.sortedRecipeItems objectAtIndex:indexPath.row];
+					self.ingredientEditorViewController.shouldSaveChanges = YES;
+				}
+				else {
+					self.ingredientEditorViewController.recipeItem = [newRecipe.sortedRecipeItems objectAtIndex:indexPath.row];
+					self.ingredientEditorViewController.shouldSaveChanges = NO;
+				}
+				
+				// Push the view controller
+				[((UINavigationController*)self.parentViewController) pushViewController:self.ingredientEditorViewController animated:YES];
 			}
 		}
 		else if(section == RecipeDetailSectionInstructions && indexPath.row == InstructionsRowInstructions) {
@@ -890,11 +901,11 @@ enum {
 - (void)_addIngredient {
 	// If we're dealing with a new recipe, the subview should not save the context
 	if(recipe != nil) {
-		self.ingredientEditorViewController.recipe = recipe;
+		self.ingredientEditorViewController.recipeItem = nil;
 		self.ingredientEditorViewController.shouldSaveChanges = YES;
 	}
 	else {
-		self.ingredientEditorViewController.recipe = newRecipe;
+		self.ingredientEditorViewController.recipeItem = nil;
 		self.ingredientEditorViewController.shouldSaveChanges = NO;
 	}
 	

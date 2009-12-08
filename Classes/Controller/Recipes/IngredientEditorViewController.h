@@ -9,7 +9,7 @@
 
 #import "PickerSheetViewController.h"
 
-@class Recipe, IngredientSearchOrCreateViewController, PrepMethodSearchOrCreateViewController;
+@class RecipeItem, IngredientSearchOrCreateViewController, PrepMethodSearchOrCreateViewController;
 
 
 @interface IngredientEditorViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, PickerSheetViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
@@ -27,7 +27,9 @@
 	PickerSheetViewController* quantityPickerSheetViewController;
 	PickerSheetViewController* unitPickerSheetViewController;
 	
-	Recipe* recipe;
+	RecipeItem* recipeItem;
+	RecipeItem* newRecipeItem;
+	BOOL resetForNewRecipeItem;
 	
 	BOOL shouldSaveChanges;
 	NSManagedObjectContext* managedObjectContext;
@@ -50,7 +52,7 @@
 @property(nonatomic, retain) IngredientSearchOrCreateViewController* ingredientSearchOrCreateViewController;
 @property(nonatomic, retain) PrepMethodSearchOrCreateViewController* prepMethodSearchOrCreateViewController;
 
-@property(nonatomic, retain) Recipe* recipe;
+@property(nonatomic, retain) RecipeItem* recipeItem;
 
 @property(nonatomic, assign) BOOL shouldSaveChanges;
 @property(nonatomic, retain) NSManagedObjectContext* managedObjectContext;

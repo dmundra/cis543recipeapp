@@ -10,7 +10,7 @@
 #import "IngredientEditorViewController.h"
 #import "PrepMethodSearchOrCreateViewController.h"
 #import "IngredientSearchOrCreateViewController.h"
-#import "Recipe.h"
+#import "RecipeItem.h"
 #import "Unit.h"
 
 
@@ -35,6 +35,8 @@ enum {
 - (void)_updateQuantityUnitCell;
 - (void)_updatePreppedIngredientCell;
 - (void)_updateUnitQuantityLabel;
+
+@property(nonatomic, retain, readonly) RecipeItem* _recipeItemToEdit;
 @end
 
 
@@ -56,6 +58,8 @@ static NSNumberFormatter* numberFormatter;
 		self.navigationItem.title = @"Edit Ingredient";
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)] autorelease];
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel:)] autorelease];
+
+		resetForNewRecipeItem = YES;
 	}
 	
 	return self;
@@ -64,6 +68,28 @@ static NSNumberFormatter* numberFormatter;
 
 #pragma mark View Management
 - (void)viewWillAppear:(BOOL)animated {
+	// Only reset the state of the view if a new recipe item has been assigned
+	if(resetForNewRecipeItem) {
+		// If we're being shown without a recipe item set, assume add recipe item mode
+		if(recipeItem == nil) {
+			
+			// Only create a new recipe item if one does not already exist (this way we don't clear the recipe item when an editor view returns to us)
+			if(newRecipeItem == nil) {
+				newRecipeItem = [[NSEntityDescription insertNewObjectForEntityForName:@"RecipeItem" inManagedObjectContext:self.managedObjectContext] retain];
+			}
+			
+			// Set the navigation item for new recipe mode
+			self.navigationItem.title = @"Add Ingredient";
+		}
+		else {
+			// Set the navigation item for normal recipe mode
+			self.navigationItem.title = @"Edit Ingredient";
+		}
+		
+		resetForNewRecipeItem = NO;
+	}
+	
+	// Update the UI to reflect the current state
 	[self _updateQuantityUnitCell];
 	[self _updatePreppedIngredientCell];
 	
@@ -121,7 +147,8 @@ static NSNumberFormatter* numberFormatter;
 	[quantityPickerSheetViewController release];
 	[unitPickerSheetViewController release];
 	
-	[recipe release];
+	[recipeItem release];
+	[newRecipeItem release];
 	
 	[managedObjectContext release];
 	
@@ -345,8 +372,37 @@ static NSNumberFormatter* numberFormatter;
 @synthesize ingredientSearchOrCreateViewController;
 @synthesize prepMethodSearchOrCreateViewController;
 
-@synthesize recipe;
+@synthesize recipeItem;
+
+
+- (void)setRecipeItem:(RecipeItem *)aRecipeItem {
+	if(aRecipeItem != recipeItem) {
+		[self willChangeValueForKey:@"recipeItem"];
+		[aRecipeItem retain];
+		[recipeItem release];
+		recipeItem = aRecipeItem;
+		[self didChangeValueForKey:@"recipeItem"];
+		
+		resetForNewRecipeItem = YES;
+	}
+}
+
 
 @synthesize shouldSaveChanges;
 @synthesize managedObjectContext;
+
+
+#pragma mark Properties (Private, Derived)
+- (RecipeItem*)_recipeItemToEdit {
+	RecipeItem* result = nil;
+	
+	if(recipeItem == nil) {
+		result = newRecipeItem;
+	}
+	else {
+		result = recipeItem;
+	}
+	
+	return result;
+}
 @end
