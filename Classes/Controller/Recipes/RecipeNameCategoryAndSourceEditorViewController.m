@@ -11,6 +11,9 @@
 #import "Recipe.h"
 #import "PickerSheetViewController.h"
 
+@interface RecipeNameCategoryAndSourceEditorViewController (/*Private*/)
+- (void)_updateCategoryLabel;
+@end
 
 enum {
 	RecipeInfoSectionTitle,
@@ -25,6 +28,7 @@ enum {
 	[titleTextField setText:recipe.name];
 	[titleTextField setPlaceholder:recipe.name];
 	[sourceTextField setText:recipe.source];
+	[self _updateCategoryLabel];
 }
 
 - (void)viewDidLoad {
@@ -44,6 +48,7 @@ enum {
 	self.titleViewCell = nil;
 	self.sourceViewCell = nil;
 	self.categoryViewCell = nil;
+	self.categoryLabel = nil;
 }
 
 
@@ -54,7 +59,8 @@ enum {
 	[sourceTextField release];
 	[titleViewCell release];
 	[sourceViewCell release];
-	[categoryViewCell release];		
+	[categoryViewCell release];
+	[categoryLabel release];
 	[recipe release];	
 	[managedObjectContext release];
 	[categoryPickerSheetViewController release];
@@ -179,9 +185,35 @@ enum {
 	return NO;
 }
 
+- (void)_updateCategoryLabel {
+	[categoryLabel setText:NSStringFromCategory(recipe.category)];
+}
+
 #pragma mark PickerSheetViewControllerDelegate
 - (void)pickerSheetDidDismissWithDone:(PickerSheetViewController*)pickerSheet {
-
+	NSInteger selected = [pickerSheet.pickerView selectedRowInComponent:0];
+	
+	recipe.category = [NSNumber numberWithInteger:selected];
+	
+	if(shouldSaveChanges)
+	{
+		// Save the data
+		NSError* error;
+		if(![self.managedObjectContext save:&error]) {
+			NSLog(@"Failed to save to data store: %@", [error localizedDescription]);
+			NSArray* detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+			if(detailedErrors != nil && [detailedErrors count] > 0) {
+				for(NSError* detailedError in detailedErrors) {
+					NSLog(@"  DetailedError: %@", [detailedError userInfo]);
+				}
+			}
+			else {
+				NSLog(@"  %@", [error userInfo]);
+			}
+		}
+	}
+	
+	[self _updateCategoryLabel];
 }
 
 #pragma mark UIPickerViewDataSource
@@ -195,7 +227,7 @@ enum {
 
 #pragma mark UIPickerViewDelegate
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-	NSString* result = NSStringFromCategory([NSNumber numberWithInt:row]);
+	NSString* result = NSStringFromCategory([NSNumber numberWithInteger:row]);
 	return result;
 }
 
@@ -210,4 +242,5 @@ enum {
 @synthesize titleViewCell;
 @synthesize sourceViewCell;
 @synthesize categoryViewCell;
+@synthesize categoryLabel;
 @end

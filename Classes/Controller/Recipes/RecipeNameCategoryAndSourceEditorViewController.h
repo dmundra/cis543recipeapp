@@ -14,6 +14,7 @@
 	IBOutlet UITableView* nameCategoryAndSourceTable;
 	IBOutlet UITextField *titleTextField;
 	IBOutlet UITextField *sourceTextField;
+	IBOutlet UILabel* categoryLabel;
 	
 	IBOutlet UITableViewCell* titleViewCell;
 	IBOutlet UITableViewCell* sourceViewCell;
@@ -31,6 +32,7 @@
 @property(nonatomic, retain) Recipe* recipe;
 @property(nonatomic, retain) UITextField *titleTextField;
 @property(nonatomic, retain) UITextField *sourceTextField;
+@property(nonatomic, retain) UILabel* categoryLabel;
 @property(nonatomic, retain) IBOutlet UITableViewCell* titleViewCell;
 @property(nonatomic, retain) IBOutlet UITableViewCell* sourceViewCell;
 @property(nonatomic, retain) IBOutlet UITableViewCell* categoryViewCell;
