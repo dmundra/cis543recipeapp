@@ -66,6 +66,7 @@
 		C8C1CC6010CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1CC5F10CE3DEA008D835B /* PrepMethodSearchOrCreateViewController.m */; };
 		C8C1CC6310CE3E1A008D835B /* IngredientSearchOrCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C1CC6210CE3E1A008D835B /* IngredientSearchOrCreateViewController.m */; };
 		C8C1CC6710CE4049008D835B /* SearchOrCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CC6610CE4049008D835B /* SearchOrCreateView.xib */; };
+		C8C1CF5010CED731008D835B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = C8C1CF4F10CED731008D835B /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -165,6 +166,7 @@
 		C8C1CC6110CE3E1A008D835B /* IngredientSearchOrCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IngredientSearchOrCreateViewController.h; sourceTree = "<group>"; };
 		C8C1CC6210CE3E1A008D835B /* IngredientSearchOrCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IngredientSearchOrCreateViewController.m; sourceTree = "<group>"; };
 		C8C1CC6610CE4049008D835B /* SearchOrCreateView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchOrCreateView.xib; sourceTree = "<group>"; };
+		C8C1CF4F10CED731008D835B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				C85F4E3C10B520AF00F90C8A /* Images */,
 				C85F4E3E10B520AF00F90C8A /* Models */,
 				C85F4E4010B520AF00F90C8A /* NIBs */,
+				C8C1CF4F10CED731008D835B /* Entitlements.plist */,
 				C85F4E6410B526B900F90C8A /* icon.png */,
 				C85F4E6510B526B900F90C8A /* iTunesArtwork */,
 				C85F4E4610B520AF00F90C8A /* RecipeApp-Info.plist */,
@@ -536,6 +539,7 @@
 				C8C1CA4510CDAA82008D835B /* addToCartButton.png in Resources */,
 				C8C1CA4610CDAA82008D835B /* addToCartButtonHighlighted.png in Resources */,
 				C8C1CC6710CE4049008D835B /* SearchOrCreateView.xib in Resources */,
+				C8C1CF5010CED731008D835B /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +637,33 @@
 			};
 			name = Release;
 		};
+		C8C1CF5110CED743008D835B /* RecipeAppAdHocDist */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Charles Augustine";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4BB5E433-50A5-4058-831F-46BD8982BBFA";
+				SDKROOT = iphoneos3.0;
+			};
+			name = RecipeAppAdHocDist;
+		};
+		C8C1CF5210CED743008D835B /* RecipeAppAdHocDist */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Resources/Entitlements.plist;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = OtherSources/RecipeApp_Prefix.pch;
+				INFOPLIST_FILE = "Resources/RecipeApp-Info.plist";
+				PRODUCT_NAME = RecipeApp;
+			};
+			name = RecipeAppAdHocDist;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -641,6 +672,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				C8C1CF5210CED743008D835B /* RecipeAppAdHocDist */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -650,6 +682,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				C8C1CF5110CED743008D835B /* RecipeAppAdHocDist */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
