@@ -2,7 +2,7 @@
 //  HelpViewController.m
 //  RecipeApp
 //
-//  Created by Charles Augustine on 11/18/09.
+//  Created by Charles Augustine, Karen Sottile, Daniel Mundra, Megen Brittell on 11/18/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 

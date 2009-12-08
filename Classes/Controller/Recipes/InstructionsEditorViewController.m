@@ -2,7 +2,7 @@
 //  InstructionsEditorViewController.m
 //  RecipeApp
 //
-//  Created by Charles Augustine on 12/7/09.
+//  Created by Charles Augustine, Karen Sottile, Daniel Mundra, Megen Brittell on 12/7/09.
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
