@@ -1,0 +1,1 @@
+Project focuses on the development of a recipe app for the IPhone with heavy emphasis on user interfaces.
